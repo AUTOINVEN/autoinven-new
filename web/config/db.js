@@ -1,11 +1,12 @@
 const mysql = require('mysql2/promise');
 
 const db_info = {
-  host: process.env.MYSQL_HOST_IP,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  port: process.env.MYSQL_PORT,
-  database: process.env.MYSQL_DATABASE,
+  host: '127.0.0.1',
+  user: 'autoin',
+  password: 'autoin2022',
+  port: 3306,
+  database: 'autoinven_pro',
+  socketPath: '/var/run/mysqld/mysqld.sock'
 };
 
 module.exports = {

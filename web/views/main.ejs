@@ -57,13 +57,21 @@
           <% for(let i = 0; i < warehouses.length; i++) { %>
           <div class="swiper-slide list">
             <div class="card">
+	       <a
+                    href="warehouse/<%=warehouses[i].warehouse_id%>"
+                    class="detail"
+                    >
               <% if(warehouses[i].image) { %>
               <img class="img" src="<%= warehouses[i].image %>" />
               <% } else { %>
               <img class="img" src="image/default-image.png" />
               <% } %>
+	       </a>
               <div class="wh_info">
-                <h4 class="name"><%= warehouses[i].name %></h4>
+                <h4 class="name"> <a
+                    href="warehouse/<%=warehouses[i].warehouse_id%>"
+                    class="detail"
+		    ><%= warehouses[i].name %></a></h4>
                 <div
                   style="
                     display: flex;
