@@ -42,7 +42,7 @@
       <a class="title" href="search"><%= __('main_title_search') %></a>
       <img src="image/icon/search_icon.svg" alt="search" />
     </div>
-    <div class="warehouse">
+    <div class="warehouse" style="height:auto;">
       <h2 class="title"><%= __('main_text1') %></h2>
       <p class="content">
         <%= __('main_text2') %>
@@ -51,57 +51,60 @@
       </p>
       <a class="more" href="search"><%= __('main_text3') %></a>
       <!-- Slider main container -->
-      <div class="swiper swiper2">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-          <% for(let i = 0; i < warehouses.length; i++) { %>
-          <div class="swiper-slide list">
-            <div class="card">
-	       <a
-                    href="warehouse/<%=warehouses[i].warehouse_id%>"
-                    class="detail"
-                    >
-              <% if(warehouses[i].image) { %>
-              <img class="img" src="<%= warehouses[i].image %>" />
-              <% } else { %>
-              <img class="img" src="image/default-image.png" />
-              <% } %>
-	       </a>
-              <div class="wh_info">
-                <h4 class="name"> <a
-                    href="warehouse/<%=warehouses[i].warehouse_id%>"
-                    class="detail"
-		    ><%= warehouses[i].name %></a></h4>
-                <div
-                  style="
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    height: 20rem;
-                  "
-                >
-                  <div>
-                    <div class="category">
-                      <%= __('main_type') %>: <%= warehouses[i].category %>
-                    </div>
-                    <div class="address">
-                      <%= __('main_location') %>: <%= warehouses[i].address %>
-                    </div>
-                  </div>
-                  <a
-                    href="warehouse/<%=warehouses[i].warehouse_id%>"
-                    class="detail"
-                    ><%= __('main_more') %></a
+      <div class="relative px-5 pb-5" style="position:relative;padding-bottom:20px;">
+        <div class="swiper swiper2">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <% for(let i = 0; i < warehouses.length; i++) { %>
+            <div class="swiper-slide list">
+              <div class="card">
+           <a
+                      href="warehouse/<%=warehouses[i].warehouse_id%>"
+                      class="detail"
+                      >
+                <% if(warehouses[i].image) { %>
+                <img class="img" src="<%= warehouses[i].image %>" />
+                <% } else { %>
+                <img class="img" src="image/default-image.png" />
+                <% } %>
+           </a>
+                <div class="wh_info">
+                  <h4 class="name"> <a
+                      href="warehouse/<%=warehouses[i].warehouse_id%>"
+                      class="detail"
+          ><%= warehouses[i].name %></a></h4>
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: space-between;
+                      height: 20rem;
+                    "
                   >
+                    <div>
+                      <div class="category">
+                        <%= __('main_type') %>: <%= warehouses[i].category %>
+                      </div>
+                      <div class="address">
+                        <%= __('main_location') %>: <%= warehouses[i].address %>
+                      </div>
+                    </div>
+                    <a
+                      href="warehouse/<%=warehouses[i].warehouse_id%>"
+                      class="detail"
+                      ><%= __('main_more') %></a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
+            <% } %>
           </div>
-          <% } %>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+  
+          
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-
         <!-- If we need navigation buttons -->
         <div style="color: #7c139a" class="swiper-button-prev"></div>
         <div style="color: #7c139a" class="swiper-button-next"></div>

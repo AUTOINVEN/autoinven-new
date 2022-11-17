@@ -85,5 +85,15 @@ module.exports = (db) => {
   // 아이템
   router.use('/item', authenticate, require('./item')(db));
 
+  router.get('/docs/company', (req, res) => {
+    res.render('docs/company');
+  });
+  router.get('/docs/terms', (req, res) => {
+    res.render('docs/terms');
+  });
+  router.get('/docs/privacy', (req, res) => {
+    res.render('docs/privacy');
+  });
+
   return router;
 };

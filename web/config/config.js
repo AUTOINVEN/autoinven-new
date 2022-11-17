@@ -5,7 +5,7 @@ module.exports = {
     username: env.MYSQL_USER,
     password: env.MYSQL_PASSWORD,
     database: env.MYSQL_DATABASE,
-    host: '127.0.0.1',
+    host: env.MYSQL_HOST,
     dialect: 'mysql',
     pool: {
       max: 5,
@@ -18,14 +18,14 @@ module.exports = {
     username: 'root',
     password: null,
     database: 'autoinven_test',
-    host: '127.0.0.1',
+    host: env.MYSQL_HOST,
      dialect: 'mysql',
   },
   production: {
     username: env.MYSQL_USER,
     password: env.MYSQL_PASSWORD,
     database: env.MYSQL_DATABASE,
-    host: '127.0.0.1',
+    host: env.MYSQL_HOST,
     dialect: 'mysql',
     pool: {
       max: 5,

@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 const db_info = {
-  host: '127.0.0.1',
+  host: '52.79.110.147',
   user: 'autoin',
   password: 'autoin2022',
   port: 3306,
