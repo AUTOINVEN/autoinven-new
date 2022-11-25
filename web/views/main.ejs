@@ -44,12 +44,13 @@
     </div>
     <div class="warehouse" style="height:auto;">
       <h2 class="title"><%= __('main_text1') %></h2>
+      <!-- 
       <p class="content">
         <%= __('main_text2') %>
         <br />
         <%= __('main_text2-1') %>
       </p>
-      <a class="more" href="search"><%= __('main_text3') %></a>
+      <a class="more" href="search"><%= __('main_text3') %></a> -->
       <!-- Slider main container -->
       <div class="relative px-5 pb-5" style="position:relative;padding-bottom:20px;">
         <div class="swiper swiper2">
@@ -116,8 +117,8 @@
         <%= __('main_text5') %>
         <br />
         <%= __('main_text5-1') %>
-      </p>
-      <div class="btn" onclick="Inqurey()"><%= __('main_text6') %></div>
+      </p> 
+      <!-- <div class="btn" onclick="Inqurey()"><%= __('main_text6') %></div> -->
       <script>
         Inqurey = () => {
           Swal.fire({
@@ -131,8 +132,6 @@
     <div class="info">
       <h2 class="title">
         <%= __('main_text7') %>
-        <br />
-        <%= __('main_text7-1') %>
       </h2>
       <div class="content">
         <div class="card">
@@ -181,9 +180,9 @@
       </h2>
       <a class="btn" href="signup"> <%= __('main_text15') %> </a>
     </div>
-    <div class="autoinven">
+    <!-- <div class="autoinven">
       <img class="img" src="image/inven_logo.png" alt="logo" />
-    </div>
+    </div> -->
     <footer><%- include('./partial/footer') %></footer>
   </body>
   <script>
