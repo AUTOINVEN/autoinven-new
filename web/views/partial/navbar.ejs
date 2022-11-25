@@ -13,6 +13,11 @@
               <%= __('navbar_search_warehouse')%>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/search" style="font-size: 1.2rem;">
+              <%= __('navbar_warehouse')%>
+            </a>
+          </li>
             <% if( locals.role === 'user') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
@@ -44,17 +49,24 @@
               </a>
             </li>
             <% } %>
+          <% if( !locals.role ) { %>
           <li class="nav-item">
-            <% if( !locals.role ) { %>
               <a id="signin" class="nav-link" href="/signin" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
                 <%= __('navbar_signin')%>
               </a>
-            <% } else { %>
-              <a id="signout" class="nav-link" style="color: rgba(124,19,154,1); font-size: 1.2rem; cursor: pointer;">
-                <%= __('navbar_signout')%>
-              </a>
-            <% } %>
           </li>
+          <li class="nav-item">
+              <a id="signup" class="nav-link" href="/signup" style="color: rgba(124,19,154,1); font-size: 1.2rem;">
+                <%= __('signup_signup')%>
+              </a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a id="signout" class="nav-link" style="color: rgba(124,19,154,1); font-size: 1.2rem; cursor: pointer;">
+              <%= __('navbar_signout')%>
+            </a>
+          </li>
+          <% } %>
           <li style="display:flex; vertical-align:center">
             <div class="btn-group">
               <button type="button" id="img_btn" data-bs-toggle="dropdown" aria-expanded="false"
