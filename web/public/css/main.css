@@ -10,11 +10,16 @@
   height: 100vh;
 }
 
+.main > div {
+  display: flex;
+  align-items: center;
+}
+
 .main .mleft,
 .main .mright {width:50%;padding:0 30px 0;}
-.main .mleft {padding-top:80px;}
-.main .mleft strong {font-weight:700;font-size:24px;}
-.main .mright .visual_slide {padding-top:0;margin-top:0;}
+.main .mleft {padding-top:20px;}
+.main .mleft strong {font-weight:700;font-size:3rem;}
+.main .mright .visual_slide {padding-top:0;margin-top:0 !important;}
 
 .main .title {
   text-align: center;
@@ -23,7 +28,7 @@
 }
 
 .main .slogan {
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
 }
 
@@ -223,7 +228,7 @@
 }
 .swiper1 {
   width: 30rem;
-  height: 30rem;
+  /*height: 30rem;*/
 }
 
 .swiper2 {
