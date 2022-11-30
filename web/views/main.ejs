@@ -42,6 +42,21 @@
       <a class="title" href="search"><%= __('main_title_search') %></a>
       <img src="image/icon/search_icon.svg" alt="search" />
     </div>
+    <div class="visual_box">
+      <div class="swiper visual_slide" style="margin-top: 3rem">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="image/visual01.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="image/visual02.jpg" />
+          </div>
+          <div class="swiper-slide">
+            <img src="image/visual03.jpg" />
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="warehouse" style="height:auto;">
       <h2 class="title"><%= __('main_text1') %></h2>
       <!-- 
@@ -189,6 +204,12 @@
     const swiper_title = new Swiper('.swiper1', {
       // Optional parametersq
       direction: 'horizontal',
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+    });
+    const visual_slide = new Swiper('.visual_slide', {
       loop: true,
       autoplay: {
         delay: 5000,

@@ -21,6 +21,9 @@
   text-align: center;
 }
 
+.visual_box {margin:0;}
+.visual_box > div {margin:0 !important;}
+
 .search {
   background: url('/image/search_bg.png');
   background-repeat: no-repeat;
