@@ -1,7 +1,7 @@
 .main {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   background: url('/image/mainbg.png');
   height: 50rem;
   color: #fff;
@@ -9,6 +9,12 @@
   background-size: cover;
   height: 100vh;
 }
+
+.main .mleft,
+.main .mright {width:50%;padding:0 30px 0;}
+.main .mleft {padding-top:80px;}
+.main .mleft strong {font-weight:700;font-size:24px;}
+.main .mright .visual_slide {padding-top:0;margin-top:0;}
 
 .main .title {
   text-align: center;
