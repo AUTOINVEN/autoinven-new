@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="<%= __('locale') %>">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('head') %>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/mypage.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <header style="z-index: 1000"><%- include('partial/navbar') %></header>
+    <div class="inner img">
+        <p class="lnb_text text-white   "><%= __('mypage_lnb') %></p>
+    </div>
+    <div class="inner main px-10 container">
+        <div class="grid grid-cols-3 w-full gap-x-10 py-20">
+            <div class="col-span-1 space-y-10">
+                <div class="profile_img">
+                    <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-block mx-auto bg-dark rounded-circle">
+                        <path d="M100 100C118.417 100 133.333 85.0833 133.333 66.6667C133.333 48.25 118.417 33.3333 100 33.3333C81.5833 33.3333 66.6667 48.25 66.6667 66.6667C66.6667 85.0833 81.5833 100 100 100ZM100 116.667C77.75 116.667 33.3333 127.833 33.3333 150V166.667H166.667V150C166.667 127.833 122.25 116.667 100 116.667Z" fill="#fff"/>
+                    </svg>
+                </div>
+                <div class="text-center space-y-4">
+                    <h3 class="text-2xl font-bold">마이 오토 인벤</h3>
+                    <div class="col-span-2 p-10 text-left">
+                        <div class="mypageList space-y-2">
+                            <div class="space-y-1">
+                                <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
+                                    <p class="mypageListTitle font-semibold">내창고</p>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
+                                        <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
+                                    </svg>
+                                </div>
+                                <ul class="space-y-1 myConList">
+                                    <li>전체(1)</li>
+                                    <li>등록한 창고(1)</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
+                                    <p class="mypageListTitle font-semibold">계약관리</p>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
+                                        <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
+                                    </svg>
+                                </div>
+                                <ul class="space-y-1 myConList">
+                                    <li>전체(3)</li>
+                                    <li>요청한 창고(1)</li>
+                                    <li>요청 받은 창고(2)</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-1 border-b-2 border-b-black">
+                                <p class="mypageListTitle font-semibold">결제 내역</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $('.myContainer').click(function(){
+                        $(this).children('svg').toggleClass('rotate-180');
+                        $(this).next('.myConList').slideToggle();
+                    });
+                </script>
+            </div>
+            <div class="col-span-2 space-y-10">
+                <div class="grid grid-cols-3">
+                    <div class="text-center">
+                        <h1 class="font-bold text-3xl">0</h1>
+                        <p class="">계약요청</p>
+                    </div>
+                    <div class="text-center">
+                        <h1 class="text-gray-400 font-bold text-3xl">0</h1>
+                        <p class="">계약거절</p>
+                    </div>
+                    <div class="text-center">
+                        <h1 class="text-red-500 font-bold text-3xl">0</h1>
+                        <p class="">계약완료</p>
+                    </div>
+                </div>
+                <div class="flex space-x-2 items-center">
+                    <input type="date" class="border px-3 py-1 text-gray-400 rounded" />
+                    <p class="text-gray-400">~</p>
+                    <input type="date" class="border px-3 py-1 text-gray-400 rounded" />
+                    <label class="relative flex items-center">
+                        <input type="text" class="border px-3 py-1 text-gray-400 rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" height="18" width="18" fill="#cccccc" class="absolute right-3">
+                            <g>
+                                <path d="M17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211zM4.004 8.287a4.282 4.282 0 0 1 4.282-4.283c2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474z"></path>
+                            </g>
+                        </svg>
+                    </label>
+                    <button class="rounded border px-3 py-1 text-gray-400 hover:bg-gray-500 hover:text-white hover:border-gray-500" type="button">검색</button>
+                </div>
+                <div class="p-10 flex border justify-center items-center h-[600px]">
+                    <p class="text-sm">요청한 창고가 없습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer><%- include('partial/footer') %></footer>
+  </body>
+</html>

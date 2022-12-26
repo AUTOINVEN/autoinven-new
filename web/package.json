@@ -38,7 +38,8 @@
     "dev": "nodemon -L --ignore public/js ./app.js",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all --debug",
-    "tailwind": "tailwindcss -i ./public/css/input.css -o ./public/dist/output.css --watch"
+    "tailwind": "tailwindcss -i ./public/css/input.css -o ./public/dist/output.css --watch",
+    "start:dev": "nodemon --watch src/ src/index.js"
   },
   "repository": {
     "type": "git",

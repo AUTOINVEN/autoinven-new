@@ -27,6 +27,11 @@ module.exports = (db) => {
     res.render('auth/signup');
   });
 
+    // 회원가입
+    router.get('/mypage', (req, res) => {
+      res.render('mypage');
+    });
+
   // 창고 검색
   router.get(
     '/search',

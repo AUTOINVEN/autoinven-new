@@ -1,0 +1,13 @@
+.lnb_text {
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:1.8rem;
+    font-weight:bold;
+}
+
+.mypageList {
+    list-style:none;
+    padding:0;
+}
