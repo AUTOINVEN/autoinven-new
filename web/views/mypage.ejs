@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <%- include('head') %>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/dist/output.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/mypage.css" />
-
     <title>Document</title>
   </head>
   <body>
@@ -13,8 +12,8 @@
     <div class="inner img">
         <p class="lnb_text text-white   "><%= __('mypage_lnb') %></p>
     </div>
-    <div class="inner main px-10 container">
-        <div class="grid md:grid-cols-3 w-full sm:gap-x-10 sm:gap-y-0 gap-y-10 py-20">
+    <div class="inner main sm:px-10 container px-2">
+        <div class="grid md:grid-cols-3 w-full md:gap-x-10 md:gap-y-0 gap-y-10 py-20">
             <div class="col-span-1 space-y-10">
                 <div class="profile_img">
                     <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-block mx-auto bg-dark rounded-circle">
@@ -78,13 +77,13 @@
                         <p class="">계약완료</p>
                     </div>
                 </div>
-                <div class="sm:flex sm:space-x-2 items-center sm:space-y-0 space-y-2">
-                    <div class="sm:flex items-center sm:space-x-0 space-x-2">
-                        <input type="date" class="border px-3 py-1 text-gray-400 rounded" />
-                        <p class="text-gray-400">~</p>
-                        <input type="date" class="border px-3 py-1 text-gray-400 rounded" />
+                <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">
+                    <div class="flex items-center sm:space-x-2">
+                        <input type="date" class="border px-3 py-1 text-gray-400 rounded flex-auto" />
+                        <p class="text-gray-400 flex-1 text-center">~</p>
+                        <input type="date" class="border px-3 py-1 text-gray-400 rounded flex-auto" />
                     </div>
-                    <div class="flex items-center sm:space-x-0 space-x-2">
+                    <div class="flex items-center space-x-2">
                         <label class="relative flex items-center">
                             <input type="text" class="border px-3 py-1 text-gray-400 rounded" placeholder="창고명">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" height="18" width="18" fill="#cccccc" class="absolute right-3">
@@ -102,8 +101,8 @@
                 </div>
                 -->
                 <div class="p-7 border min-h-[600px] rounded-lg space-y-5">
-                    <div class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4">
-                        <div class="bg-gray-400 w-20 h-20"></div>
+                    <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/waredetail">
+                        <img src="/image/default-image_43.png" class="w-20 h-20">
                         <div class="space-y-2 flex-1">
                             <div class="flex justify-between items-center">
                                 <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
@@ -120,9 +119,9 @@
                                 <p class="text-base">금액 000,000원</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4">
-                        <div class="bg-gray-400 w-20 h-20"></div>
+                    </a>
+                    <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="javascript:void(0);">
+                        <img src="/image/default-image_43.png" class="w-20 h-20">
                         <div class="space-y-2 flex-1">
                             <div class="flex justify-between items-center">
                                 <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
@@ -139,9 +138,9 @@
                                 <p class="text-base">금액 000,000원</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4">
-                        <div class="bg-gray-400 w-20 h-20"></div>
+                    </a>
+                    <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="javascript:void(0);">
+                        <img src="/image/default-image_43.png" class="w-20 h-20">
                         <div class="space-y-2 flex-1">
                             <div class="flex justify-between items-center">
                                 <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
@@ -158,7 +157,7 @@
                                 <p class="text-base">금액 000,000원</p>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

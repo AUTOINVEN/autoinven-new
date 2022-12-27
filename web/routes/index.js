@@ -27,10 +27,15 @@ module.exports = (db) => {
     res.render('auth/signup');
   });
 
-    // 회원가입
+    // 내정보관리
     router.get('/mypage', (req, res) => {
       res.render('mypage');
     });
+
+// 창고디테일
+router.get('/waredetail', (req, res) => {
+  res.render('waredetail');
+});
 
   // 창고 검색
   router.get(

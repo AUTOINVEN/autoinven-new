@@ -301,5 +301,6 @@
   "main_type": "종류",
   "main_location": "위치",
   "main_more": "자세히 보기",
-  "mypage_lnb": "내 정보 관리"
+  "mypage_lnb": "내 정보 관리",
+  "waredetail_lnb": "세부 창고 정보"
 }
