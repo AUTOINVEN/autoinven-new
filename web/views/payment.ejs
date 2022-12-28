@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="<%= __('locale') %>">
+    <head>
+        <meta charset="UTF-8" />
+        <%- include('head') %>
+        <link href="/dist/output.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/mypage.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <header style="z-index: 1000"><%- include('partial/navbar') %></header>
+        <div class="inner img">
+            <p class="lnb_text text-white   "><%= __('payment_lnb') %></p>
+        </div>
+        <div class="inner main sm:px-10 container px-2">
+            <div class="grid md:grid-cols-3 w-full md:gap-x-10 md:gap-y-0 gap-y-10 py-20">
+                <div class="col-span-1 space-y-10">
+                    <div class="profile_img">
+                        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-block mx-auto bg-dark rounded-circle">
+                            <path d="M100 100C118.417 100 133.333 85.0833 133.333 66.6667C133.333 48.25 118.417 33.3333 100 33.3333C81.5833 33.3333 66.6667 48.25 66.6667 66.6667C66.6667 85.0833 81.5833 100 100 100ZM100 116.667C77.75 116.667 33.3333 127.833 33.3333 150V166.667H166.667V150C166.667 127.833 122.25 116.667 100 116.667Z" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <div class="text-center space-y-4">
+                        <h3 class="text-2xl font-bold">마이 오토 인벤</h3>
+                        <div class="col-span-2 lg:p-10 text-left">
+                            <div class="mypageList space-y-4">
+                                <div class="space-y-2">
+                                    <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
+                                        <p class="mypageListTitle font-semibold">내창고</p>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
+                                            <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
+                                        </svg>
+                                    </div>
+                                    <ul class="space-y-2 myConList">
+                                        <li>
+                                            <a href="javascript:void(0);">전체(1)</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">등록한 창고(1)</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
+                                        <p class="mypageListTitle font-semibold">계약관리</p>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
+                                            <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
+                                        </svg>
+                                    </div>
+                                    <ul class="space-y-2 myConList">
+                                        <li>
+                                            <a href="javascript:void(0);">전체(3)</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">요청한 창고(1)</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">요청 받은 창고(2)</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a class="space-y-2 border-b-2 border-b-black block" href="/payment">
+                                    <p class="mypageListTitle font-semibold">결제 내역</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $('.myContainer').click(function(){
+                            $(this).children('svg').toggleClass('rotate-180');
+                            $(this).next('.myConList').slideToggle();
+                        });
+                    </script>
+                </div>
+                <div class="md:col-span-2 space-y-10">
+                    <div class="lg:flex lg:space-x-2 items-stretch lg:space-y-0 space-y-2">
+                        <select class="border px-3 py-1 text-gray-400 rounded">
+                            <option value="">전체</option>
+                            <option value="">카드</option>
+                            <option value="">계좌이체</option>
+                        </select>
+                        <div class="flex items-center sm:space-x-2">
+                            <input type="date" class="border px-3 py-1 text-gray-400 rounded flex-auto" />
+                            <p class="text-gray-400 flex-1 text-center">~</p>
+                            <input type="date" class="border px-3 py-1 text-gray-400 rounded flex-auto" />
+                        </div>
+                        <div class="flex items-stretch space-x-2">
+                            <select class="border px-3 py-1 text-gray-400 rounded">
+                                <option value="">5개</option>
+                                <option value="">4개</option>
+                                <option value="">3개</option>
+                            </select>
+                            <button class="rounded border px-3 py-1 text-gray-400 hover:bg-gray-500 hover:text-white hover:border-gray-500" type="button">검색</button>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="p-10 flex border justify-center items-center h-[600px] rounded-lg">
+                        <p class="text-base">요청한 창고가 없습니다.</p>
+                    </div>
+                    -->
+                    <div class="p-7 border min-h-[600px] rounded-lg space-y-5">
+                        <div class="border p-4 sm:flex items-start sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]">
+                            <p class="font-bold px-10">결제</p>
+                            <div class="space-y-5 flex-1">
+                                <div class="space-y-3">
+                                    <p class="text-sm">2022-11-24</p>
+                                    <p class="text-sm">#012345 (창고 등록번호)</p>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <h4 class="text-xl font-semibold">창고명</h4>
+                                    <p class="text-base">금액 000,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border p-4 sm:flex items-start sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]">
+                            <p class="font-bold px-10">결제</p>
+                            <div class="space-y-5 flex-1">
+                                <div class="space-y-3">
+                                    <p class="text-sm">2022-11-24</p>
+                                    <p class="text-sm">#012345 (창고 등록번호)</p>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <h4 class="text-xl font-semibold">창고명</h4>
+                                    <p class="text-base">금액 000,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border p-4 sm:flex items-start sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]">
+                            <p class="font-bold px-10">결제</p>
+                            <div class="space-y-5 flex-1">
+                                <div class="space-y-3">
+                                    <p class="text-sm">2022-11-24</p>
+                                    <p class="text-sm">#012345 (창고 등록번호)</p>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <h4 class="text-xl font-semibold">창고명</h4>
+                                    <p class="text-base">금액 000,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer><%- include('partial/footer') %></footer>
+    </body>
+</html>
