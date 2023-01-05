@@ -85,7 +85,7 @@ const searchResultListing = (
       if (warehouses[index].is_verified) {
         $('.marker_list_items').append(
           ` 
-            <div class="flex sm:flex !p-5 bg-white hover:bg-slate-100 rounded-xl" id="marker${warehouses[index].warehouse_id}">
+            <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
               <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
               <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
                 <div class="frow">
@@ -107,7 +107,7 @@ const searchResultListing = (
       } else {
         $('.marker_list_items').append(
           ` 
-            <div class="flex sm:flex !p-5 bg-white hover:bg-slate-100 rounded-xl" id="marker${warehouses[index].warehouse_id}">
+            <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
               <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
               <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
                 <div class="frow">
@@ -138,7 +138,7 @@ const searchResultListing = (
       }
       $('.marker_list_items').append(
         ` 
-          <div class="flex sm:flex !p-5 bg-white hover:bg-slate-100 rounded-xl" id="marker${warehouses[index].warehouse_id}">
+          <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
             <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
@@ -217,7 +217,7 @@ const listing = (lists) => {
     if (warehouses[index].is_verified) {
       $('.marker_list_items').append(
         ` 
-          <div class="flex sm:flex !p-5 bg-white hover:bg-slate-100 rounded-xl" id="marker${warehouses[index].warehouse_id}">
+          <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
             <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
@@ -238,7 +238,7 @@ const listing = (lists) => {
     } else {
       $('.marker_list_items').append(
         ` 
-          <div class="flex sm:flex !p-5 bg-white hover:bg-slate-100 rounded-xl" id="marker${warehouses[index].warehouse_id}">
+          <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
             <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
