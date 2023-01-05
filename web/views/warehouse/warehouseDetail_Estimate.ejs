@@ -1,67 +1,69 @@
 <div class="" id="contract-card">
-  <div class="card-body">
-    <div>
-      <span id="wh-detail-contract-card-title" class="text-3xl"
-        ><%= __('warehousedetail_contract_total')%></span
-      >
-      <span id="wh-detail-contract-card-price">0</span>
+  <div class="card-body space-y-7">
+    <div class="sm:flex justify-between items-center">
+      <div class="flex space-x-2">
+        <span id="wh-detail-contract-card-title" class="text-3xl"><%= __('warehousedetail_contract_total')%></span>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.6667 6.99999V9.82333C25.6667 11.6667 24.5001 12.8333 22.6567 12.8333H18.6667V4.67833C18.6667 3.38333 19.7284 2.33333 21.0234 2.33333C22.2951 2.34499 23.4617 2.85833 24.3017 3.69833C25.1417 4.54999 25.6667 5.71666 25.6667 6.99999Z" stroke="#222222" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2.33325 8.16666V24.5C2.33325 25.4683 3.42992 26.0167 4.19992 25.4333L6.19492 23.94C6.66159 23.59 7.31492 23.6367 7.73492 24.0567L9.67158 26.005C10.1266 26.46 10.8733 26.46 11.3283 26.005L13.2883 24.045C13.6966 23.6367 14.3499 23.59 14.8049 23.94L16.7999 25.4333C17.5699 26.005 18.6666 25.4567 18.6666 24.5V4.66666C18.6666 3.38333 19.7166 2.33333 20.9999 2.33333H8.16659H6.99992C3.49992 2.33333 2.33325 4.42166 2.33325 6.99999V8.16666Z" stroke="#222222" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.5 15.1783H14" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.5 10.5117H14" stroke="#222222" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.99487 15.1667H7.00535" stroke="#222222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.99487 10.5H7.00535" stroke="#222222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span id="wh-detail-contract-card-price" class="text-4xl">0</span>
+    </div>
+
+    <div class="contract-card-element space-y-2">
+      <p class="text-[#7C139A] text-base font-bold"><%= __('warehousedetail_contract_pick_date')%></p>
+      <div class="flex justify-between items-center flex-wrap">
+        <input
+          id="info-card-start-date"
+          type="date"
+          class="input-contract-info border-b border-[#666] px-6 !py-4 text-base flex-1"
+          value="<%= lease_info.start_date%>"
+        />
+        <!--<img id="info-card-arrow" src="/image/icon/arrow-right-solid.svg" />-->
+        <span class="">~</span>
+        <input
+          id="info-card-end-date"
+          type="date"
+          class="input-contract-info border-b border-[#666] px-6 !py-4 text-base flex-1"
+          value="<%= lease_info.end_date%>"
+        />
+      </div>
     </div>
 
     <div class="contract-card-element">
-      <p><%= __('warehousedetail_contract_pick_date')%></p>
-      <input
-        id="info-card-start-date"
-        type="date"
-        class="input-contract-info"
-        value="<%= lease_info.start_date%>"
-      />
-      <img id="info-card-arrow" src="/image/icon/arrow-right-solid.svg" />
-      <input
-        id="info-card-end-date"
-        type="date"
-        class="input-contract-info"
-        value="<%= lease_info.end_date%>"
-      />
-    </div>
-
-    <div class="contract-card-element">
-      <div style="margin-left: 9%">
-        <p id="available_area">
-          <%= __('warehousedetail_contract_max')%> <%=
-          lease_info.available_area%>
-          <%=__('warehousedetail_contract_area_unit')%>
+      <div class="space-y-4">
+        <p id="available_area" class="text-[#7C139A] text-base font-bold">
+          <%= __('warehousedetail_contract_pick_area')%> (<%= __('warehousedetail_contract_area_unit')%>)
         </p>
-        <span style="text-align: center">
+        <div class="flex">
           <input
             id="info-card-area-for-contract"
+            class="border-b border-[#666] px-6 !py-4 text-base placeholder:text-[#666] w-full placeholder:text-center"
             type="number"
-            placeholder="<%= __('warehousedetail_contract_pick_area')%>"
+            placeholder="<%= __('warehousedetail_contract_max')%> <%=
+            lease_info.available_area%>"
             class="input-contract-info"
             min="0"
             value="<%= lease_info.selected_area%>"
           />
-          <span
-            style="
-              font-size: 1.5rem;
-              font-family: 'nanum-b';
-              color: gray;
-              float: inline-end;
-            "
-            ><%= __('warehousedetail_contract_area_unit')%></span
-          >
-        </span>
+        </div>
       </div>
     </div>
 
-    <div class="contract-card-element" style="text-align: center">
+    <div class="contract-card-element space-y-3">
+      <p class="submit-footer text-sm"><%= __('warehousedetail_contract_note')%></p>
       <button
         id="contract-submit"
-        class="btn btn-main"
+        class="btn block mx-auto w-full text-base rounded-full bg-[#7C139A]"
         onclick="toEstimateDetail()"
       >
         <%= __('warehousedetail_check_contract')%>
       </button>
-      <p class="submit-footer"><%= __('warehousedetail_contract_note')%></p>
     </div>
   </div>
 </div>

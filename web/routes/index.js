@@ -42,7 +42,7 @@ module.exports = (db) => {
     res.render('waredetail');
   });
   
-  // 결제 내역
+  // 결제 내역ㄴ
   router.get('/payment', (req, res) => {
     res.render('payment');
   });
