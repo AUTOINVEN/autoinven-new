@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="<%= __('locale') %>">
+    <head>
+        <meta charset="UTF-8" />
+        <%- include('head') %>
+        <link href="/dist/output.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/mypage.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <header style="z-index: 1000"><%- include('partial/navbar') %></header>
+        <div class="inner img">
+            <p class="lnb_text text-white   "><%= __('waredetail_lnb') %></p>
+        </div>
+        <div class="inner main sm:px-10 container px-2">
+            <div class="grid lg:grid-cols-3 py-20 lg:gap-x-10 gap-y-10">
+                <div class="grid md:grid-cols-2 lg:col-span-2 md:gap-x-10 gap-y-10 items-start">
+                    <div class="md:col-span-2">
+                        <p class="font-semibold">요청 정보</p>
+                    </div>
+                    <div class="swiper-container relative overflow-hidden w-full">
+                        <div class="swiper bigswiper " style="--swiper-navigation-color:#000; --swiper-pagination-color:#000;">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <div thumbsSlider="" class="swiper thumbswiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="/image/default-image_43.png">
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            var swiper = new Swiper(".thumbswiper", {
+                                spaceBetween: 10,
+                                slidesPerView: 3,
+                                freeMode: true,
+                                watchSlidesProgress: true,
+                            });
+                            var swiper2 = new Swiper(".bigswiper", {
+                                spaceBetween: 10,
+                                navigation: {
+                                    nextEl: ".swiper-button-next",
+                                    prevEl: ".swiper-button-prev",
+                                },
+                                thumbs: {
+                                    swiper: swiper,
+                                },
+                            });
+                        </script>
+                    </div>
+                    <div class="border p-10 space-y-10 flex justify-center items-center flex-col">
+                        <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
+                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-sm">요청중</span>
+                            <p class="text-base">#012345 (창고 등록번호)</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-y-2 w-full">
+                            <p class="text-center font-semibold text-base">요청일</p>
+                            <p class="text-center text-base">2022.11.24</p>
+                            <p class="text-center font-semibold text-base">계약 시작일</p>
+                            <p class="text-center text-base">2022.11.24</p>
+                            <p class="text-center font-semibold text-base">계약 종료일</p>
+                            <p class="text-center text-base">2022.12.31</p>
+                            <p class="text-center font-semibold text-base">계약 면적</p>
+                            <p class="text-center text-base">1㎡</p>
+                            <p class="text-center font-semibold text-base">임대료</p>
+                            <p class="text-center text-base">1㎡=￦10,000/일</p>
+                            <p class="text-center font-semibold text-base">계약 금액</p>
+                            <p class="text-center text-base">￦10,000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-10">
+                    <div class="">
+                        <p class="font-semibold">창고주 정보</p>
+                    </div>
+                    <div class="border p-10 space-y-10 flex justify-center items-center flex-col">
+                        <div class="grid grid-cols-2 gap-y-2 w-full">
+                            <p class="text-center font-semibold text-base">창고주명</p>
+                            <p class="text-center text-base">홍길동</p>
+                            <p class="text-center font-semibold text-base">소속</p>
+                            <p class="text-center text-base">(주)홍길동</p>
+                            <p class="text-center font-semibold text-base">이메일</p>
+                            <p class="text-center text-base">abc@abc.com</p>
+                            <p class="text-center font-semibold text-base">휴대전화</p>
+                            <p class="text-center text-base">010-1234-5678</p>
+                            <p class="text-center font-semibold text-base">입력사항</p>
+                            <input class="text-center border text-base" placeholder="기타 사항을 입력해주세요" value="" id="" name="" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 space-y-10">
+                    <div class="flex space-x-4 items-center">
+                        <p class="font-semibold">창고 정보</p>
+                        <button class="h-10 bg-gray-500 text-white px-4 rounded text-sm" type="button">자세히</button>
+                    </div>
+                    <div class="p-10 border flex justify-center items-center">
+                        <div class="grid lg:grid-cols-2 w-full lg:gap-y-0 gap-y-5">
+                            <div class="grid grid-cols-2 justify-center text-base gap-x-5 gap-y-5 text-center">
+                                <p class="font-semibold text-base">창고명</p>
+                                <p class="text-base">창고이름이 들어갈 공간입니다.</p>
+                                <p class="font-semibold text-base">창고종류</p>
+                                <p class="text-base">일반 창고</p>
+                                <p class="font-semibold text-base">주소</p>
+                                <p class="text-base">서울시 여러분 내가 왕초</p>
+                                <p class="font-semibold text-base">대지면적</p>
+                                <p class="text-base">1㎡</p>
+                                <p class="font-semibold text-base">연면적</p>
+                                <p class="text-base">1㎡</p>
+                                <p class="font-semibold text-base">공용면적</p>
+                                <p class="text-base">1㎡</p>
+                                <p class="font-semibold text-base">전용면적</p>
+                                <p class="text-base">1㎡</p>
+                            </div>
+                            <div class="grid grid-cols-2 justify-center text-base gap-x-5 gap-y-5 text-center items-center">
+                                <p class="font-semibold text-base">창고소개</p>
+                                <p class="text-base">깨끗한 (주)홍길동 창고입니다.</p>
+                            </div>
+                        </div>
+                        <!--
+                        <table class="w-full">
+                            <tr>
+                                <th class="py-2 px-4">창고명</th>
+                                <td class="py-2 px-4">창고 이름</td>
+                                <td class="py-2 px-4" rowspan="7">창고 소개</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                            <tr>
+                                <th class="py-2 px-4">창고종류</th>
+                                <td class="py-2 px-4">일반창고</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                            <tr>
+                                <th class="py-2 px-4">주소</th>
+                                <td class="py-2 px-4">창고 주소</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                            <tr>
+                                <th class="py-2 px-4">대지면적</th>
+                                <td class="py-2 px-4">1㎡</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                            <tr>
+                                <th class="py-2 px-4">연면적</th>
+                                <td class="py-2 px-4">1㎡</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                            <tr>
+                                <th class="py-2 px-4">공용면적</th>
+                                <td class="py-2 px-4">1㎡</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                            <tr>
+                                <th class="py-2 px-4">전용면적</th>
+                                <td class="py-2 px-4">1㎡</td>
+                                <td class="py-2 px-4">깨끗한 (주)홍길동 창고입니다.</td>
+                            </tr>
+                        </table>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer><%- include('partial/footer') %></footer>
+    </body>
+</html>

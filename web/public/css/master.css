@@ -63,7 +63,7 @@ section {
   padding-bottom: 200px; /* margin+footer height */
 }
 
-.container,
+/*.container,
 .container-fluid,
 .container-xl,
 .container-lg,
@@ -73,7 +73,7 @@ section {
   padding-left: 5rem;
   background: white;
 }
-
+*/
 .row {
   margin: 0 -0.75rem;
 }
@@ -1240,4 +1240,24 @@ td.info-table-td {
 }
 .searchbar .socials > a:hover {
   --scale: 1;
+}
+
+#warehouse_search {
+  height:100%;
+  min-height:40px;
+  min-width:200px;
+}
+
+.searchBtn {
+  border:none;
+  background:none;
+  position:absolute;
+  right:0;    
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.searchLabel {
+  position:relative;
+  height:100%;
 }

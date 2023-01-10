@@ -27,6 +27,26 @@ module.exports = (db) => {
     res.render('auth/signup');
   });
 
+  // 내정보관리
+    router.get('/mypage', (req, res) => {
+      res.render('mypage');
+    });
+
+      // 내정보관리
+    router.get('/logininfo', (req, res) => {
+      res.render('logininfo');
+    });
+
+  // 창고디테일
+  router.get('/waredetail', (req, res) => {
+    res.render('waredetail');
+  });
+  
+  // 결제 내역ㄴ
+  router.get('/payment', (req, res) => {
+    res.render('payment');
+  });
+
   // 창고 검색
   router.get(
     '/search',
