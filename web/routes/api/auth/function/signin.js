@@ -20,6 +20,8 @@ module.exports = async (email, password, db, session, client_type) => {
     }
 
     role = 'admin';
+  }else{
+    role = 'user';
   }
 
   // 비밀번호 확인
@@ -32,7 +34,8 @@ module.exports = async (email, password, db, session, client_type) => {
     error.statusCode = 401;
     throw error;
   }
-
+  console.log('client_type',client_type)
+console.log(role)
   // 웹인 경우
   if (client_type === 'web') {
     // 세션에 데이터 저장
@@ -40,10 +43,14 @@ module.exports = async (email, password, db, session, client_type) => {
     session.role = role;
     session.name = member.name;
     session.phone = member.phone;
+    session.role = role;
+    console.log(session)
 
+    session.save(error => {if(error) console.log(error)})
     return {
       message: 'success',
     };
+    
   }
   // 앱인 경우
   else {

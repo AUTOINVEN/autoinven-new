@@ -35,11 +35,13 @@ const throwInvalidTokenError = (next) => {
 
 module.exports = (req, res, next) => {
   const request_type = checkClientType(req.headers['user-agent']);
+  console.log('request_type',request_type)
   // 웹 요청
   if (request_type === 'web') {
     // 인증 성공
     if (authenticateWeb(req.session)) {
       res.locals.role = req.session.role;
+      console.log("res.locals.role",res.locals.role)
       next();
     } else {
       throwUnauthenticatedError(next);

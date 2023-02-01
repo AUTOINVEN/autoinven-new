@@ -32,21 +32,21 @@
                 type="email"
                 id="email"
                 name="email"
-                class="input--text short"
+                class="input--text"
                 placeholder="<%=__('signup_email')%>"
               />
-              <label class="btn-main small" for="sendAuthCode">
+              <!-- <label class="btn-main small" for="sendAuthCode">
                 <%= __('signup_send_authcode')%>
-              </label>
-              <input
+              </label> -->
+              <!-- <input
                 type="button"
                 class="upload-btn-hidden"
                 id="sendAuthCode"
                 name="sendAuthCode"
                 value="Send Auth Code"
-              /><br />
+              /><br /> -->
             </li>
-            <li id="li_auth" name="li_auth">
+            <!-- <li id="li_auth" name="li_auth">
               <input
                 type="text"
                 id="authcode"
@@ -67,7 +67,7 @@
                 name="codecheck"
                 value="check"
               /><br />
-            </li>
+            </li> -->
             <li>
               <input
                 type="text"
@@ -125,7 +125,7 @@
       var phone_check = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
       var authedEmails = [''];
       var authCode = null;
-      var authFlag = false;
+      var authFlag = true;
 
       var swalError = (text, callback) =>
         Swal.fire({
@@ -134,16 +134,16 @@
           text: text,
         }).then(callback);
 
-      $('#email').on('input', () => {
-        if (!authedEmails.includes($('#email').val())) {
-          authCode = null;
-          authFlag = false;
-          $('#li_auth').show();
-        } else {
-          authFlag = true;
-          $('#li_auth').hide();
-        }
-      });
+      // $('#email').on('input', () => {
+      //   if (!authedEmails.includes($('#email').val())) {
+      //     authCode = null;
+      //     authFlag = false;
+      //     $('#li_auth').show();
+      //   } else {
+      //     authFlag = true;
+      //     $('#li_auth').hide();
+      //   }
+      // });
 
       $('#sendAuthCode').click(function () {
         var email = $('#email').val();

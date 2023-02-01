@@ -5,8 +5,7 @@ const db_info = {
   user: 'autoin',
   password: 'autoin2022',
   port: 3306,
-  database: 'autoinven_pro',
-  socketPath: '/var/run/mysqld/mysqld.sock'
+  database: 'autoinven_pro'
 };
 
 module.exports = {
