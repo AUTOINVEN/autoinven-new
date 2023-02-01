@@ -123,6 +123,13 @@ module.exports = (db) => {
         warehouse = await getWarehouseDetail(db, locale, warehouse_id);
       }
 
+      let DeviceLog = await db.DeviceLog.findOne({
+        where: {
+          data02: warehouse.sensor_id,
+        },
+        order: [ [ 'regdate', 'DESC' ]],
+      });
+      //console.log(DeviceLog)
       res.render('warehouse/warehouseDetail', {
         warehouse,
         user: {
@@ -136,6 +143,7 @@ module.exports = (db) => {
           selected_area,
           available_area,
         },
+        DeviceLog
       });
     })
   );
