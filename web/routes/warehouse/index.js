@@ -125,7 +125,7 @@ module.exports = (db) => {
 
       let DeviceLog = await db.DeviceLog.findOne({
         where: {
-          data02: warehouse.sensor_id,
+          data02: warehouse.sensor_id || 0001,
         },
         order: [ [ 'regdate', 'DESC' ]],
       });
