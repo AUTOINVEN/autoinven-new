@@ -405,9 +405,15 @@ async function initMap() {
   const card = document.getElementById('pac-card');
   const input = document.getElementById('pac-input');
 
+
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
   //const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+
   const searchBox = new google.maps.places.SearchBox(input);
+
+
+
   // Bind the map's bounds (viewport) property to the autocomplete object,
   // so that the autocomplete requests use the current map bounds for the
   // bounds option in the request.
@@ -535,6 +541,8 @@ async function initMap() {
 
     let data = {};
   });
+
+  
 }
 
 function calcDistance(p1, p2) {

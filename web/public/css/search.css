@@ -39,6 +39,15 @@
   border-width: 0;
 }
 
+#pac-input2 {
+  padding-left: 5vh;
+  padding-right: 20%;
+  min-width: 10vh;
+  width: 30rem;
+  height: 100%;
+  border-width: 0;
+}
+
 #pac-input:focus {
   border-color: #4d90fe;
   border-width: 0px;
