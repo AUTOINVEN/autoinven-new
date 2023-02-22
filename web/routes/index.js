@@ -8,21 +8,22 @@ module.exports = (db) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const authenticate = require('$base/middlewares/authenticate');
   const getMyContracts2 = require('./contract/function/getMyContracts2');
+  const getContracts2 = require('./contract/function/getContracts2');
   const getContractDetail = require('./contract/function/getContractDetail');
   const getContracts = require('./contract/function/getContracts');
+  const getWarehouses2 = require('./warehouse/function/getWarehouses2');
+  const getWarehouseDetail = require('./warehouse/function/getWarehouseDetail');
 
 
   // 메인페이지
   router.get('/', async (req, res) => {
     const locale = res.locale;
-
     const warehouses = await getWarehousesForMain(db, locale);
-
     res.render('main', { warehouses });
   });
 
-  // 로그인
-  router.get('/ ', (req, res) => {
+ // 로그인
+  router.get('/signin', (req, res) => {
     res.render('auth/signin');
   });
 
@@ -102,14 +103,93 @@ module.exports = (db) => {
     });
 
   // 창고디테일
-  router.get('/waredetail', (req, res) => {
-    res.render('waredetail');
-  });
+    router.get('/waredetail/:id', doAsync(async (req, res) => {
+        const locale = res.locale;
+        const {
+          params: { id: contract_id },
+        } = req;
+        const {
+          session: { name, email, phone },
+        } = req;
+
+        const user = {
+          name,
+          email,
+          phone,
+        };
+
+        const contract = await getContractDetail(db, locale, contract_id);
+        const warehouse = await getWarehouseDetail(
+          db,
+          locale,
+          contract.warehouse_id
+        );
+
+        res.render('waredetail', {
+          user,
+          warehouse,
+          contract_info: contract,
+        });
+      })
+    );
   
-  // 결제 내역ㄴ
+  // 결제 내역
   router.get('/payment', (req, res) => {
     res.render('payment');
   });
+
+  // 내 창고내역
+  router.get('/mywhouse', authenticate,
+  doAsync(async (req, res) => {
+
+    let { startDate, endDate, kword } = req.query;
+
+    let status1 = 0;
+    let status2 = 0;
+    let status3 = 0;
+
+
+    const locale = res.locale;
+    const {
+      session: { role, email },
+    } = req;
+    const {
+      query: { keyword, page_num },
+    } = req;
+    let warehouses = [];
+    let total_page = 0;
+
+    // 유저일 경우
+    if (role === 'user') {
+      ({ total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword,
+        email
+      ));
+    }
+    // 관리자일 경우
+    else if (role === 'admin') {
+      ({ total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword
+      ));
+    }
+
+    for(var i = 0 ; i < warehouses.length ; i++ ) {
+      if(warehouses[i].state == 4) {
+        status2 = status2 + 1;
+      }else if(warehouses[i].state == 3) {
+        status3 = status3 + 1 ;
+      }
+      status1 = status1 + 1;
+    }
+
+    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
+  }));
 
    // 창고 검색
    router.get(
@@ -146,6 +226,7 @@ module.exports = (db) => {
           name,
         };
       });
+      
       res.render('search', { warehouses, categories, "keyword" :""});
     })
   );

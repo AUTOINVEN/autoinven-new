@@ -75,21 +75,21 @@
                     <div class="border p-10 space-y-10 flex justify-center items-center flex-col">
                         <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
                             <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-sm">요청중</span>
-                            <p class="text-base">#012345 (창고 등록번호)</p>
+                            <p class="text-base">#<%= contract_info.l_contract_id%></p>
                         </div>
                         <div class="grid grid-cols-2 gap-y-2 w-full">
                             <p class="text-center font-semibold text-base">요청일</p>
-                            <p class="text-center text-base">2022.11.24</p>
+                            <p class="text-center text-base"><%= contract_info.start_date%></p>
                             <p class="text-center font-semibold text-base">계약 시작일</p>
-                            <p class="text-center text-base">2022.11.24</p>
+                            <p class="text-center text-base"><%= contract_info.start_date%></p>
                             <p class="text-center font-semibold text-base">계약 종료일</p>
-                            <p class="text-center text-base">2022.12.31</p>
+                            <p class="text-center text-base"><%= contract_info.end_date%></p>
                             <p class="text-center font-semibold text-base">계약 면적</p>
-                            <p class="text-center text-base">1㎡</p>
+                            <p class="text-center text-base"><%= contract_info.req_area%>㎡</p>
                             <p class="text-center font-semibold text-base">임대료</p>
-                            <p class="text-center text-base">1㎡=￦10,000/일</p>
+                            <p class="text-center text-base"><%= warehouse.rent%><%= __('cost_unit')%> ㎡/<%= __('warehousedetail_day')%></p>
                             <p class="text-center font-semibold text-base">계약 금액</p>
-                            <p class="text-center text-base">￦10,000</p>
+                            <p class="text-center text-base"><%= contract_info.total_cost%> 원</p>
                         </div>
                     </div>
                 </div>
@@ -100,13 +100,13 @@
                     <div class="border p-10 space-y-10 flex justify-center items-center flex-col">
                         <div class="grid grid-cols-2 gap-y-2 w-full">
                             <p class="text-center font-semibold text-base">창고주명</p>
-                            <p class="text-center text-base">홍길동</p>
-                            <p class="text-center font-semibold text-base">소속</p>
-                            <p class="text-center text-base">(주)홍길동</p>
+                            <p class="text-center text-base"><%= user.name%></p>
+                            <!--p class="text-center font-semibold text-base">소속</p>
+                            <p class="text-center text-base">(주)홍길동</p-->
                             <p class="text-center font-semibold text-base">이메일</p>
-                            <p class="text-center text-base">abc@abc.com</p>
+                            <p class="text-center text-base"><%= user.email%></p>
                             <p class="text-center font-semibold text-base">휴대전화</p>
-                            <p class="text-center text-base">010-1234-5678</p>
+                            <p class="text-center text-base"><%= user.phone%></p>
                             <p class="text-center font-semibold text-base">입력사항</p>
                             <input class="text-center border text-base" placeholder="기타 사항을 입력해주세요" value="" id="" name="" readonly />
                         </div>
@@ -122,23 +122,23 @@
                         <div class="grid lg:grid-cols-2 w-full lg:gap-y-0 gap-y-5">
                             <div class="grid grid-cols-2 justify-center text-base gap-x-5 gap-y-5 text-center">
                                 <p class="font-semibold text-base">창고명</p>
-                                <p class="text-base">창고이름이 들어갈 공간입니다.</p>
+                                <p class="text-base"><%= warehouse.name%></p>
                                 <p class="font-semibold text-base">창고종류</p>
-                                <p class="text-base">일반 창고</p>
+                                <p class="text-base"><%= warehouse.category%></p>
                                 <p class="font-semibold text-base">주소</p>
-                                <p class="text-base">서울시 여러분 내가 왕초</p>
+                                <p class="text-base"><%= warehouse.address1%> <%= warehouse.address2%></p>
                                 <p class="font-semibold text-base">대지면적</p>
-                                <p class="text-base">1㎡</p>
+                                <p class="text-base"><%= warehouse.land_area%>㎡</p>
                                 <p class="font-semibold text-base">연면적</p>
-                                <p class="text-base">1㎡</p>
+                                <p class="text-base"><%= warehouse.total_ground_area%>㎡</p>
                                 <p class="font-semibold text-base">공용면적</p>
-                                <p class="text-base">1㎡</p>
+                                <p class="text-base"><%= warehouse.common_area%>㎡</p>
                                 <p class="font-semibold text-base">전용면적</p>
-                                <p class="text-base">1㎡</p>
+                                <p class="text-base"><%= warehouse.dedicated_area%>㎡</p>
                             </div>
                             <div class="grid grid-cols-2 justify-center text-base gap-x-5 gap-y-5 text-center items-center">
                                 <p class="font-semibold text-base">창고소개</p>
-                                <p class="text-base">깨끗한 (주)홍길동 창고입니다.</p>
+                                <p class="text-base"><%= warehouse.description%></p>
                             </div>
                         </div>
                         <!--

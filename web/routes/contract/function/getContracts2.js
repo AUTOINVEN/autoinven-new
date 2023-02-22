@@ -2,62 +2,28 @@ const { fn, col, Op } = require('sequelize');
 
 const getConditions = (keyword) => {
   const regex = / /gi;
-  let keywords;
+  let search_keyword;
   if (keyword) {
-    keywords = [keyword.replace(regex, ''), keyword.trim()];
+    search_keyword = keyword.trim().replace(regex, '%');
   } else {
     return [];
   }
-
-  console.log(keywords);
   let conditions = [];
-  for (x in keywords) {
-    conditions.push({
-      name_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      name_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-  }
+  conditions.push({
+    name_ko: {
+      [Op.like]: `%${search_keyword[x]}%`,
+    },
+  });
+  conditions.push({
+    name_en: {
+      [Op.like]: `%${search_keyword[x]}%`,
+    },
+  });
   return conditions;
 };
 
-
-const getConditions2 = (user_email, startDate, endDate ) => {
-
-    let conditions2 = [];
-
-    if(user_email){
-
-        conditions2.push(
-            {user_email: user_email},
-       );
-
-    }
-    if(startDate){
-        conditions2.push({
-            start_date: { [Op.gte]: startDate,
-            },
-        });
-
-    }
-    if(endDate){
-        conditions2.push({
-            end_date: {[Op.lte]: endDate,
-            },
-        });
-    }   
-    return conditions2;
-  };
-  
-
-
-// 자신의 계약목록
-module.exports = async (db, user_email, locale, page_num, keyword, startDate, endDate, kword) => {
+// 모든 계약 목록
+module.exports = async (db, locale, page_num, keyword) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -69,7 +35,7 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
     offset = limit * (page_num - 1);
   }
 
-  const conditions = getConditions(kword);
+  const conditions = getConditions(keyword);
   let where_clause;
   if (!conditions.length) {
     where_clause = {};
@@ -77,15 +43,6 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
     where_clause = { [Op.or]: conditions };
   }
 
-  const conditions2 = getConditions2(user_email, startDate, endDate );
-  let where_clause2;
-  if (!conditions2.length) {
-    where_clause2 = {};
-  } else {
-    where_clause2 = { [Op.and]: conditions2 };
-  }
-
-console.log(where_clause2);
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       'l_contract_id',
@@ -105,25 +62,28 @@ console.log(where_clause2);
         'createdAt',
       ],
     ],
-    where: where_clause2 ,
-    
-    include: {
-      model: db.Warehouse,
-      required: true,
-      attributes: ['name_ko', 'name_en', 'address1_ko'],
-      where: where_clause,
-    },
-    
+    include: [
+      {
+        model: db.Warehouse,
+        required: true,
+        attributes: ['name_ko', 'name_en', 'address1_ko'],
+        where: where_clause,
+      },
+      {
+        model: db.User,
+        required: true,
+        attributes: ['name'],
+      },
+    ],
     order: [['createdAt', 'DESC']],
     offset,
     limit,
   });
 
   const count = await db.LeaseContract.count({
-    include: { model: db.Warehouse, required: true, where: where_clause },
-    where: { user_email },
+    where: where_clause,
   });
-  
+
   const contracts = [];
   for (const contract of contracts_result) {
     contracts.push({
@@ -139,14 +99,12 @@ console.log(where_clause2);
       area: contract.lease_area,
       price: await getLocalePrice(locale, contract.amount),
       created_date: contract.createdAt,
+      contractor_name: contract.User.name,
     });
   }
-  console.log(contracts);
+
   return {
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     contracts,
   };
-
-  
 };
-
