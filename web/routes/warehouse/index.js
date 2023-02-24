@@ -60,12 +60,14 @@ module.exports = (db) => {
   router.get(
     '/enroll',
     authenticate,
-    authorizeAdmin,
+    //authorizeAdmin,
     doAsync(async (req, res) => {
+      const { email } = req.session;
       const categories = await getCategories(db);
 
       res.render('warehouse/enrollWarehouse', {
         categories,
+        email
       });
     })
   );
@@ -154,7 +156,7 @@ module.exports = (db) => {
   router.get(
     '/:id/edit',
     authenticate,
-    authorizeAdmin,
+    //authorizeAdmin,
     doAsync(async (req, res) => {
       const locale = res.locale;
       const {

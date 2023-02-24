@@ -91,6 +91,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         defaultValue: fn('now'),
       },
+      request_email: DataTypes.STRING
     },
     {
       sequelize,

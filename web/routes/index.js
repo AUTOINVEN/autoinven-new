@@ -12,7 +12,11 @@ module.exports = (db) => {
   const getContractDetail = require('./contract/function/getContractDetail');
   const getContracts = require('./contract/function/getContracts');
   const getWarehouses2 = require('./warehouse/function/getWarehouses2');
+  const getWarehouses3 = require('./warehouse/function/getWarehouses3');
   const getWarehouseDetail = require('./warehouse/function/getWarehouseDetail');
+  const getWarehouseDetailWithItem = require('./warehouse/function/getWarehouseDetailWithItem');
+  const authorizeContractor = require('./warehouse/function/authorizeContractor');
+  const checkWarehouseDetailParameter = require('./warehouse/function/checkWarehouseDetailParameter');
 
 
   // 메인페이지
@@ -191,6 +195,60 @@ module.exports = (db) => {
     res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
   }));
 
+   // 내 등록 창고내역
+   router.get('/myiwhouse', authenticate,
+   doAsync(async (req, res) => {
+ 
+     let { startDate, endDate, kword } = req.query;
+ 
+     let status1 = 0;
+     let status2 = 0;
+     let status3 = 0;
+ 
+ 
+     const locale = res.locale;
+     const {
+       session: { role, email },
+     } = req;
+     const {
+       query: { keyword, page_num },
+     } = req;
+     let warehouses = [];
+     let total_page = 0;
+ 
+     // 유저일 경우
+     if (role === 'user') {
+       ({ total_page, warehouses } = await getWarehouses3(
+         db,
+         locale,
+         page_num,
+         keyword,
+         email
+       ));
+     }
+     // 관리자일 경우
+     else if (role === 'admin') {
+       ({ total_page, warehouses } = await getWarehouses3(
+         db,
+         locale,
+         page_num,
+         keyword
+       ));
+     }
+ 
+     for(var i = 0 ; i < warehouses.length ; i++ ) {
+       if(warehouses[i].state == 4) {
+         status2 = status2 + 1;
+       }else if(warehouses[i].state == 3) {
+         status3 = status3 + 1 ;
+       }
+       status1 = status1 + 1;
+     }
+ 
+     res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
+   }));
+ 
+
    // 창고 검색
    router.get(
     '/search',
@@ -275,6 +333,89 @@ module.exports = (db) => {
       res.render('search', { warehouses : warehouses_filter, categories , "keyword" : searchKeyword });
     })
   );
+
+
+
+   // 창고 상세
+  router.get(
+    '/mywaredetail/:id',
+    doAsync(async (req, res) => {
+      const locale = res.locale;
+      const {
+        session: { role, email },
+      } = req;
+      const {
+        params: { id: warehouse_id },
+      } = req;
+      const {
+        query: { start_date, end_date, selected_area, available_area },
+      } = req;
+
+      let l_contract_id = null;
+      let warehouse = null;
+
+      // 파라미터 확인
+      checkWarehouseDetailParameter(
+        warehouse_id,
+        start_date,
+        end_date,
+        selected_area,
+        available_area
+      );
+
+      // 관리자일 경우
+      if (role === 'admin') {
+        warehouse = await getWarehouseDetailWithItem(db, locale, warehouse_id);
+      }
+
+      // 유저일 경우 창고와 계약되어있는지 확인
+      else if (role === 'user') {
+        l_contract_id = await authorizeContractor(db, email, warehouse_id);
+        // 창고와 계약되어있는 경우
+        if (l_contract_id) {
+          warehouse = await getWarehouseDetailWithItem(
+            db,
+            locale,
+            warehouse_id,
+            email
+          );
+        }
+        // 창고와 계약되어있지 않은 경우
+        else {
+          warehouse = await getWarehouseDetail(db, locale, warehouse_id);
+        }
+      }
+
+      // 로그인 안돼있는 경우
+      else {
+        warehouse = await getWarehouseDetail(db, locale, warehouse_id);
+      }
+
+      let DeviceLog = await db.DeviceLog.findOne({
+        where: {
+          data02: warehouse.sensor_id || 0001,
+        },
+        order: [ [ 'regdate', 'DESC' ]],
+      });
+      res.render('warehouse/warehouseDetail', {
+        warehouse,
+        user: {
+          is_contracted: l_contract_id ? true : false,
+          email,
+          l_contract_id,
+        },
+        lease_info: {
+          start_date,
+          end_date,
+          selected_area,
+          available_area,
+        },
+        DeviceLog
+      });
+    })
+  );
+
+
 
  
   // 내 정보 수정
