@@ -34,11 +34,11 @@
               <%= __('navbar_search_warehouse')%>
             </a>
           </li>
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a class="nav-link" href="/search" style="font-size: 1.2rem;">
               <%= __('navbar_warehouse')%>
             </a>
-          </li>
+          </li-->
             <% if( locals.role === 'user') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/mypage" style="font-size: 1.2rem;">
@@ -57,7 +57,7 @@
                   마이페이지
                 </a>
               </li>
-              <li class="nav-item">
+              <!--li class="nav-item">
                 <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
                   <%= __('navbar_my_warehouse')%>
                 </a>
@@ -67,7 +67,7 @@
                 <a class="nav-link" href="/contract" style="font-size: 1.2rem;">
                   <%= __('navbar_manage_contract')%>
                 </a>
-              </li>
+              </li-->
             <% } %>
           
           <% if(locals.role) { %>
