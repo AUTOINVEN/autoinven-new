@@ -2,30 +2,28 @@ const { fn, col, Op } = require('sequelize');
 
 const getConditions = (keyword) => {
   const regex = / /gi;
-  let keywords;
+  let search_keyword;
   if (keyword) {
-    keywords = [keyword.replace(regex, ''), keyword.trim()];
+    search_keyword = keyword.trim().replace(regex, '%');
   } else {
     return [];
   }
   let conditions = [];
-  for (x in keywords) {
-    conditions.push({
-      name_ko: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-    conditions.push({
-      name_en: {
-        [Op.like]: `%${keywords[x]}%`,
-      },
-    });
-  }
+  conditions.push({
+    name_ko: {
+      [Op.like]: `%${search_keyword[x]}%`,
+    },
+  });
+  conditions.push({
+    name_en: {
+      [Op.like]: `%${search_keyword[x]}%`,
+    },
+  });
   return conditions;
 };
 
-// 자신의 계약목록
-module.exports = async (db, user_email, locale, page_num, keyword) => {
+// 모든 계약 목록
+module.exports = async (db, locale, page_num, keyword) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -64,21 +62,26 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
         'createdAt',
       ],
     ],
-    where: { user_email },
-    include: {
-      model: db.Warehouse,
-      required: true,
-      attributes: ['name_ko', 'name_en'],
-      where: where_clause,
-    },
+    include: [
+      {
+        model: db.Warehouse,
+        required: true,
+        attributes: ['name_ko', 'name_en', 'address1_ko'],
+        where: where_clause,
+      },
+      {
+        model: db.User,
+        required: true,
+        attributes: ['name'],
+      },
+    ],
     order: [['createdAt', 'DESC']],
     offset,
     limit,
   });
 
   const count = await db.LeaseContract.count({
-    include: { model: db.Warehouse, required: true, where: where_clause },
-    where: { user_email },
+    where: where_clause,
   });
 
   const contracts = [];
@@ -91,10 +94,12 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
         contract.Warehouse.name_ko,
         contract.Warehouse.name_en
       ),
+      address : contract.Warehouse.address1_ko,
       period: `${contract.start_date} ~ ${contract.end_date}`,
       area: contract.lease_area,
       price: await getLocalePrice(locale, contract.amount),
       created_date: contract.createdAt,
+      contractor_name: contract.User.name,
     });
   }
 
@@ -103,4 +108,3 @@ module.exports = async (db, user_email, locale, page_num, keyword) => {
     contracts,
   };
 };
-

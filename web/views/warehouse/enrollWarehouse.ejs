@@ -8,6 +8,7 @@
 
   <body>
     <header><%- include('../partial/navbar') %></header>
+    
     <div class="container">
       <h3 class="enroll-warehouse-title">창고 정보 등록</h3>
       <!--창고 사진-->
@@ -57,6 +58,13 @@
           <tr>
             <td class="info-table-td-head">창고명*</td>
             <td class="info-table-td" colspan="5">
+              <input
+                  id="request_email"
+                  name="request_email"
+                  class="form-control"
+                  type="hidden"
+                  value="<%= email %>"
+                />
               <input
                 id="name_ko"
                 type="text"
@@ -237,6 +245,7 @@
           </tr>
         </table>
       </div>
+      
       <!--창고 정보-->
 
       <!--IOT 디바이스 등록-->
@@ -507,6 +516,7 @@
 
         formdata.append('name_ko', $('#name_ko')[0].value);
         formdata.append('name_en', $('#name_en')[0].value);
+        formdata.append('request_email', $('#request_email')[0].value);
         formdata.append(
           'category_id',
           $('select[name=category_id] option:selected')[0].value
@@ -565,7 +575,7 @@
               title: '<%= __("success") %>',
               text: '창고가 등록 되었습니다..',
             }).then(function () {
-              window.location.href = '/warehouse';
+              window.location.href = '/myiwhouse';
             });
           },
           error: function (e) {

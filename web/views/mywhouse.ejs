@@ -27,17 +27,17 @@
                         <div class="mypageList space-y-4">
                             <div class="space-y-2">
                                 <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
-                                        <p class="mypageListTitle font-semibold">내창고</p>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
-                                            <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
-                                        </svg>
+                                    <p class="mypageListTitle font-semibold">내창고</p>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
+                                        <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
+                                    </svg>
                                 </div>
                                 <ul class="space-y-2 myConList">
                                     <li>
-                                        <a href="/mywhouse">전체</a>
+                                        <a href="/mywhouse">전체()</a>
                                     </li>
                                     <li>
-                                        <a href="/myiwhouse">등록한 창고</a>
+                                        <a href="/myiwhouse">등록한 창고()</a>
                                     </li>
                                 </ul>
                             </div>
@@ -104,8 +104,13 @@
                             </svg>
                         </label>
                         <button  id="search" class="rounded border px-3 py-1 text-gray-400 hover:bg-gray-500 hover:text-white hover:border-gray-500" type="button">검색</button>
-                    </div>
+                        
+                        </div>
+                        <button class="rounded border px-3 py-1 text-gray-400 hover:bg-gray-500 hover:text-white hover:border-gray-500 lm-10" , onclick="location.href='/warehouse/enroll';">
+                            +
+                            </button>
                 </div>
+                    
                 <!--
                 <div class="p-10 flex border justify-center items-center h-[600px] rounded-lg">
                     <p class="text-base">요청한 창고가 없습니다.</p>
@@ -113,77 +118,54 @@
                 -->
                 <div class="p-7 border min-h-[600px] rounded-lg space-y-5">
                 <% if(locals.role == 'user') { %>
-                    <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
+                    <% for(var i = 0 ; i < warehouses.length ; i++ ) { %>
                         
-                            <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/waredetail/<%=contracts[i].id%>">
+                            <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/mywaredetail/<%= warehouses[i].warehouse_id %>">
                                 <img src="/image/default-image_43.png" class="w-20 h-20">
                                 <div class="space-y-2 flex-1">
                                     <div class="flex justify-between items-center">
                                         <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
-                                            <% if(contracts[i].state == 1) {%><!--승인대기중-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
-                                            <% } else if(contracts[i].state == 2) { %> <!--결제대기중-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
-                                            <% } else if(contracts[i].state == 3) {%> <!--계약완료-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
-                                            <% } else if(contracts[i].state == 4) {%> <!--승인거절-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
-                                            <% } else if(contracts[i].state == 5) { %><!--계약만료-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
-                                            <% } %>
-                                            <p class="text-sm">#<%= contracts[i].id %></p>
                                         </div>
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M10 6.25C9.75277 6.25 9.5111 6.17669 9.30554 6.03934C9.09998 5.90199 8.93976 5.70676 8.84515 5.47835C8.75054 5.24995 8.72579 4.99861 8.77402 4.75614C8.82225 4.51366 8.9413 4.29093 9.11612 4.11612C9.29093 3.9413 9.51366 3.82225 9.75614 3.77402C9.99861 3.72579 10.2499 3.75054 10.4784 3.84515C10.7068 3.93976 10.902 4.09998 11.0393 4.30554C11.1767 4.5111 11.25 4.75277 11.25 5C11.25 5.33152 11.1183 5.64946 10.8839 5.88388C10.6495 6.1183 10.3315 6.25 10 6.25ZM11.25 15C11.25 14.7528 11.1767 14.5111 11.0393 14.3055C10.902 14.1 10.7068 13.9398 10.4784 13.8452C10.2499 13.7505 9.99861 13.7258 9.75614 13.774C9.51366 13.8223 9.29093 13.9413 9.11612 14.1161C8.9413 14.2909 8.82225 14.5137 8.77402 14.7561C8.72579 14.9986 8.75054 15.2499 8.84515 15.4784C8.93976 15.7068 9.09997 15.902 9.30554 16.0393C9.5111 16.1767 9.75277 16.25 10 16.25C10.3315 16.25 10.6495 16.1183 10.8839 15.8839C11.1183 15.6495 11.25 15.3315 11.25 15ZM11.25 10C11.25 9.75277 11.1767 9.5111 11.0393 9.30554C10.902 9.09998 10.7068 8.93976 10.4784 8.84515C10.2499 8.75054 9.99861 8.72579 9.75614 8.77402C9.51366 8.82225 9.29093 8.9413 9.11612 9.11612C8.9413 9.29093 8.82225 9.51366 8.77402 9.75614C8.72579 9.99861 8.75054 10.2499 8.84515 10.4784C8.93976 10.7068 9.09997 10.902 9.30554 11.0393C9.5111 11.1767 9.75277 11.25 10 11.25C10.3315 11.25 10.6495 11.1183 10.8839 10.8839C11.1183 10.6495 11.25 10.3315 11.25 10V10Z" fill="#666666"/>
                                         </svg>
                                     </div>
-                                    <h4 class="text-xl font-semibold"><%= contracts[i].name %></h4>
-                                    <div class="flex justify-between">
-                                        <h6 class="text-base"><%= contracts[i].address %></h6>
-                                        <p class="text-base" id="contracted_cost<%=i%>">원</p>
-                                    </div>
+                                    <h4 class="text-xl font-semibold"><%= warehouses[i].name %></h4>
+                                        <h6 class="text-base"><%= warehouses[i].address %></h6>
+                                        <h6 class="text-base"><%= warehouses[i].start_date %></h6>
+                                        <h6 class="text-base"><%= warehouses[i].end_date %></h6>                                       
                                 </div>
                             </a>                    
                     <% }%>
                     
                 <% } else { %>
-                    <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
+                    <% for(var i = 0 ; i < warehouses.length ; i++ ) { %>
                         
-                        <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/waredetail/<%=contracts[i].id%>">
+                        <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/mywaredetail/<%= warehouses[i].warehouse_id %>">
                             <img src="/image/default-image_43.png" class="w-20 h-20">
                             <div class="space-y-2 flex-1">
                                 <div class="flex justify-between items-center">
                                     <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
-                                        <% if(contracts[i].state == 1) {%><!--승인대기중-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
-                                        <% } else if(contracts[i].state == 2) { %> <!--결제대기중-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
-                                        <% } else if(contracts[i].state == 3) {%> <!--계약완료-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
-                                        <% } else if(contracts[i].state == 4) {%> <!--승인거절-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
-                                        <% } else if(contracts[i].state == 5) { %><!--계약만료-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
-                                        <% } %>
-                                        <p class="text-sm">#<%= contracts[i].id %></p>
                                     </div>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10 6.25C9.75277 6.25 9.5111 6.17669 9.30554 6.03934C9.09998 5.90199 8.93976 5.70676 8.84515 5.47835C8.75054 5.24995 8.72579 4.99861 8.77402 4.75614C8.82225 4.51366 8.9413 4.29093 9.11612 4.11612C9.29093 3.9413 9.51366 3.82225 9.75614 3.77402C9.99861 3.72579 10.2499 3.75054 10.4784 3.84515C10.7068 3.93976 10.902 4.09998 11.0393 4.30554C11.1767 4.5111 11.25 4.75277 11.25 5C11.25 5.33152 11.1183 5.64946 10.8839 5.88388C10.6495 6.1183 10.3315 6.25 10 6.25ZM11.25 15C11.25 14.7528 11.1767 14.5111 11.0393 14.3055C10.902 14.1 10.7068 13.9398 10.4784 13.8452C10.2499 13.7505 9.99861 13.7258 9.75614 13.774C9.51366 13.8223 9.29093 13.9413 9.11612 14.1161C8.9413 14.2909 8.82225 14.5137 8.77402 14.7561C8.72579 14.9986 8.75054 15.2499 8.84515 15.4784C8.93976 15.7068 9.09997 15.902 9.30554 16.0393C9.5111 16.1767 9.75277 16.25 10 16.25C10.3315 16.25 10.6495 16.1183 10.8839 15.8839C11.1183 15.6495 11.25 15.3315 11.25 15ZM11.25 10C11.25 9.75277 11.1767 9.5111 11.0393 9.30554C10.902 9.09998 10.7068 8.93976 10.4784 8.84515C10.2499 8.75054 9.99861 8.72579 9.75614 8.77402C9.51366 8.82225 9.29093 8.9413 9.11612 9.11612C8.9413 9.29093 8.82225 9.51366 8.77402 9.75614C8.72579 9.99861 8.75054 10.2499 8.84515 10.4784C8.93976 10.7068 9.09997 10.902 9.30554 11.0393C9.5111 11.1767 9.75277 11.25 10 11.25C10.3315 11.25 10.6495 11.1183 10.8839 10.8839C11.1183 10.6495 11.25 10.3315 11.25 10V10Z" fill="#666666"/>
                                     </svg>
                                 </div>
-                                <h4 class="text-xl font-semibold"><%= contracts[i].name %></h4>
+                                <h4 class="text-xl font-semibold"><%= warehouses[i].name %></h4>
                                 <div class="flex justify-between">
-                                    <h6 class="text-base"><%= contracts[i].address %></h6>
-                                    <p class="text-base" id="contracted_cost<%=i%>">원</p>
+                                    <h6 class="text-base"><%= warehouses[i].address %></h6>
+                                    <h6 class="text-base"><%= warehouses[i].start_date %></h6>
+                                    <h6 class="text-base"><%= warehouses[i].end_date %></h6>
                                 </div>
                             </div>
                         </a>                    
                 <% }%>    
                 <% } %>
-                
             </div>
 
-             
+                <% if(warehouses.length == 0) {%>
+                    계약한 창고가 없습니다.
+                <% } %>
                 <div style="display: flex; justify-content: center">
                     <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
                 </div>
@@ -197,7 +179,7 @@
 <script>
      $(document).ready(function () {
       let page_num;
-      let prices = '<%= JSON.stringify(contracts) %>';
+      let prices = '<%= JSON.stringify(warehouses) %>';
       prices = prices.replace(/&#34;/gi, '"');
       prices = JSON.parse(prices);
       for (let i = 0; i < prices.length; i++) {

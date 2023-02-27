@@ -30,6 +30,7 @@ const getNewWarehouse = ({
   is_bounded,
   commercial_lift,
   is_verified,
+  request_email
 }) => ({
   name_ko,
   name_en,
@@ -59,6 +60,7 @@ const getNewWarehouse = ({
   is_bounded,
   commercial_lift,
   is_verified,
+  request_email
 });
 
 const getAddressInfo = ({
@@ -124,6 +126,7 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
   warehouse.rack = checkEmpty(warehouse.rack);
   warehouse.is_bounded = checkEmpty(warehouse.is_bounded);
   warehouse.commercial_lift = checkEmpty(warehouse.commercial_lift);
+  warehouse.request_email = checkEmpty(warehouse.request_email);
 
   return warehouse;
 };

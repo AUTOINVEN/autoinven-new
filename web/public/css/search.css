@@ -15,6 +15,22 @@
   width: 100%;
 }
 
+.nav_inner .navbar {
+  width: 100%;
+  height: fit-content;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: solid rgb(230, 230, 230) 1px;
+  transition: 100ms;
+  align-items:center;
+
+}
+
+
+.navbar-nav {
+  align-items:center;
+}
+
 .searchInput {
   flex-shrink: 1;
   text-overflow: ellipsis;
@@ -37,6 +53,18 @@
   width: 50rem;
   height: 100%;
   border-width: 0;
+}
+
+#pac-input2 {
+  padding-left: 20px;
+  min-width: 10vh;
+  width: 30rem;
+  height: 100%;
+  border-width: 0;
+}
+
+.searchBtn {
+  right:10px;
 }
 
 #pac-input:focus {

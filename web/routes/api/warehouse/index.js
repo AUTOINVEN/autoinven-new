@@ -77,7 +77,7 @@ module.exports = (db) => {
   router.post(
     '/',
     authenticate,
-    authorizeAdmin,
+    //authorizeAdmin,
     upload.array('images', 6),
     doAsync(async (req, res, next) => {
       const newWarehouse = await warehouseAPIs.registerWarehouse(req, db);

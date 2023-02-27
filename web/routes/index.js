@@ -7,17 +7,26 @@ module.exports = (db) => {
   const { doAsync } = require('$base/utils/asyncWrapper');
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const authenticate = require('$base/middlewares/authenticate');
+  const getMyContracts2 = require('./contract/function/getMyContracts2');
+  const getContracts2 = require('./contract/function/getContracts2');
+  const getContractDetail = require('./contract/function/getContractDetail');
+  const getContracts = require('./contract/function/getContracts');
+  const getWarehouses2 = require('./warehouse/function/getWarehouses2');
+  const getWarehouses3 = require('./warehouse/function/getWarehouses3');
+  const getWarehouseDetail = require('./warehouse/function/getWarehouseDetail');
+  const getWarehouseDetailWithItem = require('./warehouse/function/getWarehouseDetailWithItem');
+  const authorizeContractor = require('./warehouse/function/authorizeContractor');
+  const checkWarehouseDetailParameter = require('./warehouse/function/checkWarehouseDetailParameter');
+
 
   // 메인페이지
   router.get('/', async (req, res) => {
     const locale = res.locale;
-
     const warehouses = await getWarehousesForMain(db, locale);
-
     res.render('main', { warehouses });
   });
 
-  // 로그인
+ // 로그인
   router.get('/signin', (req, res) => {
     res.render('auth/signin');
   });
@@ -27,10 +36,70 @@ module.exports = (db) => {
     res.render('auth/signup');
   });
 
-  // 내정보관리
-    router.get('/mypage', (req, res) => {
-      res.render('mypage');
-    });
+  // 내정보관리 -  계약 현황
+
+
+    router.get(
+      '/mypage',
+      doAsync(async (req, res) => {
+        let { startDate, endDate, kword } = req.query;
+
+        let status1 = 0;
+        let status2 = 0;
+        let status3 = 0;
+
+        const locale = res.locale;
+
+        const {
+          session: { role, email },
+        } = req;
+        const {
+          query: { keyword, page_num },
+        } = req;
+        let contracts = [];
+        let total_page = 0;
+
+ 
+        // 유저일 경우
+        if (role === 'user') {
+          ({ total_page, contracts } = await getMyContracts2(
+            db,
+            email,
+            locale,
+            page_num,
+            keyword,
+            startDate,
+            endDate,
+            kword
+          ));
+        }  
+        // 관리자일 경우
+        else if (role === 'admin') {
+          ({ total_page, contracts } = await getContracts2(
+            db,
+            locale,
+            page_num,
+            keyword,
+            startDate,
+            endDate,
+            kword
+          ));
+        }
+
+        for(var i = 0 ; i < contracts.length ; i++ ) {
+          if(contracts[i].state == 4) {
+            status2 = status2 + 1;
+          }else if(contracts[i].state == 3) {
+            status3 = status3 + 1 ;
+          }
+          status1 = status1 + 1;
+        }
+        //console.log(contracts[0].state);
+
+        res.render('mypage', { total_page, contracts, status1, status2, status3, startDate, endDate, kword });
+      })
+    );
+  
 
       // 내정보관리
     router.get('/logininfo', (req, res) => {
@@ -38,19 +107,153 @@ module.exports = (db) => {
     });
 
   // 창고디테일
-  router.get('/waredetail', (req, res) => {
-    res.render('waredetail');
-  });
+    router.get('/waredetail/:id', doAsync(async (req, res) => {
+        const locale = res.locale;
+        const {
+          params: { id: contract_id },
+        } = req;
+        const {
+          session: { name, email, phone },
+        } = req;
+
+        const user = {
+          name,
+          email,
+          phone,
+        };
+
+        const contract = await getContractDetail(db, locale, contract_id);
+        const warehouse = await getWarehouseDetail(
+          db,
+          locale,
+          contract.warehouse_id
+        );
+
+        res.render('waredetail', {
+          user,
+          warehouse,
+          contract_info: contract,
+        });
+      })
+    );
   
-  // 결제 내역ㄴ
+  // 결제 내역
   router.get('/payment', (req, res) => {
     res.render('payment');
   });
 
-  // 창고 검색
-  router.get(
+  // 내 창고내역
+  router.get('/mywhouse', authenticate,
+  doAsync(async (req, res) => {
+
+    let { startDate, endDate, kword } = req.query;
+
+    let status1 = 0;
+    let status2 = 0;
+    let status3 = 0;
+
+
+    const locale = res.locale;
+    const {
+      session: { role, email },
+    } = req;
+    const {
+      query: { keyword, page_num },
+    } = req;
+    let warehouses = [];
+    let total_page = 0;
+
+    // 유저일 경우
+    if (role === 'user') {
+      ({ total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword,
+        email
+      ));
+    }
+    // 관리자일 경우
+    else if (role === 'admin') {
+      ({ total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword
+      ));
+    }
+
+    for(var i = 0 ; i < warehouses.length ; i++ ) {
+      if(warehouses[i].state == 4) {
+        status2 = status2 + 1;
+      }else if(warehouses[i].state == 3) {
+        status3 = status3 + 1 ;
+      }
+      status1 = status1 + 1;
+    }
+
+    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
+  }));
+
+   // 내 등록 창고내역
+   router.get('/myiwhouse', authenticate,
+   doAsync(async (req, res) => {
+ 
+     let { startDate, endDate, kword } = req.query;
+ 
+     let status1 = 0;
+     let status2 = 0;
+     let status3 = 0;
+ 
+ 
+     const locale = res.locale;
+     const {
+       session: { role, email },
+     } = req;
+     const {
+       query: { keyword, page_num },
+     } = req;
+     let warehouses = [];
+     let total_page = 0;
+ 
+     // 유저일 경우
+     if (role === 'user') {
+       ({ total_page, warehouses } = await getWarehouses3(
+         db,
+         locale,
+         page_num,
+         keyword,
+         email
+       ));
+     }
+     // 관리자일 경우
+     else if (role === 'admin') {
+       ({ total_page, warehouses } = await getWarehouses3(
+         db,
+         locale,
+         page_num,
+         keyword
+       ));
+     }
+ 
+     for(var i = 0 ; i < warehouses.length ; i++ ) {
+       if(warehouses[i].state == 4) {
+         status2 = status2 + 1;
+       }else if(warehouses[i].state == 3) {
+         status3 = status3 + 1 ;
+       }
+       status1 = status1 + 1;
+     }
+ 
+     res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
+   }));
+ 
+
+   // 창고 검색
+   router.get(
     '/search',
     doAsync(async (req, res) => {
+      
       const locale = res.locale;
       const warehouses = await db.Warehouse.findAll({
         include: [
@@ -81,10 +284,140 @@ module.exports = (db) => {
           name,
         };
       });
-      res.render('search', { warehouses, categories });
+      
+      res.render('search', { warehouses, categories, "keyword" :""});
     })
   );
 
+
+  // 창고 검색
+  router.get(
+    '/search2/:keyword',
+    doAsync(async (req, res) => {
+      console.log("test-"+res.locale);
+      const locale = res.locale;
+      const warehouses = await db.Warehouse.findAll({
+        include: [
+          {
+            model: db.Address,
+            attributes: ['latitude', 'longitude', 'zip_code'],
+          },
+          {
+            model: db.WarehouseImage,
+          },
+        ],
+      });
+
+      for (const warehouse of warehouses) {
+        warehouse.rent = await getLocalePrice(locale, warehouse.rent);
+      }
+
+      const categories_result = await db.Category.findAll();
+      const categories = categories_result.map((category) => {
+        let name;
+        if (res.locale === 'ko') {
+          name = category.name_ko;
+        } else if (res.locale === 'en') {
+          name = category.name_en;
+        }
+        return {
+          category_id: category.category_id,
+          name,
+        };
+      });
+
+      var searchKeyword = decodeURI(decodeURIComponent(req.params.keyword));
+      warehouses_filter = warehouses.filter((data) => {
+        return (data.name_ko.includes(searchKeyword) || data.address1_ko.includes(searchKeyword) || data.name_en.includes(searchKeyword) || data.address1_en.includes(searchKeyword));
+      })
+      res.render('search', { warehouses : warehouses_filter, categories , "keyword" : searchKeyword });
+    })
+  );
+
+
+
+   // 창고 상세
+  router.get(
+    '/mywaredetail/:id',
+    doAsync(async (req, res) => {
+      const locale = res.locale;
+      const {
+        session: { role, email },
+      } = req;
+      const {
+        params: { id: warehouse_id },
+      } = req;
+      const {
+        query: { start_date, end_date, selected_area, available_area },
+      } = req;
+
+      let l_contract_id = null;
+      let warehouse = null;
+
+      // 파라미터 확인
+      checkWarehouseDetailParameter(
+        warehouse_id,
+        start_date,
+        end_date,
+        selected_area,
+        available_area
+      );
+
+      // 관리자일 경우
+      if (role === 'admin') {
+        warehouse = await getWarehouseDetailWithItem(db, locale, warehouse_id);
+      }
+
+      // 유저일 경우 창고와 계약되어있는지 확인
+      else if (role === 'user') {
+        l_contract_id = await authorizeContractor(db, email, warehouse_id);
+        // 창고와 계약되어있는 경우
+        if (l_contract_id) {
+          warehouse = await getWarehouseDetailWithItem(
+            db,
+            locale,
+            warehouse_id,
+            email
+          );
+        }
+        // 창고와 계약되어있지 않은 경우
+        else {
+          warehouse = await getWarehouseDetail(db, locale, warehouse_id);
+        }
+      }
+
+      // 로그인 안돼있는 경우
+      else {
+        warehouse = await getWarehouseDetail(db, locale, warehouse_id);
+      }
+
+      let DeviceLog = await db.DeviceLog.findOne({
+        where: {
+          data02: warehouse.sensor_id || 0001,
+        },
+        order: [ [ 'regdate', 'DESC' ]],
+      });
+      res.render('warehouse/warehouseDetail', {
+        warehouse,
+        user: {
+          is_contracted: l_contract_id ? true : false,
+          email,
+          l_contract_id,
+        },
+        lease_info: {
+          start_date,
+          end_date,
+          selected_area,
+          available_area,
+        },
+        DeviceLog
+      });
+    })
+  );
+
+
+
+ 
   // 내 정보 수정
   router.get('/myinfo', authenticate, (req, res) => {
     const { email, name, phone } = req.session;
