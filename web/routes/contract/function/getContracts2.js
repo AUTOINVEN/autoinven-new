@@ -104,6 +104,7 @@ module.exports = async (db, locale, page_num, keyword) => {
   }
 
   return {
+    count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     contracts,
   };

@@ -143,6 +143,7 @@ console.log(where_clause2);
   }
   console.log(contracts);
   return {
+    count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     contracts,
   };

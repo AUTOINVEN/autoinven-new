@@ -147,6 +147,7 @@
   // 창고 정보 가져오기
   let _warehouses = '<%= JSON.stringify(warehouses) %>';
 
+
   _warehouses = _warehouses.replaceAll(`&#34;`, '"');
   _warehouses = _warehouses.replaceAll(/\n|\r\n/gi, '\\r\\n');
 

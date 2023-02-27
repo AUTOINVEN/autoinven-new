@@ -47,6 +47,12 @@ module.exports = (db) => {
         let status1 = 0;
         let status2 = 0;
         let status3 = 0;
+        let status4 = 0;
+        let status5 = 0;
+        let status6 = 0;
+        let status7 = 0;
+        let status8 = 0;
+        let status9 = 0;
 
         const locale = res.locale;
 
@@ -62,20 +68,61 @@ module.exports = (db) => {
  
         // 유저일 경우
         if (role === 'user') {
-          ({ total_page, contracts } = await getMyContracts2(
-            db,
-            email,
-            locale,
-            page_num,
-            keyword,
-            startDate,
-            endDate,
-            kword
-          ));
+
+            ({count } = await getWarehouses3(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email
+            ));
+        
+            status2 = count;
+        
+            ({count } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email
+            ));
+            
+            status1 = count;
+
+            ({ count, total_page, contracts } = await getMyContracts2(
+              db,
+              email,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate,
+              kword
+            ));
+
+          status4 = count;
         }  
         // 관리자일 경우
         else if (role === 'admin') {
-          ({ total_page, contracts } = await getContracts2(
+
+            ({ count } = await getWarehouses3(
+              db,
+              locale,
+              page_num,
+              keyword
+            ));
+
+            status2 = count;
+
+            ({ count } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword
+            ));
+
+            status1 = count;
+          ({ count, total_page, contracts } = await getContracts2(
             db,
             locale,
             page_num,
@@ -84,19 +131,137 @@ module.exports = (db) => {
             endDate,
             kword
           ));
+          status6 = count;
         }
 
         for(var i = 0 ; i < contracts.length ; i++ ) {
           if(contracts[i].state == 4) {
-            status2 = status2 + 1;
+            status7 = status7 + 1;
           }else if(contracts[i].state == 3) {
-            status3 = status3 + 1 ;
+            status8 = status8 + 1 ;
           }
-          status1 = status1 + 1;
+          status9 = status9 + 1;
         }
-        //console.log(contracts[0].state);
 
-        res.render('mypage', { total_page, contracts, status1, status2, status3, startDate, endDate, kword });
+        // 각 메뉴의 값들 
+        status3 = status1 + status2;
+        status6 = status4 + status5;
+
+        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword });
+      })
+    );
+
+    // 내정보관리 -  나에게 요청한 창고
+
+    router.get(
+      '/myopage',
+      doAsync(async (req, res) => {
+        let { startDate, endDate, kword } = req.query;
+
+        let status1 = 0;
+        let status2 = 0;
+        let status3 = 0;
+        let status4 = 0;
+        let status5 = 0;
+        let status6 = 0;
+        let status7 = 0;
+        let status8 = 0;
+        let status9 = 0;
+
+        const locale = res.locale;
+
+        const {
+          session: { role, email },
+        } = req;
+        const {
+          query: { keyword, page_num },
+        } = req;
+        let contracts = [];
+        let total_page = 0;
+
+ 
+        // 유저일 경우
+        if (role === 'user') {
+
+            ({count } = await getWarehouses3(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email
+            ));
+        
+            status2 = count;
+        
+            ({count } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email
+            ));
+            
+            status1 = count;
+
+            ({ count, total_page, contracts } = await getMyContracts2(
+              db,
+              email,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate,
+              kword
+            ));
+
+          status4 = count;
+        }  
+        // 관리자일 경우
+        else if (role === 'admin') {
+
+            ({ count } = await getWarehouses3(
+              db,
+              locale,
+              page_num,
+              keyword
+            ));
+
+            status2 = count;
+
+            ({ count } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword
+            ));
+
+            status1 = count;
+          ({ count, total_page, contracts } = await getContracts2(
+            db,
+            locale,
+            page_num,
+            keyword,
+            startDate,
+            endDate,
+            kword
+          ));
+          status6 = count;
+        }
+
+        for(var i = 0 ; i < contracts.length ; i++ ) {
+          if(contracts[i].state == 4) {
+            status7 = status7 + 1;
+          }else if(contracts[i].state == 3) {
+            status8 = status8 + 1 ;
+          }
+          status9 = status9 + 1;
+        }
+
+        // 각 메뉴의 값들 
+        status3 = status1 + status2;
+        status6 = status4 + status5;
+
+        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword });
       })
     );
   
@@ -151,7 +316,12 @@ module.exports = (db) => {
     let status1 = 0;
     let status2 = 0;
     let status3 = 0;
+    let status4 = 0;
+    let status5 = 0;
+    let status6 = 0;
 
+    let warehouses = [];
+    let total_page = 0;
 
     const locale = res.locale;
     const {
@@ -160,39 +330,91 @@ module.exports = (db) => {
     const {
       query: { keyword, page_num },
     } = req;
-    let warehouses = [];
-    let total_page = 0;
+
+    
 
     // 유저일 경우
-    if (role === 'user') {
-      ({ total_page, warehouses } = await getWarehouses2(
-        db,
-        locale,
-        page_num,
-        keyword,
-        email
-      ));
-    }
-    // 관리자일 경우
-    else if (role === 'admin') {
-      ({ total_page, warehouses } = await getWarehouses2(
-        db,
-        locale,
-        page_num,
-        keyword
-      ));
-    }
+   if (role === 'user') {
+    //순서를 잘 정리해야한다.
 
-    for(var i = 0 ; i < warehouses.length ; i++ ) {
-      if(warehouses[i].state == 4) {
-        status2 = status2 + 1;
-      }else if(warehouses[i].state == 3) {
-        status3 = status3 + 1 ;
-      }
-      status1 = status1 + 1;
-    }
+    
+    ({ count } = await getMyContracts2(
+      db,
+      email,
+      locale,
+      page_num,
+      keyword,
+      startDate,
+      endDate,
+      kword
+    ));
 
-    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
+    status4 = count;
+
+    ({count, total_page, warehouses } = await getWarehouses3(
+      db,
+      locale,
+      page_num,
+      keyword,
+      email
+    ));
+
+    status2 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2(
+       db,
+       locale,
+       page_num,
+       keyword,
+       email
+     ));
+     
+     status1 = count;
+
+     
+
+     
+   }
+   // 관리자일 경우
+   else if (role === 'admin') {
+
+    ({ count } = await getContracts2(
+      db,
+      locale,
+      page_num,
+      keyword,
+      startDate,
+      endDate,
+      kword
+    ));
+    
+    status6 = count;
+
+    ({ count, total_page, warehouses } = await getWarehouses3(
+      db,
+      locale,
+      page_num,
+      keyword
+    ));
+
+    status2 = count;
+
+     ({ count, total_page, warehouses } = await getWarehouses2(
+       db,
+       locale,
+       page_num,
+       keyword
+     ));
+
+     status1 = count;
+     
+   }
+
+   status3 = status1 + status2;
+
+   status6 = status4 + status5;
+ 
+    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, status4, status5, status6 ,startDate, endDate, kword  });
   }));
 
    // 내 등록 창고내역
@@ -200,11 +422,15 @@ module.exports = (db) => {
    doAsync(async (req, res) => {
  
      let { startDate, endDate, kword } = req.query;
- 
      let status1 = 0;
      let status2 = 0;
      let status3 = 0;
- 
+     let status4 = 0;
+     let status5 = 0;
+     let status6 = 0;
+
+     let warehouses = [];
+     let total_page = 0;
  
      const locale = res.locale;
      const {
@@ -213,39 +439,85 @@ module.exports = (db) => {
      const {
        query: { keyword, page_num },
      } = req;
-     let warehouses = [];
-     let total_page = 0;
+
+     
  
      // 유저일 경우
-     if (role === 'user') {
-       ({ total_page, warehouses } = await getWarehouses3(
-         db,
-         locale,
-         page_num,
-         keyword,
-         email
-       ));
-     }
-     // 관리자일 경우
-     else if (role === 'admin') {
-       ({ total_page, warehouses } = await getWarehouses3(
-         db,
-         locale,
-         page_num,
-         keyword
-       ));
-     }
+    if (role === 'user') {
+
+      ({ count } = await getMyContracts2(
+        db,
+        email,
+        locale,
+        page_num,
+        keyword,
+        startDate,
+        endDate,
+        kword
+      ));
+  
+      status4 = count;
+
+
+      ({count, total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword,
+        email
+      ));
+      
+      status1 = count;
+
+      ({count, total_page, warehouses } = await getWarehouses3(
+        db,
+        locale,
+        page_num,
+        keyword,
+        email
+      ));
+
+      status2 = count;
+      
+    }
+    // 관리자일 경우
+    else if (role === 'admin') {
+
+      ({ count } = await getContracts2(
+        db,
+        locale,
+        page_num,
+        keyword,
+        startDate,
+        endDate,
+        kword
+      ));
+
+      status4 = count;
+      ({ count, total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword
+      ));
+
+      status1 = count;
+
+      ({ count, total_page, warehouses } = await getWarehouses3(
+        db,
+        locale,
+        page_num,
+        keyword
+      ));
+
+      status2 = count;
+    }
+
+    status3 = status1 + status2;
+    
+    status6 = status4 + status5;
  
-     for(var i = 0 ; i < warehouses.length ; i++ ) {
-       if(warehouses[i].state == 4) {
-         status2 = status2 + 1;
-       }else if(warehouses[i].state == 3) {
-         status3 = status3 + 1 ;
-       }
-       status1 = status1 + 1;
-     }
- 
-     res.render('mywhouse', { total_page, warehouses, status1, status2, status3, startDate, endDate, kword  });
+     res.render('myiwhouse', { total_page, warehouses, status1, status2, status3 , status4, status5, status6 , startDate, endDate, kword  });
    }));
  
 
@@ -267,6 +539,8 @@ module.exports = (db) => {
         ],
       });
 
+      
+
       for (const warehouse of warehouses) {
         warehouse.rent = await getLocalePrice(locale, warehouse.rent);
       }
@@ -284,6 +558,7 @@ module.exports = (db) => {
           name,
         };
       });
+
       
       res.render('search', { warehouses, categories, "keyword" :""});
     })

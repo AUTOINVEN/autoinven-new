@@ -24,46 +24,7 @@
                 <div class="text-center space-y-4">
                     <h3 class="text-2xl font-bold">마이 오토 인벤</h3>
                     <div class="col-span-2 lg:p-10 text-left">
-                        <div class="mypageList space-y-4">
-                            <div class="space-y-2">
-                                <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
-                                    <p class="mypageListTitle font-semibold">내창고</p>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
-                                        <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
-                                    </svg>
-                                </div>
-                                <ul class="space-y-2 myConList">
-                                    <li>
-                                        <a href="/mywhouse">전체(1)</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">등록한 창고(1)</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="border-b-2 border-b-black flex justify-between items-center cursor-pointer myContainer">
-                                        <p class="mypageListTitle font-semibold">계약관리</p>
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet" class="transition duration-300">
-                                            <path xmlns="http://www.w3.org/2000/svg" d="M16.2207159,6.10870583 C16.5916812,5.74209279 16.5932964,5.14609072 16.2243236,4.77749794 C15.8553508,4.40890516 15.2555125,4.40730026 14.8845472,4.77391329 L7.77928409,11.9296701 C7.40827322,12.2963282 7.40670988,12.7039529 7.7757925,13.0725272 L14.8810556,20.2226181 C15.2500929,20.5911471 15.8499315,20.5926484 16.2208326,20.2259713 C16.5917338,19.8592942 16.5932448,19.2632919 16.2242075,18.8947628 L9.75,12.5010986 L16.2207159,6.10870583 Z" transform="translate(12.000000, 12.500000) scale(1, -1) rotate(-270.000000) translate(-12.000000, -12.500000) "></path>
-                                        </svg>
-                                </div>
-                                <ul class="space-y-2 myConList">
-                                    <li>
-                                        <a href="/mypage">전체(<%= status1%>)</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">요청한 창고(<%= status1%>)</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">요청 받은 창고(2)</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a class="space-y-2 border-b-2 border-b-black block" href="/payment">
-                                <p class="mypageListTitle font-semibold">결제 내역</p>
-                            </a>
-                        </div>
+                        <%- include('./partial/leftmenu') %>
                     </div>
                 </div>
                 <script>
@@ -74,20 +35,6 @@
                 </script>
             </div>
             <div class="md:col-span-2 space-y-10">
-                <div class="grid grid-cols-3">
-                    <div class="text-center">
-                        <h1 class="font-bold text-3xl"><%= status1%></h1>
-                        <p class="">계약요청</p>
-                    </div>
-                    <div class="text-center">
-                        <h1 class="text-gray-400 font-bold text-3xl"><%= status2%></h1>
-                        <p class="">계약거절</p>
-                    </div>
-                    <div class="text-center">
-                        <h1 class="text-red-500 font-bold text-3xl"><%= status3%></h1>
-                        <p class="">계약완료</p>
-                    </div>
-                </div>
                 <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">
                     <div class="flex items-center sm:space-x-2">
                         <input type="date" id="start" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= startDate %>" />
@@ -182,13 +129,9 @@
       let prices = '<%= JSON.stringify(warehouses) %>';
       prices = prices.replace(/&#34;/gi, '"');
       prices = JSON.parse(prices);
-      for (let i = 0; i < prices.length; i++) {
-        document.getElementById('contracted_cost' + i).innerText =
-          parseInt(prices[i].price).toLocaleString() +
-          "<%= __('warehousedetail_contract_monetary_unit')%>";
-      }
+      
       location.search.split('&').forEach((query) => {
-        if (query.includes('page_num')) {
+                if (query.includes('page_num')) {
           if (query.split('=').length < 2) {
             page_num = 1;
           } else {

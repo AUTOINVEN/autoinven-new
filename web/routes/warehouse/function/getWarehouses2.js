@@ -227,8 +227,9 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
       conditions
     ));
   }
-
+console.log("1-"+count);
   return {
+    count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     warehouses,
   };

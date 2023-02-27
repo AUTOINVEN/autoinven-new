@@ -231,13 +231,16 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
     ({ count, warehouses } = await getAllWarehouses(
       db,
       locale,
+      user_email,
       offset,
       limit,
       conditions
     ));
   }
 
+  console.log("2-"+count);
   return {
+    count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     warehouses,
   };
