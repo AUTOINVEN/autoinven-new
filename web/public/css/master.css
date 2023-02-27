@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'nanum-l';
-  src: url('/font/NanumSquareL.ttf') format('truetype');
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: normal;
 }
 @font-face {
   font-family: 'nanum-r';
-  src: url('/font/NanumSquareR.ttf') format('truetype');
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: normal;
 }
 @font-face {
   font-family: 'nanum-b';
-  src: url('/font/NanumSquareB.ttf') format('truetype');
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: normal;
 }
 @font-face {
   font-family: 'nanum-eb';
-  src: url('/font/NanumSquareEB.ttf') format('truetype');
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: normal;
 }
 
