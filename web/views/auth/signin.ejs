@@ -10,7 +10,6 @@
   <body>
     <header><%- include('../partial/navbar') %></header>
     <div class="inner">
-      <div class="left">
         <form
           id="sign-form"
           action="/api/auth/signin"
@@ -19,7 +18,7 @@
         >
           <!-- <a class="logo" href="signin"><img src="/image/small_logo.png" /></a> -->
           <!-- <%= __('navbar_signin')%> -->
-          <div class="textdiv">
+          <div class="textdiv" style="padding-top:50px;">
             <h1>
               <p class="main_color"><%= __('signin_sign')%></p>
             </h1>
@@ -64,10 +63,9 @@
             </a>
           </div>
         </form>
-      </div>
-      <div class="right">
+      <!--div class="right">
         <section class="section section--visual"></section>
-      </div>
+      </div-->
     </div>
   </body>
   <script>

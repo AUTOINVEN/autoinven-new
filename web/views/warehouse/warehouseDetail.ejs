@@ -324,7 +324,7 @@
                   <%= __('iot_Monitoring_temp')%>
                 </div>
                 <div class="">
-                  <%= parseInt(DeviceLog.data03,16)%>
+                  <%= parseInt(DeviceLog[0].data03,16)%>
                 </div>
               </div>
               <div class="w-full space-x-10 flex items-center">
@@ -332,7 +332,7 @@
                   <%= __('iot_Monitoring_humi')%>
                 </div>
                 <div class="">
-                    <%= parseInt(DeviceLog.data04,16)%>
+                    <%= parseInt(DeviceLog[0].data04,16)%>
                 </div>
               </div>
               <div class="w-full space-x-10 flex items-center">
@@ -340,7 +340,7 @@
                   <%= __('iot_Monitoring_gas')%>
                 </div>
                 <div class="">
-                  <%= parseInt(DeviceLog.data05,16)%>
+                  <%= parseInt(DeviceLog[0].data05,16)%>
                 </div>
               </div>
               <div class="w-full space-x-10 flex items-center">
@@ -348,7 +348,7 @@
                   <%= __('iot_Monitoring_fire')%>
                 </div>
                 <div class="">
-                  <%= parseInt(DeviceLog.data06,16)%>
+                  <%= parseInt(DeviceLog[0].data06,16)%>
                 </div>
               </div>
               <!-- <div class="w-full space-x-10 flex items-center">
@@ -360,7 +360,12 @@
                 </div>
               </div> -->
             </div>
+            <canvas id="sensorChart" width="200" height="100">
+              This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
           </div>
+
+          
           
           <!--창고 정보 테이블-->
           <!--
@@ -446,6 +451,48 @@
             </tr>
         </table>-->
 
+        <!--인증된 창고일 경우 창고 환경 정보 제공-->
+        <% if(warehouse.iot_url.length) { %>
+        <div style="margin-bottom: 5rem">
+          <div id="environ-title">
+            <h3 class="wh-detail-title" style="display: inline">
+              <%= __('warehousedetail_environ')%>
+            </h3>
+            <% if(user.is_contracted || locals.role == 'admin') { %>
+            <a
+              class="monitoring-link"
+              href="/warehouse/<%= warehouse.warehouse_id %>/iot/monitoring"
+              ><%= __('warehousedetail_monitoring') %></a
+            >
+            <% } %>
+            <div style="display: inline; float: right">
+              <div style="display: inline">
+                <input type="date" id="currentDate" style="width: 10rem" />
+                <input
+                  type="text"
+                  class="datepicker"
+                  id="currentYear"
+                  style="display: none; width: 10rem"
+                />
+              </div>
+              <div style="display: inline">
+                <div id="dayButton" style="display: inline-block">
+                  <%= __('iot_Statistic_DAILY') %>
+                </div>
+                <div id="monthButton" style="display: inline-block">
+                  <%= __('iot_Statistic_MONTHLY') %>
+                </div>
+                <div id="yearButton" style="display: inline-block">
+                  <%= __('iot_Statistic_YEARLY') %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div><%- include('./warehouseDetail_Environment') %></div>
+        </div>
+        <% } %>
+        <!--인증된 창고일 경우 창고 환경 정보 제공-->
+
           <% if(warehouse.is_verified) { %>
           <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
           <% if(user.is_contracted || locals.role == 'admin') { %>
@@ -463,11 +510,12 @@
           <% } %>
 
       </div>
+      
     </div>
   </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const swiper = new Swiper('.swiper', {
       // Optional parameters
@@ -488,5 +536,53 @@
         prevEl: '.warehouse-button-prev',
       },
     });
+
+  var ctx = document.getElementById("sensorChart");
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels:<%- JSON.stringify(labels) %>,
+          datasets: [
+          {
+            label: '온도',
+            data: <%- JSON.stringify(sensor01) %>,
+            borderColor: '#58595b',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          },
+          {
+            label: '습도',
+            data: <%- JSON.stringify(sensor02) %>,
+            borderColor: '#f67019',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          },
+          {
+            label: '가스',
+            data: <%- JSON.stringify(sensor03) %>,
+            borderColor: '#acc236',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          },
+          {
+            label: '불꽃',
+            data: <%- JSON.stringify(sensor04) %>,
+            borderColor: '#f53794',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          }
+          ]
+      },
+      options: {
+          maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+          scales: {
+            y: {
+              type: 'linear',
+              display: true,
+              position: 'left',
+            }
+          }
+      }
+  });
   </script>
 </html>
