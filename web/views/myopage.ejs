@@ -51,9 +51,9 @@
                 </div>
                 <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">
                     <div class="flex items-center sm:space-x-2">
-                        <input type="date" id="start" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= startDate %>" />
+                        <input type="date" id="startdate" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= startDate %>" />
                         <p class="text-gray-400 flex-1 text-center">~</p>
-                        <input type="date" id="end" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= endDate %>" />
+                        <input type="date" id="enddate" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= endDate %>" />
                     </div>
                     <div class="flex items-center space-x-2">
                         <label class="relative flex items-center">
@@ -198,10 +198,10 @@
         },
       });
       $('#search').click(function () {        
-          const start = $('#start').val();
-          const end = $('#end').val();
-          const kword = $('#keyword').val();
-          window.location.href = `/mypage?startDate=${start}&endDate=${end}&kword=${kword}`;
+          let start = $('#startdate').val();
+          let end = $('#enddate').val();
+          let kword = $('#keyword').val();
+          window.location.href = `/myopage?startDate=${start}&endDate=${end}&kword=${kword}`;
       });
     });
 </script>

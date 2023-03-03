@@ -29,22 +29,7 @@ const getConditions = (keyword,email) => {
       [Op.like]: `%${search_keyword}%`,
     },
   });
-  conditions.push({
-    address1_ko: {
-      [Op.like]: `%${search_keyword}%`,
-    },
-  });
-  conditions.push({
-    address1_en: {
-      [Op.like]: `%${search_keyword}%`,
-    },
-  });
-  conditions.push({
-    warehouse_id: {
-      [Op.like]: `%${search_keyword}%`,
-    },
-  });
-  
+   
   return conditions;
 };
 
@@ -199,9 +184,9 @@ const getAllWarehouses = async (db, locale, email, offset, limit, conditions) =>
       };
     }),
   };
-};
+}; 
 
-module.exports = async (db, locale, page_num, keyword, user_email) => {
+module.exports = async (db, locale, page_num, keyword, user_email, kword) => {
   let count = 0;
   let warehouses = [];
   let offset = 0;
@@ -212,10 +197,14 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
     offset = limit * (page_num - 1);
   }
 
-  const conditions = getConditions(keyword , user_email );
+  if(user_email  == "service@autoingroup.com"){
+    user_email = "";
+  }
+
+  const conditions = getConditions(kword , user_email );
 
   // 유저일 경우
-  if (user_email) {
+  if (user_email != "service@autoingroup.com") {
     ({ count, warehouses } = await getAllWarehouses(
       db,
       locale,
