@@ -36,6 +36,7 @@ const getConditions = (keyword, email) => {
 
 
 const getConditions2 = (email, startDate, endDate ) => {
+  var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
 
     let conditions2 = [];
 
@@ -46,14 +47,14 @@ const getConditions2 = (email, startDate, endDate ) => {
        );
 
     }
-    if(startDate){
+    if(regex.test(startDate)){
         conditions2.push({
             start_date: { [Op.gte]: startDate,
             },
         });
 
     }
-    if(endDate){
+    if(regex.test(endDate)){
         conditions2.push({
             end_date: {[Op.lte]: endDate,
             },
@@ -78,12 +79,12 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
   }
 
   console.log(kword);
-  const conditions = getConditions(kword,user_email);
+  const conditions = getConditions(kword, user_email);
   let where_clause;
   if (!conditions.length) {
     where_clause = {};
   } else {
-    where_clause = { [Op.or]: conditions };
+    where_clause = { [Op.and]: conditions };
   }
 
   const conditions2 = getConditions2(user_email, startDate, endDate );
