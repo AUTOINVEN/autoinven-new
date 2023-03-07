@@ -2,6 +2,7 @@ module.exports = (db,session) => {
   const express = require('express');
   const router = express.Router();
   const qs = require('querystring');
+  const fetch = require("node-fetch");
 
   const { doAsync } = require('$base/utils/asyncWrapper');
   const getEncryptedPasswordInfo = require('../signup/function/getEncryptedPasswordInfo');
