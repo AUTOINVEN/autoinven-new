@@ -452,13 +452,14 @@
         </table>-->
 
         <!--인증된 창고일 경우 창고 환경 정보 제공-->
+        <% if(false) { %>
         <% if(warehouse.iot_url.length) { %>
         <div style="margin-bottom: 5rem">
           <div id="environ-title">
             <h3 class="wh-detail-title" style="display: inline">
               <%= __('warehousedetail_environ')%>
             </h3>
-            <% if(user.is_contracted || locals.role == 'admin') { %>
+            <% if(false && (user.is_contracted || locals.role == 'admin')) { %>
             <a
               class="monitoring-link"
               href="/warehouse/<%= warehouse.warehouse_id %>/iot/monitoring"
@@ -491,11 +492,12 @@
           <div></div>
         </div>
         <% } %>
+        <% } %>
         <!--인증된 창고일 경우 창고 환경 정보 제공-->
 
           <% if(warehouse.is_verified) { %>
           <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
-          <% if(user.is_contracted || locals.role == 'admin') { %>
+          <% if(false && (user.is_contracted || locals.role == 'admin')) { %>
           <div id="wh-info-table-div" class="col-span-1">
             <%- include('./warehouseDetail_ItemList')%>
           </div>
