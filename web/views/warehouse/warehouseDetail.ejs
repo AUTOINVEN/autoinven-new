@@ -492,7 +492,7 @@
           <div></div>
         </div>
         <% } %>
-        <% } %>
+          <% } %>
         <!--인증된 창고일 경우 창고 환경 정보 제공-->
 
           <% if(warehouse.is_verified) { %>
@@ -505,11 +505,12 @@
           
           <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
           <% }else { %>
-          </div>
-          <div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20"><%- include('./warehouseDetail_Estimate')%></div>
+          
           <% } %>
           <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
           <% } %>
+        </div>
+          <div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20"><%- include('./warehouseDetail_Estimate')%></div>
 
       </div>
       
