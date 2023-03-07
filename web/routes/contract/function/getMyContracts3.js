@@ -1,11 +1,13 @@
 const { fn, col, Op } = require('sequelize');
 
-const getConditions = (keyword) => {
+const getConditions = (keyword, email) => {
   const regex = / /gi;
   let keywords;
   if (keyword) {
     keywords = [keyword.replace(regex, ''), keyword.trim()];
-  } else {
+  } else if(email) {
+    
+  }else{
     return [];
   }
 
@@ -22,29 +24,37 @@ const getConditions = (keyword) => {
       },
     });
   }
+  if(email){
+
+    conditions.push(
+        {request_email: email},
+   );
+
+}
   return conditions;
 };
 
 
-const getConditions2 = (user_email, startDate, endDate ) => {
+const getConditions2 = (email, startDate, endDate ) => {
+  var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
 
     let conditions2 = [];
 
-    if(user_email){
-
+    if(email){
+        
         conditions2.push(
-            {user_email: user_email},
+            {user_email: email},
        );
 
     }
-    if(!isNaN(startDate)){
+    if(regex.test(startDate)){
         conditions2.push({
             start_date: { [Op.gte]: startDate,
             },
         });
 
     }
-    if(!isNaN(endDate)){
+    if(regex.test(endDate)){
         conditions2.push({
             end_date: {[Op.lte]: endDate,
             },
@@ -68,29 +78,23 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
     offset = limit * (page_num - 1);
   }
 
-  const conditions = getConditions(kword);
+  console.log(kword);
+  const conditions = getConditions(kword, user_email);
   let where_clause;
   if (!conditions.length) {
     where_clause = {};
   } else {
-    where_clause = { [Op.or]: conditions };
+    where_clause = { [Op.and]: conditions };
   }
 
+  const conditions2 = getConditions2(user_email, startDate, endDate );
   let where_clause2;
-  console.log(isNaN(startDate)+"++++++++++++++++++++++++"); 
-  if(startDate != ""){
-
-    const conditions2 = getConditions2(user_email, startDate, endDate );  
-    if (!conditions2.length) {
-      where_clause2 = {};
-    } else {
-      where_clause2 = { [Op.and]: conditions2 };
-    }
-    
+  if (!conditions2.length) {
+    where_clause2 = {};
+  } else {
+    where_clause2 = { [Op.and]: conditions2 };
   }
-  
 
-console.log(where_clause2);
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       'l_contract_id',
@@ -110,7 +114,7 @@ console.log(where_clause2);
         'createdAt',
       ],
     ],
-    where: where_clause2 ,
+   // where: where_clause2 ,
     
     include: {
       model: db.Warehouse,
@@ -126,7 +130,7 @@ console.log(where_clause2);
 
   const count = await db.LeaseContract.count({
     include: { model: db.Warehouse, required: true, where: where_clause },
-    where: { user_email },
+    //where: { user_email },
   });
   
   const contracts = [];
@@ -146,7 +150,6 @@ console.log(where_clause2);
       created_date: contract.createdAt,
     });
   }
-  console.log(contracts);
   return {
     count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,

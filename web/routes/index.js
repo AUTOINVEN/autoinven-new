@@ -1,3 +1,4 @@
+const getContracts3 = require('./contract/function/getContracts3');
 const getWarehousesForMain = require('./warehouse/function/getWarehousesForMain');
 
 module.exports = (db) => {
@@ -8,6 +9,7 @@ module.exports = (db) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const authenticate = require('$base/middlewares/authenticate');
   const getMyContracts2 = require('./contract/function/getMyContracts2');
+  const getMyContracts3 = require('./contract/function/getMyContracts3');
   const getContracts2 = require('./contract/function/getContracts2');
   const getContractDetail = require('./contract/function/getContractDetail');
   const getContracts = require('./contract/function/getContracts');
@@ -89,6 +91,17 @@ module.exports = (db) => {
             
             status1 = count;
 
+            ({ count } = await getMyContracts3(
+              db,
+              email,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate
+            ));
+            status5 = count;
+
             ({ count, total_page, contracts } = await getMyContracts2(
               db,
               email,
@@ -99,8 +112,9 @@ module.exports = (db) => {
               endDate,
               kword
             ));
-
-          status4 = count;
+            status4 = count;
+          
+            
         }  
         // 관리자일 경우
         else if (role === 'admin') {
@@ -118,10 +132,12 @@ module.exports = (db) => {
               db,
               locale,
               page_num,
-              keyword
+              keyword,
+              email
             ));
 
-            status1 = count;
+            status1 = count;   
+
           ({ count, total_page, contracts } = await getContracts2(
             db,
             locale,
@@ -131,7 +147,10 @@ module.exports = (db) => {
             endDate,
             kword
           ));
-          status6 = count;
+          status5 = count;
+          count = 0;
+          total_page = 0;
+          contracts = 0;
         }
 
         for(var i = 0 ; i < contracts.length ; i++ ) {
@@ -167,6 +186,7 @@ module.exports = (db) => {
         let status7 = 0;
         let status8 = 0;
         let status9 = 0;
+    
 
         const locale = res.locale;
 
@@ -200,10 +220,21 @@ module.exports = (db) => {
               keyword,
               email
             ));
-            
             status1 = count;
-
+            
             ({ count, total_page, contracts } = await getMyContracts2(
+              db,
+              email,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate
+            ));
+
+           status4 = count;
+
+            ({ count, total_page, contracts } = await getMyContracts3(
               db,
               email,
               locale,
@@ -213,8 +244,7 @@ module.exports = (db) => {
               endDate,
               kword
             ));
-
-          status4 = count;
+            status5 = count;
         }  
         // 관리자일 경우
         else if (role === 'admin') {
@@ -232,10 +262,12 @@ module.exports = (db) => {
               db,
               locale,
               page_num,
-              keyword
+              keyword,
+              email
             ));
 
             status1 = count;
+
           ({ count, total_page, contracts } = await getContracts2(
             db,
             locale,
@@ -245,7 +277,9 @@ module.exports = (db) => {
             endDate,
             kword
           ));
-          status6 = count;
+          status5 = count;
+
+          
         }
 
         for(var i = 0 ; i < contracts.length ; i++ ) {
@@ -261,7 +295,7 @@ module.exports = (db) => {
         status3 = status1 + status2;
         status6 = status4 + status5;
 
-        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword });
+        res.render('myopage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword });
       })
     );
   
@@ -336,9 +370,19 @@ module.exports = (db) => {
     // 유저일 경우
    if (role === 'user') {
     //순서를 잘 정리해야한다.
-
     
-    ({ count } = await getMyContracts2(
+    status4 = count; ({ count } = await getMyContracts3( // 요청받은 창고
+      db,
+      email,
+      locale,
+      page_num,
+      keyword,
+      startDate,
+      endDate
+    ));
+    status5 = count;
+
+    ({ count, total_page, contracts } = await getMyContracts2( //요청한 창고
       db,
       email,
       locale,
@@ -348,30 +392,28 @@ module.exports = (db) => {
       endDate,
       kword
     ));
-
     status4 = count;
 
-    ({count, total_page, warehouses } = await getWarehouses3(
+    ({count, total_page, warehouses } = await getWarehouses3( //등록한 창고
       db,
       locale,
       page_num,
       keyword,
       email
     ));
-
     status2 = count;
 
-     ({count, total_page, warehouses } = await getWarehouses2(
+     ({count, total_page, warehouses } = await getWarehouses2( //이용중인 창고
        db,
        locale,
        page_num,
        keyword,
-       email
-     ));
-     
+       email,
+       startDate,
+       endDate,
+       kword
+     ));     
      status1 = count;
-
-     
 
      
    }
@@ -382,13 +424,10 @@ module.exports = (db) => {
       db,
       locale,
       page_num,
-      keyword,
-      startDate,
-      endDate,
-      kword
+      keyword
     ));
     
-    status6 = count;
+    status5 = count;
 
     ({ count, total_page, warehouses } = await getWarehouses3(
       db,
@@ -400,10 +439,12 @@ module.exports = (db) => {
     status2 = count;
 
      ({ count, total_page, warehouses } = await getWarehouses2(
-       db,
-       locale,
-       page_num,
-       keyword
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      kword
      ));
 
      status1 = count;
@@ -445,7 +486,18 @@ module.exports = (db) => {
      // 유저일 경우
     if (role === 'user') {
 
-      ({ count } = await getMyContracts2(
+      status4 = count; ({ count } = await getMyContracts3(
+        db,
+        email,
+        locale,
+        page_num,
+        keyword,
+        startDate,
+        endDate
+      ));
+      status5 = count;
+
+      ({ count, total_page, contracts } = await getMyContracts2(
         db,
         email,
         locale,
@@ -455,7 +507,6 @@ module.exports = (db) => {
         endDate,
         kword
       ));
-  
       status4 = count;
 
 
@@ -474,9 +525,10 @@ module.exports = (db) => {
         locale,
         page_num,
         keyword,
-        email
+        email,
+        kword
       ));
-
+        
       status2 = count;
       
     }
@@ -493,12 +545,16 @@ module.exports = (db) => {
         kword
       ));
 
-      status4 = count;
+      status5 = count;
       ({ count, total_page, warehouses } = await getWarehouses2(
         db,
         locale,
         page_num,
-        keyword
+        keyword,
+        email,
+        startDate,
+        endDate,
+        kword
       ));
 
       status1 = count;
@@ -507,8 +563,12 @@ module.exports = (db) => {
         db,
         locale,
         page_num,
-        keyword
+        keyword,
+        email,
+        kword
       ));
+
+      
 
       status2 = count;
     }
@@ -666,12 +726,28 @@ module.exports = (db) => {
         warehouse = await getWarehouseDetail(db, locale, warehouse_id);
       }
 
-      let DeviceLog = await db.DeviceLog.findOne({
+      let DeviceLog = await db.DeviceLog.findAll({
         where: {
           data02: warehouse.sensor_id || 0001,
         },
         order: [ [ 'regdate', 'DESC' ]],
+        limit : 30
       });
+      //console.log(DeviceLog)
+
+      let sensor01 = []
+      let sensor02 = []
+      let sensor03 = []
+      let sensor04 = []
+      let labels = []
+      DeviceLog.forEach((v)=>{
+        sensor01.push(parseInt(v.data03,16))
+        sensor02.push(parseInt(v.data04,16))
+        sensor03.push(parseInt(v.data05,16))
+        sensor04.push(parseInt(v.data06,16))
+        labels.push(timeForToday(v.regdate))
+      })
+
       res.render('warehouse/warehouseDetail', {
         warehouse,
         user: {
@@ -685,8 +761,51 @@ module.exports = (db) => {
           selected_area,
           available_area,
         },
-        DeviceLog
+        DeviceLog,
+        sensor01,
+        sensor02,
+        sensor03,
+        sensor04,
+        labels
       });
+
+      function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+      }
+      function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금전';
+        if (betweenTime < 60) {
+            return `${betweenTime}분전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${betweenTimeHour}시간전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${betweenTimeDay}일전`;
+        }
+
+        return `${Math.floor(betweenTimeDay / 365)}년전`;
+      }
     })
   );
 

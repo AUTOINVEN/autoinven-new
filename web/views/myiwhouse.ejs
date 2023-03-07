@@ -36,11 +36,11 @@
             </div>
             <div class="md:col-span-2 space-y-10">
                 <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">
-                    <div class="flex items-center sm:space-x-2">
+                    <!--div class="flex items-center sm:space-x-2">
                         <input type="date" id="start" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= startDate %>" />
                         <p class="text-gray-400 flex-1 text-center">~</p>
                         <input type="date" id="end" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= endDate %>" />
-                    </div>
+                    </div-->
                     <div class="flex items-center space-x-2">
                         <label class="relative flex items-center">
                             <input type="text" id="keyword" class="border px-3 py-1 text-gray-400 rounded" placeholder="창고명" value="<%= kword %>">
@@ -165,7 +165,7 @@
           const start = $('#start').val();
           const end = $('#end').val();
           const kword = $('#keyword').val();
-          window.location.href = `/mypage?startDate=${start}&endDate=${end}&kword=${kword}`;
+          window.location.href = `/myiwhouse?startDate=${start}&endDate=${end}&kword=${kword}`;
       });
     });
 </script>

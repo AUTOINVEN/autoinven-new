@@ -21,23 +21,41 @@ const getConditions = (keyword) => {
       [Op.like]: `%${search_keyword}%`,
     },
   });
-  conditions.push({
-    address1_ko: {
-      [Op.like]: `%${search_keyword}%`,
-    },
-  });
-  conditions.push({
-    address1_en: {
-      [Op.like]: `%${search_keyword}%`,
-    },
-  });
-  conditions.push({
-    warehouse_id: {
-      [Op.like]: `%${search_keyword}%`,
-    },
-  });
+  
   return conditions;
 };
+
+const getConditions2 = (email, startDate, endDate ) => {
+
+  let conditions2 = [];
+
+  if(email){
+      
+      conditions2.push(
+          {user_email: email},
+      );
+  }
+  conditions2.push({
+    c_state_id: 3
+    
+  });
+
+  if(!isNaN(startDate)){
+      conditions2.push({
+          start_date: { [Op.gte]: startDate,
+          },
+      });
+
+  }
+  if(!isNaN(endDate)){
+      conditions2.push({
+          end_date: {[Op.lte]: endDate,
+          },
+      });
+  }   
+  return conditions2;
+};
+
 
 const getImage = (images) => {
   if (!images || !images.length) {
@@ -54,13 +72,23 @@ const getMyWarehouses = async (
   user_email,
   offset,
   limit,
-  conditions
+  conditions,
+  conditions2
 ) => {
   let where_clause;
+  let where_clause2;
+
   if (!conditions.length) {
     where_clause = {};
   } else {
     where_clause = { [Op.or]: conditions };
+  }
+
+  
+  if (!conditions2.length) {
+    where_clause2 = {};
+  } else {
+    where_clause2 = { [Op.and]: conditions2 };
   }
 
   const contracts_result = await db.LeaseContract.findAll({
@@ -76,7 +104,7 @@ const getMyWarehouses = async (
       'lease_area',
       'createdAt',
     ],
-    where: { user_email, c_state_id: 3 },
+    where:  where_clause2  ,
     include: {
       model: db.Warehouse,
       required: true,
@@ -103,7 +131,7 @@ const getMyWarehouses = async (
 
   const count = await db.LeaseContract.count({
     include: { model: db.Warehouse, required: true, where: where_clause },
-    where: { user_email, c_state_id: 3 },
+    where: conditions2 ,
   });
 
   return {
@@ -138,13 +166,23 @@ const getMyWarehouses = async (
 };
 
 // 모든 창고목록
-const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
+const getAllWarehouses = async (db, locale, offset, limit, conditions, conditions2) => {
+
   let where_clause;
+  let where_clause2;
+
   if (!conditions.length) {
     where_clause = {};
   } else {
     where_clause = { [Op.or]: conditions };
   }
+
+  if (!conditions2.length) {
+    where_clause2 = {};
+  } else {
+    where_clause2 = { [Op.and]: conditions2 };
+  }
+
 
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
@@ -192,7 +230,7 @@ const getAllWarehouses = async (db, locale, offset, limit, conditions) => {
   };
 };
 
-module.exports = async (db, locale, page_num, keyword, user_email) => {
+module.exports = async (db, locale, page_num, keyword, user_email, startDate, endDate, kword) => {
   let count = 0;
   let warehouses = [];
   let offset = 0;
@@ -203,17 +241,23 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
     offset = limit * (page_num - 1);
   }
 
-  const conditions = getConditions(keyword);
+  console.log(user_email);
+
+  const conditions = getConditions(kword);
+  const conditions2 = getConditions2(user_email,startDate, endDate);
+
+  
 
   // 유저일 경우
-  if (user_email) {
+  if (user_email)  {
     ({ count, warehouses } = await getMyWarehouses(
       db,
       locale,
       user_email,
       offset,
       limit,
-      conditions
+      conditions,
+      conditions2
     ));
   }
 
@@ -224,7 +268,8 @@ module.exports = async (db, locale, page_num, keyword, user_email) => {
       locale,
       offset,
       limit,
-      conditions
+      conditions,
+      conditions2
     ));
   }
 console.log("1-"+count);

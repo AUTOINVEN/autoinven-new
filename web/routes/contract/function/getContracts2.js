@@ -10,20 +10,48 @@ const getConditions = (keyword) => {
   }
   let conditions = [];
   conditions.push({
+    // name_ko: {
+    //   [Op.like]: `%${search_keyword[x]}%`,
+    // },
     name_ko: {
-      [Op.like]: `%${search_keyword[x]}%`,
+      [Op.like]: `%${search_keyword}%`,
     },
   });
   conditions.push({
     name_en: {
-      [Op.like]: `%${search_keyword[x]}%`,
+      [Op.like]: `%${search_keyword}%`,
     },
+    // name_en: {
+    //   [Op.like]: `%${search_keyword[x]}%`,
+    // },
   });
   return conditions;
 };
 
+const getConditions2 = ( startDate, endDate ) => {
+
+  var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
+
+  let conditions2 = [];
+
+  if(regex.test(startDate)){
+      conditions2.push({
+          start_date: { [Op.gte]: startDate,
+          },
+      });
+
+  }
+  if(regex.test(endDate)){
+      conditions2.push({
+          end_date: {[Op.lte]: endDate,
+          },
+      });
+  }   
+  return conditions2;
+};
+
 // 모든 계약 목록
-module.exports = async (db, locale, page_num, keyword) => {
+module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -35,14 +63,27 @@ module.exports = async (db, locale, page_num, keyword) => {
     offset = limit * (page_num - 1);
   }
 
-  const conditions = getConditions(keyword);
+  const conditions = getConditions(kword);
   let where_clause;
   if (!conditions.length) {
     where_clause = {};
   } else {
     where_clause = { [Op.or]: conditions };
   }
+  
 
+
+
+  const conditions2 = getConditions2(startDate, endDate );
+  let where_clause2;
+  if (!conditions2.length) {
+    where_clause2 = {};
+  } else {
+    where_clause2 = { [Op.and]: conditions2 };
+  }
+
+  
+ 
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       'l_contract_id',
@@ -62,6 +103,7 @@ module.exports = async (db, locale, page_num, keyword) => {
         'createdAt',
       ],
     ],
+    where : where_clause2,
     include: [
       {
         model: db.Warehouse,
@@ -81,7 +123,8 @@ module.exports = async (db, locale, page_num, keyword) => {
   });
 
   const count = await db.LeaseContract.count({
-    where: where_clause,
+    include: { model: db.Warehouse, required: true, where: where_clause },
+    where: where_clause2,
   });
 
   const contracts = [];
