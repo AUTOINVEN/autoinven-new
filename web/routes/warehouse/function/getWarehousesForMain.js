@@ -12,7 +12,7 @@ module.exports = async (db, locale) => {
   const getFullAddress = require('$base/utils/getFullAddress');
 
   const offset = 0;
-  const limit = 12;
+  const limit = 8;
 
   const warehouses_result = await db.Warehouse.findAll({
     attributes: [
