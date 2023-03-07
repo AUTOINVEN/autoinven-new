@@ -37,7 +37,7 @@
 	"warehousedetail_info": "기본정보",
 	"warehousedetail_space": "면적정보",
 	"warehousedetail_etc": "기타정보",
-	"warehousedetail_sensor": "센서정보 (센서종류)",
+	"warehousedetail_sensor": "센서정보",
 	"warehousedetail_is_docked": "도킹시설",
 	"warehousedetail_is_recked": "파레트 렉",
 	"warehousedetail_elevator": "엘리베이터",
