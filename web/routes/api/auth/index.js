@@ -39,6 +39,7 @@ module.exports = (db) => {
       next(err);
     }
   });
+  router.use('/kakao', require('./kakao')(db));
 
   return router;
 };
