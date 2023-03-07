@@ -28,12 +28,19 @@
           </li>
 
           
-          
+          <% if( !locals.role ) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/search" style="font-size: 1.2rem;">
-              <%= __('navbar_search_warehouse')%>
+            <a class="nav-link" href="/signin" style="font-size: 1.2rem;">
+              <%= __('navbar_warehouse')%>
             </a>
           </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/search" style="font-size: 1.2rem;">
+                <%= __('navbar_warehouse')%>
+              </a>
+            </li>
+          <% } %>
           <!--li class="nav-item">
             <a class="nav-link" href="/search" style="font-size: 1.2rem;">
               <%= __('navbar_warehouse')%>
