@@ -67,7 +67,7 @@
                 <% if(locals.role == 'user') { %>
                     <% for(var i = 0 ; i < warehouses.length ; i++ ) { %>
                         
-                            <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/mywaredetail/<%= warehouses[i].warehouse_id %>">
+                            <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/warehouse/<%= warehouses[i].warehouse_id %>/edit">
                                 <img src="/image/default-image_43.png" class="w-20 h-20">
                                 <div class="space-y-2 flex-1">
                                     <div class="flex justify-between items-center">
@@ -88,7 +88,7 @@
                 <% } else { %>
                     <% for(var i = 0 ; i < warehouses.length ; i++ ) { %>
                         
-                        <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/mywaredetail/<%= warehouses[i].warehouse_id %>">
+                        <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/warehouse/<%= warehouses[i].warehouse_id %>/edit">
                             <img src="/image/default-image_43.png" class="w-20 h-20">
                             <div class="space-y-2 flex-1">
                                 <div class="flex justify-between items-center">

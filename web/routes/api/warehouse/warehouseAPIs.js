@@ -30,7 +30,8 @@ const getNewWarehouse = ({
   is_bounded,
   commercial_lift,
   is_verified,
-  request_email
+  request_email,
+  sensor_id
 }) => ({
   name_ko,
   name_en,
@@ -60,7 +61,9 @@ const getNewWarehouse = ({
   is_bounded,
   commercial_lift,
   is_verified,
-  request_email
+  request_email,
+  sensor_id
+
 });
 
 const getAddressInfo = ({
@@ -127,6 +130,7 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
   warehouse.is_bounded = checkEmpty(warehouse.is_bounded);
   warehouse.commercial_lift = checkEmpty(warehouse.commercial_lift);
   warehouse.request_email = checkEmpty(warehouse.request_email);
+  warehouse.sensor_id = checkEmpty(warehouse.sensor_id);
 
   return warehouse;
 };
@@ -189,7 +193,7 @@ const editWarehouse = async (req, db) => {
   const addressInfo = getAddressInfo(req.body); // 주소 가져오기
   let { deleted_iot_device_ids, added_iot_device_ids } = req.body; // iot 허브 디바이스 아이디들 가져오기
 
-  if (deleted_iot_device_ids === '') {
+/*  if (deleted_iot_device_ids === '') {
     deleted_iot_device_ids = null;
   } else {
     deleted_iot_device_ids.pop();
@@ -198,7 +202,7 @@ const editWarehouse = async (req, db) => {
     added_iot_device_ids = null;
   } else {
     added_iot_device_ids.pop();
-  }
+  } */
   const whFiles = req.files;
   // 주소가 기존에 존재하는지 검색(제약조건 때문)
   let address = await db.Address.findByPk(addressInfo.address);
@@ -229,8 +233,9 @@ const editWarehouse = async (req, db) => {
   // 수정된 창고 사진 재등록
   for (index in whFiles) {
     const { path } = whFiles[index];
+    console.log(path);
     await db.WarehouseImage.create({
-      url: `/${path}`,
+      url: `/${path.replace('\\','/')}`,
       warehouse_id: warehouse_id,
     });
   }
