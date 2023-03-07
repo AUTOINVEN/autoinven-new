@@ -146,9 +146,27 @@ $(document).ready(function () {
     });
   });
 
+  $('#pac-input2').on('keyup', (key) => {
+    if(key.keyCode==13) {
+      let keyword = $('#pac-input2').val();
+      if(!keyword){
+        alert('검색어를 입력해주세요.')
+        $('#pac-input2').focus()
+        return
+      }
+      keyword =  encodeURI(encodeURIComponent(keyword));
+      location.href="/search2/"+keyword;
+    }
+  })
+
   $('.searchBtn').on('click', () => {
 
     let keyword = $('#pac-input2').val();
+    if(!keyword){
+      alert('검색어를 입력해주세요.')
+      $('#pac-input2').focus()
+      return
+    }
     keyword =  encodeURI(encodeURIComponent(keyword));
     location.href="/search2/"+keyword;
     
