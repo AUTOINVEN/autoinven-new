@@ -55,6 +55,7 @@ module.exports = (db) => {
         let status7 = 0;
         let status8 = 0;
         let status9 = 0;
+        let titlename = "요청한 창고";
 
         const locale = res.locale;
 
@@ -166,7 +167,7 @@ module.exports = (db) => {
         status3 = status1 + status2;
         status6 = status4 + status5;
 
-        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword });
+        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename });
       })
     );
 
@@ -186,6 +187,7 @@ module.exports = (db) => {
         let status7 = 0;
         let status8 = 0;
         let status9 = 0;
+        let titlename = "요청 받은 창고";
     
 
         const locale = res.locale;
@@ -295,7 +297,7 @@ module.exports = (db) => {
         status3 = status1 + status2;
         status6 = status4 + status5;
 
-        res.render('myopage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword });
+        res.render('myopage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename });
       })
     );
   
@@ -353,6 +355,7 @@ module.exports = (db) => {
     let status4 = 0;
     let status5 = 0;
     let status6 = 0;
+    let titlename = '이용중인 창고';
 
     let warehouses = [];
     let total_page = 0;
@@ -455,7 +458,7 @@ module.exports = (db) => {
 
    status6 = status4 + status5;
  
-    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, status4, status5, status6 ,startDate, endDate, kword  });
+    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename  });
   }));
 
    // 내 등록 창고내역
@@ -469,6 +472,7 @@ module.exports = (db) => {
      let status4 = 0;
      let status5 = 0;
      let status6 = 0;
+     let titlename = "등록한 창고";
 
      let warehouses = [];
      let total_page = 0;
@@ -577,7 +581,7 @@ module.exports = (db) => {
     
     status6 = status4 + status5;
  
-     res.render('myiwhouse', { total_page, warehouses, status1, status2, status3 , status4, status5, status6 , startDate, endDate, kword  });
+     res.render('myiwhouse', { total_page, warehouses, status1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename  });
    }));
  
 
