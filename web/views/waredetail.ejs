@@ -74,7 +74,18 @@
                     </div>
                     <div class="border p-10 space-y-10 flex justify-center items-center flex-col">
                         <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
-                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-sm">요청중</span>
+                            
+                                <% if(contract_info.c_state_id == 1) {%><!--승인대기중-->
+                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
+                                <% } else if(contract_info.c_state_id == 2) { %> <!--결제대기중-->
+                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
+                                <% } else if(contract_info.c_state_id == 3) {%> <!--계약완료-->
+                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
+                                <% } else if(contract_info.c_state_id == 4) {%> <!--승인거절-->
+                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
+                                <% } else if(contract_info.c_state_id == 5) { %><!--계약만료-->
+                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
+                                <% } %>
                             <p class="text-base">#<%= contract_info.l_contract_id%></p>
                         </div>
                         <div class="grid grid-cols-2 gap-y-2 w-full">
@@ -111,6 +122,15 @@
                             <input class="text-center border text-base" placeholder="기타 사항을 입력해주세요" value="" id="" name="" readonly />
                         </div>
                     </div>
+                        <button class="btn2 btn-submit" onclick="adminApproval('<%= contract_info.l_contract_id%>')">
+                          승인
+                        </button>
+                        <button class="btn2 btn-reject" onclick="adminReject('<%= contract_info.l_contract_id%>')">
+                          거절
+                        </button>
+                        <!--button class="btn2 btn-submit" onclick="adminCompletion('<%= contract_info.l_contract_id%>')">
+                          뒤로가기
+                        </button-->
                 </div>
 
                 <div class="lg:col-span-3 space-y-10">
@@ -188,3 +208,76 @@
         <footer><%- include('partial/footer') %></footer>
     </body>
 </html>
+<script>
+    adminApproval= (item_id)=>{
+    let formdata ={"c_state_id": 2 } // 계약을 결제 대기중 상태로 변경
+   $.ajax({
+      url: '/api/contract/'+item_id,
+      type: 'PUT',
+      data: JSON.stringify(formdata),
+      accepts: 'application/json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        Swal.fire({
+          title: 'SUCCESS',
+          html: `계약 승인을 성공적으로 완료하였습니다.`,
+          icon: 'success',
+        }).then(() => {
+          location.reload();
+        });
+      },
+      error: function (e) {
+          console.log("ERROR : ", e);
+      }
+    })
+    
+  }
+  adminCompletion= (item_id)=>{
+    let formdata ={"c_state_id": 3} // 계약을 완료 상태로 변경
+    $.ajax({
+      url: '/api/contract/'+item_id,
+      type: 'PUT',
+      data: JSON.stringify(formdata),
+      accepts: 'application/json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        Swal.fire({
+          title: 'SUCCESS',
+          html: `계약을 성공적으로 완료하였습니다.`,
+          icon: 'success',
+        }).then(() => {
+          location.reload();
+        });
+      },
+      error: function (e) {
+          console.log("ERROR : ", e);
+      }
+    })
+
+  }
+  adminReject= (item_id)=>{
+    let formdata ={"c_state_id": 4} // 계약을 거절 상태로 변경
+    $.ajax({
+      url: '/api/contract/' + item_id,
+      type: 'PUT',
+      data: JSON.stringify(formdata),
+      accepts: 'application/json',
+      contentType: 'application/json; charset=utf-8',
+      success: function (data) {
+        Swal.fire({
+          title: 'WARNING',
+          html: `계약을 거절하였습니다.`,
+          icon: 'warning',
+        }).then(() => {
+          location.reload();
+        });
+      },
+      error: function (e) {
+          console.log("ERROR : ", e);
+      }
+    })
+
+  }
+
+
+</script>

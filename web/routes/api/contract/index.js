@@ -25,7 +25,7 @@ module.exports = (db) => {
   // 2) 계약 승인(2), 계약완료(3), 승인 거절(4)
   router.put(
     '/:contract_id',
-    authorizeAdmin,
+    //authorizeAdmin,
     doAsync(async (req, res) => {
       const contractId = req.params.contract_id;
       const { c_state_id } = req.body;

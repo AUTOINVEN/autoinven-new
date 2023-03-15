@@ -305,6 +305,16 @@ h6,
   color: white;
 }
 
+.btn2 {
+  font-weight: 400;
+  font-size: 0.9em;
+  line-height: 1.2em;
+  border-radius: 0.7rem;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 .btn:hover {
   color: white;
   box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.4);
