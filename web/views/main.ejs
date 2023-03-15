@@ -9,30 +9,41 @@
   <body>
     <header><%- include('./partial/navbar') %></header>
     <div class="main">
-      <h1 class="title">
-        <%= __('main_title') %>
-        <br />
-        <%= __('main_title1') %>
-      </h1>
-
-      <p class="slogan">
-        <%= __('main_slogan') %>
-        <br />
-        <%= __('main_slogan1') %>
-        <br />
-        <%= __('main_slogan2') %>
-      </p>
-
-      <div class="swiper swiper1" style="margin-top: 3rem">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="image/slide_1.png" />
+      <div class="container-fluid" style="background:transparent;">
+        <div class="mleft">
+          <p class="slogan">
+            <%= __('main_title') %>
+            <br />
+            <%= __('main_title1') %><strong><%= __('main_title2') %></strong>
+          </p>
+    
+          <div class="swiper swiper1" style="margin-top: 3rem">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="image/slide_1.png" />
+              </div>
+              <div class="swiper-slide">
+                <img src="image/slide_2.png" />
+              </div>
+              <div class="swiper-slide">
+                <img src="image/slide_3.png" />
+              </div>
+            </div>
           </div>
-          <div class="swiper-slide">
-            <img src="image/slide_2.png" />
-          </div>
-          <div class="swiper-slide">
-            <img src="image/slide_3.png" />
+        </div>
+        <div class="mright">
+          <div class="swiper visual_slide" style="margin-top: 3rem">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="image/visual01.jpg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="image/visual02.jpg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="image/visual03.jpg" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -189,6 +200,12 @@
     const swiper_title = new Swiper('.swiper1', {
       // Optional parametersq
       direction: 'horizontal',
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+    });
+    const visual_slide = new Swiper('.visual_slide', {
       loop: true,
       autoplay: {
         delay: 5000,
