@@ -88,8 +88,8 @@ module.exports = (db) => {
   // 7) 창고 수정 관리자
   router.put(
     '/:warehouse_id',
-    authenticate,
-    authorizeAdmin,
+    //authenticate,
+    //authorizeAdmin,
     upload.array('images', 6),
     doAsync(async (req, res, next) => {  
       const result = await warehouseAPIs.editWarehouse(req, db);

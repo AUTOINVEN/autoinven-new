@@ -486,7 +486,7 @@ module.exports = (db) => {
      // 유저일 경우
     if (role === 'user') {
 
-      status4 = count; ({ count } = await getMyContracts3(
+      ({ count } = await getMyContracts3(
         db,
         email,
         locale,
