@@ -123,11 +123,16 @@
                         </div>
                     </div>
                         <button class="btn2 btn-submit" onclick="adminApproval('<%= contract_info.l_contract_id%>')">
-                          승인
+                          계약요청
                         </button>
                         <button class="btn2 btn-reject" onclick="adminReject('<%= contract_info.l_contract_id%>')">
-                          거절
+                          계약거절
                         </button>
+                        <button class="btn2 btn-reject" onclick="adminCompletion('<%= contract_info.l_contract_id%>')">
+                          계약완료
+                        </button>
+                        
+
                         <!--button class="btn2 btn-submit" onclick="adminCompletion('<%= contract_info.l_contract_id%>')">
                           뒤로가기
                         </button-->

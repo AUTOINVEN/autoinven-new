@@ -57,10 +57,11 @@ module.exports = (db) => {
         let status9 = 0;
         let titlename = "요청한 창고";
 
+       
         const locale = res.locale;
 
         const {
-          session: { role, email },
+          session: { role, email , name},
         } = req;
         const {
           query: { keyword, page_num },
@@ -167,7 +168,7 @@ module.exports = (db) => {
         status3 = status1 + status2;
         status6 = status4 + status5;
 
-        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename });
+        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename, name });
       })
     );
 
