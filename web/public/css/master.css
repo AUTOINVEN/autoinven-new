@@ -1,4 +1,10 @@
 @font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
   font-family: 'nanum-l';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: normal;
@@ -26,7 +32,7 @@
 }
 
 html {
-  font-family: 'nanum-r';
+  font-family: 'Pretendard-Regular','nanum-r';
   font-size: 14px;
   line-height: 1.15;
   box-sizing: border-box;
@@ -38,7 +44,7 @@ html {
 body {
   color: #2c2c2c;
   font-size: 14px;
-  font-family: 'nanum-r';
+  font-family: 'Pretendard-Regular','nanum-r';
   overflow-x: hidden;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

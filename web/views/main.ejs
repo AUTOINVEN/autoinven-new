@@ -28,11 +28,20 @@
           <div class="swiper-slide">
             <img src="image/slide_1.png" />
           </div>
-          <div class="swiper-slide">
-            <img src="image/slide_2.png" />
-          </div>
-          <div class="swiper-slide">
-            <img src="image/slide_3.png" />
+        </div>
+        <div class="mright">
+          <div class="swiper visual_slide" style="margin-top: 3rem">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="image/visual01.jpg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="image/visual02.jpg" />
+              </div>
+              <div class="swiper-slide">
+                <img src="image/visual03.jpg" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -189,6 +198,12 @@
     const swiper_title = new Swiper('.swiper1', {
       // Optional parametersq
       direction: 'horizontal',
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+    });
+    const visual_slide = new Swiper('.visual_slide', {
       loop: true,
       autoplay: {
         delay: 5000,
