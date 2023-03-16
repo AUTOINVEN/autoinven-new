@@ -6,7 +6,7 @@ h3.enroll-warehouse-title {
 h4.enroll-warehouse-sub-title {
   font-size: 2rem;
   font-family: 'nanum-b';
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 .image-preview {
   width: 100%;
@@ -84,4 +84,22 @@ td.info-table-td {
 #add-device {
   background-color: #7c139a;
   padding: 0rem 0.6rem 0rem 0.6rem;
+}
+
+.enroll-warehouse-tab-wrap {
+  display:flex;
+  border-bottom:1px solid #efefef;
+}
+
+.enroll-warehouse-tab-wrap .enroll-warehouse-tab {
+  text-decoration: none;
+  padding:10px 20px;
+  font-size:1.5rem;
+  color:#957616;
+}
+
+.enroll-warehouse-tab-wrap .enroll-warehouse-tab.active {
+  border-bottom:2px solid #666;
+  color:#222;
+  font-weight:700;
 }

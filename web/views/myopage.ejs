@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="<%= __('locale') %>">
+  <head>
+    <meta charset="UTF-8" />
+    <%- include('head') %>
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/mypage.css" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <header style="z-index: 1000"><%- include('partial/navbar') %></header>
+    <div class="inner img">
+        <p class="lnb_text text-white   "><%= titlename%></p>
+    </div>
+    <div class="inner main sm:px-10 container px-2">
+        <div class="grid md:grid-cols-3 w-full md:gap-x-10 md:gap-y-0 gap-y-10 py-20">
+            <div class="col-span-1 space-y-10">
+                <div class="profile_img">
+                    <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-block mx-auto bg-dark rounded-circle">
+                        <path d="M100 100C118.417 100 133.333 85.0833 133.333 66.6667C133.333 48.25 118.417 33.3333 100 33.3333C81.5833 33.3333 66.6667 48.25 66.6667 66.6667C66.6667 85.0833 81.5833 100 100 100ZM100 116.667C77.75 116.667 33.3333 127.833 33.3333 150V166.667H166.667V150C166.667 127.833 122.25 116.667 100 116.667Z" fill="#fff"/>
+                    </svg>
+                </div>
+                <div class="text-center space-y-4">
+                    <h3 class="text-2xl font-bold">마이 오토 인벤</h3>
+                    <div class="col-span-2 lg:p-10 text-left">
+                        <%- include('./partial/leftmenu') %>
+                    </div>
+                </div>
+                <script>
+                    $('.myContainer').click(function(){
+                        $(this).children('svg').toggleClass('rotate-180');
+                        $(this).next('.myConList').slideToggle();
+                    });
+                </script>
+            </div>
+            <div class="md:col-span-2 space-y-10">
+                <div class="grid grid-cols-3">
+                    <div class="text-center">
+                        <h1 class="font-bold text-3xl"><%= status9%></h1>
+                        <p class="">계약요청</p>
+                    </div>
+                    <div class="text-center">
+                        <h1 class="text-gray-400 font-bold text-3xl"><%= status7%></h1>
+                        <p class="">계약거절</p>
+                    </div>
+                    <div class="text-center">
+                        <h1 class="text-red-500 font-bold text-3xl"><%= status8%></h1>
+                        <p class="">계약완료</p>
+                    </div>
+                </div>
+                <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">
+                    <div class="flex items-center sm:space-x-2">
+                        <input type="date" id="startdate" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= startDate %>" />
+                        <p class="text-gray-400 flex-1 text-center">~</p>
+                        <input type="date" id="enddate" class="border px-3 py-1 text-gray-400 rounded flex-auto" value="<%= endDate %>" />
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <label class="relative flex items-center">
+                            <input type="text" id="keyword" class="border px-3 py-1 text-gray-400 rounded" placeholder="창고명" value="<%= kword %>">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" height="18" width="18" fill="#cccccc" class="absolute right-3">
+                                <g>
+                                    <path d="M17.545 15.467l-3.779-3.779a6.15 6.15 0 0 0 .898-3.21c0-3.417-2.961-6.377-6.378-6.377A6.185 6.185 0 0 0 2.1 8.287c0 3.416 2.961 6.377 6.377 6.377a6.15 6.15 0 0 0 3.115-.844l3.799 3.801a.953.953 0 0 0 1.346 0l.943-.943c.371-.371.236-.84-.135-1.211zM4.004 8.287a4.282 4.282 0 0 1 4.282-4.283c2.366 0 4.474 2.107 4.474 4.474a4.284 4.284 0 0 1-4.283 4.283c-2.366-.001-4.473-2.109-4.473-4.474z"></path>
+                                </g>
+                            </svg>
+                        </label>
+                        <button  id="search" class="rounded border px-3 py-1 text-gray-400 hover:bg-gray-500 hover:text-white hover:border-gray-500" type="button">검색</button>
+                    </div>
+                </div>
+                <!--
+                <div class="p-10 flex border justify-center items-center h-[600px] rounded-lg">
+                    <p class="text-base">요청한 창고가 없습니다.</p>
+                </div>
+                -->
+                <div class="p-7 border min-h-[600px] rounded-lg space-y-5">
+                <% if(locals.role == 'user') { %>
+                    <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
+                        
+                            <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/waredetail/<%=contracts[i].id%>">
+                                <img src="/image/default-image_43.png" class="w-20 h-20">
+                                <div class="space-y-2 flex-1">
+                                    <div class="flex justify-between items-center">
+                                        <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
+                                            <% if(contracts[i].state == 1) {%><!--승인대기중-->
+                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
+                                            <% } else if(contracts[i].state == 2) { %> <!--결제대기중-->
+                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
+                                            <% } else if(contracts[i].state == 3) {%> <!--계약완료-->
+                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
+                                            <% } else if(contracts[i].state == 4) {%> <!--승인거절-->
+                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
+                                            <% } else if(contracts[i].state == 5) { %><!--계약만료-->
+                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
+                                            <% } %>
+                                            <p class="text-sm">#<%= contracts[i].id %></p>
+                                        </div>
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10 6.25C9.75277 6.25 9.5111 6.17669 9.30554 6.03934C9.09998 5.90199 8.93976 5.70676 8.84515 5.47835C8.75054 5.24995 8.72579 4.99861 8.77402 4.75614C8.82225 4.51366 8.9413 4.29093 9.11612 4.11612C9.29093 3.9413 9.51366 3.82225 9.75614 3.77402C9.99861 3.72579 10.2499 3.75054 10.4784 3.84515C10.7068 3.93976 10.902 4.09998 11.0393 4.30554C11.1767 4.5111 11.25 4.75277 11.25 5C11.25 5.33152 11.1183 5.64946 10.8839 5.88388C10.6495 6.1183 10.3315 6.25 10 6.25ZM11.25 15C11.25 14.7528 11.1767 14.5111 11.0393 14.3055C10.902 14.1 10.7068 13.9398 10.4784 13.8452C10.2499 13.7505 9.99861 13.7258 9.75614 13.774C9.51366 13.8223 9.29093 13.9413 9.11612 14.1161C8.9413 14.2909 8.82225 14.5137 8.77402 14.7561C8.72579 14.9986 8.75054 15.2499 8.84515 15.4784C8.93976 15.7068 9.09997 15.902 9.30554 16.0393C9.5111 16.1767 9.75277 16.25 10 16.25C10.3315 16.25 10.6495 16.1183 10.8839 15.8839C11.1183 15.6495 11.25 15.3315 11.25 15ZM11.25 10C11.25 9.75277 11.1767 9.5111 11.0393 9.30554C10.902 9.09998 10.7068 8.93976 10.4784 8.84515C10.2499 8.75054 9.99861 8.72579 9.75614 8.77402C9.51366 8.82225 9.29093 8.9413 9.11612 9.11612C8.9413 9.29093 8.82225 9.51366 8.77402 9.75614C8.72579 9.99861 8.75054 10.2499 8.84515 10.4784C8.93976 10.7068 9.09997 10.902 9.30554 11.0393C9.5111 11.1767 9.75277 11.25 10 11.25C10.3315 11.25 10.6495 11.1183 10.8839 10.8839C11.1183 10.6495 11.25 10.3315 11.25 10V10Z" fill="#666666"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="text-xl font-semibold"><%= contracts[i].name %></h4>
+                                    <div class="flex justify-between">
+                                        <h6 class="text-base"><%= contracts[i].address %></h6>
+                                        <p class="text-base" id="contracted_cost<%=i%>">원</p>
+                                    </div>
+                                </div>
+                            </a>                    
+                    <% }%>
+                    
+                <% } else { %>
+                    <% for(var i = 0 ; i < contracts.length ; i++ ) { %>
+                        
+                        <a class="border p-4 sm:flex items-center sm:space-x-4 sm:space-y-0 space-y-4 hover:text-[#2c2c2c]" href="/waredetail/<%=contracts[i].id%>">
+                            <img src="/image/default-image_43.png" class="w-20 h-20">
+                            <div class="space-y-2 flex-1">
+                                <div class="flex justify-between items-center">
+                                    <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
+                                        <% if(contracts[i].state == 1) {%><!--승인대기중-->
+                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
+                                        <% } else if(contracts[i].state == 2) { %> <!--결제대기중-->
+                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
+                                        <% } else if(contracts[i].state == 3) {%> <!--계약완료-->
+                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
+                                        <% } else if(contracts[i].state == 4) {%> <!--승인거절-->
+                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
+                                        <% } else if(contracts[i].state == 5) { %><!--계약만료-->
+                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
+                                        <% } %>
+                                        <p class="text-sm">#<%= contracts[i].id %></p>
+                                    </div>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 6.25C9.75277 6.25 9.5111 6.17669 9.30554 6.03934C9.09998 5.90199 8.93976 5.70676 8.84515 5.47835C8.75054 5.24995 8.72579 4.99861 8.77402 4.75614C8.82225 4.51366 8.9413 4.29093 9.11612 4.11612C9.29093 3.9413 9.51366 3.82225 9.75614 3.77402C9.99861 3.72579 10.2499 3.75054 10.4784 3.84515C10.7068 3.93976 10.902 4.09998 11.0393 4.30554C11.1767 4.5111 11.25 4.75277 11.25 5C11.25 5.33152 11.1183 5.64946 10.8839 5.88388C10.6495 6.1183 10.3315 6.25 10 6.25ZM11.25 15C11.25 14.7528 11.1767 14.5111 11.0393 14.3055C10.902 14.1 10.7068 13.9398 10.4784 13.8452C10.2499 13.7505 9.99861 13.7258 9.75614 13.774C9.51366 13.8223 9.29093 13.9413 9.11612 14.1161C8.9413 14.2909 8.82225 14.5137 8.77402 14.7561C8.72579 14.9986 8.75054 15.2499 8.84515 15.4784C8.93976 15.7068 9.09997 15.902 9.30554 16.0393C9.5111 16.1767 9.75277 16.25 10 16.25C10.3315 16.25 10.6495 16.1183 10.8839 15.8839C11.1183 15.6495 11.25 15.3315 11.25 15ZM11.25 10C11.25 9.75277 11.1767 9.5111 11.0393 9.30554C10.902 9.09998 10.7068 8.93976 10.4784 8.84515C10.2499 8.75054 9.99861 8.72579 9.75614 8.77402C9.51366 8.82225 9.29093 8.9413 9.11612 9.11612C8.9413 9.29093 8.82225 9.51366 8.77402 9.75614C8.72579 9.99861 8.75054 10.2499 8.84515 10.4784C8.93976 10.7068 9.09997 10.902 9.30554 11.0393C9.5111 11.1767 9.75277 11.25 10 11.25C10.3315 11.25 10.6495 11.1183 10.8839 10.8839C11.1183 10.6495 11.25 10.3315 11.25 10V10Z" fill="#666666"/>
+                                    </svg>
+                                </div>
+                                <h4 class="text-xl font-semibold"><%= contracts[i].name %></h4>
+                                <div class="flex justify-between">
+                                    <h6 class="text-base"><%= contracts[i].address %></h6>
+                                    <p class="text-base" id="contracted_cost<%=i%>">원</p>
+                                </div>
+                            </div>
+                        </a>                    
+                <% }%>    
+                <% } %>
+                
+            </div>
+
+             
+                <div style="display: flex; justify-content: center">
+                    <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <footer><%- include('partial/footer') %></footer>
+  </body>
+</html>
+<script>
+     $(document).ready(function () {
+      let page_num;
+      let prices = '<%= JSON.stringify(contracts) %>';
+      prices = prices.replace(/&#34;/gi, '"');
+      prices = JSON.parse(prices);
+      for (let i = 0; i < prices.length; i++) {
+        document.getElementById('contracted_cost' + i).innerText =
+          parseInt(prices[i].price).toLocaleString() +
+          "<%= __('warehousedetail_contract_monetary_unit')%>";
+      }
+      location.search.split('&').forEach((query) => {
+        if (query.includes('page_num')) {
+          if (query.split('=').length < 2) {
+            page_num = 1;
+          } else {
+            page_num = query.split('=')[1];
+          }
+        } else {
+          page_num = 1;
+        }
+      });
+
+      $('#pagination').twbsPagination({
+        totalPages: parseInt('<%= total_page %>'),
+        visiblePages: 5,
+        initiateStartPageClick: false,
+        prev: '<',
+        next: '>',
+        first: '«',
+        last: '»',
+        startPage: parseInt(page_num),
+        onPageClick: function (event, page) {
+          let keyword = '';
+          location.search.split('&').forEach((query) => {
+            if (query.includes('keyword')) {
+              keyword = query.split('=')[1];
+            }
+          });
+          window.location.href = `/myopage?keyword=${keyword}&page_num=${page}`;
+        },
+      });
+      $('#search').click(function () {        
+          let start = $('#startdate').val();
+          let end = $('#enddate').val();
+          let kword = $('#keyword').val();
+          window.location.href = `/myopage?startDate=${start}&endDate=${end}&kword=${kword}`;
+      });
+    });
+</script>

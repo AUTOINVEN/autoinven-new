@@ -28,15 +28,22 @@
           </li>
 
           
-          
+          <% if( !locals.role ) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/search" style="font-size: 1.2rem;">
-              <%= __('navbar_search_warehouse')%>
+            <a class="nav-link" href="/signin" style="font-size: 1.2rem;">
+              <%= __('navbar_warehouse')%>
             </a>
           </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/warehouse/enroll" style="font-size: 1.2rem;">
+                <%= __('navbar_warehouse')%>
+              </a>
+            </li>
+          <% } %>
           <li class="nav-item">
             <a class="nav-link" href="/search" style="font-size: 1.2rem;">
-              <%= __('navbar_warehouse')%>
+              창고보기
             </a>
           </li>
             <% if( locals.role === 'user') { %>
@@ -53,23 +60,29 @@
               </li-->
             <% } else if(locals.role === 'admin') { %>
               <li class="nav-item">
-                <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
-                  <%= __('navbar_manage_warehouse')%>
+                <a class="nav-link" href="/mypage" style="font-size: 1.2rem;">
+                  마이페이지
                 </a>
               </li>
+              <!--li class="nav-item">
+                <a class="nav-link" href="/warehouse" style="font-size: 1.2rem;">
+                  <%= __('navbar_my_warehouse')%>
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a class="nav-link" href="/contract" style="font-size: 1.2rem;">
                   <%= __('navbar_manage_contract')%>
                 </a>
-              </li>
+              </li-->
             <% } %>
           
           <% if(locals.role) { %>
-            <li class="nav-item">
+            <!--li class="nav-item">
               <a class="nav-link" href="/myinfo" style="font-size: 1.2rem;">
                 <%= __('navbar_myinfo')%>
               </a>
-            </li>
+            </li-->
             <% } %>
           <% if( !locals.role ) { %>
           <li class="nav-item">
@@ -133,9 +146,27 @@ $(document).ready(function () {
     });
   });
 
+  $('#pac-input2').on('keyup', (key) => {
+    if(key.keyCode==13) {
+      let keyword = $('#pac-input2').val();
+      if(!keyword){
+        alert('검색어를 입력해주세요.')
+        $('#pac-input2').focus()
+        return
+      }
+      keyword =  encodeURI(encodeURIComponent(keyword));
+      location.href="/search2/"+keyword;
+    }
+  })
+
   $('.searchBtn').on('click', () => {
 
     let keyword = $('#pac-input2').val();
+    if(!keyword){
+      alert('검색어를 입력해주세요.')
+      $('#pac-input2').focus()
+      return
+    }
     keyword =  encodeURI(encodeURIComponent(keyword));
     location.href="/search2/"+keyword;
     

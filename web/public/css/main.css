@@ -1,15 +1,15 @@
 
 .main {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background: url('/image/mainbg.png');
+  background: url(/image/mainbg.png);
   height: 50rem;
   color: #fff;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
-  justify-content:center;
+  height: 80vh;
+  justify-content: center;
 }
 
 .main > div {
@@ -124,7 +124,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10rem 0 10rem 15rem;
+  padding: 10rem 0 10rem 0;
   height: 22rem;
   background: url('/image/bg_2.png');
   background-repeat: no-repeat;
@@ -134,12 +134,14 @@
 .enroll .title {
   color: #fff;
   font-weight: 600;
+  text-align:center;
 }
 
 .enroll .content {
   color: #fff;
   font-size: 1.4rem;
   margin-bottom: 2rem;
+  text-align:center;
 }
 
 .enroll .btn {
@@ -205,16 +207,16 @@
   font-weight: 600;
   text-align: center;
   color: #fff;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 }
 
 .signup .btn {
   background: #fff;
   color: purple;
   border-radius: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  width: 14rem;
+  width: 18rem;
 }
 
 .autoinven {

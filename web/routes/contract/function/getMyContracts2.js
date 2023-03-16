@@ -9,7 +9,6 @@ const getConditions = (keyword) => {
     return [];
   }
 
-  console.log(keywords);
   let conditions = [];
   for (x in keywords) {
     conditions.push({
@@ -38,14 +37,14 @@ const getConditions2 = (user_email, startDate, endDate ) => {
        );
 
     }
-    if(startDate){
+    if(!isNaN(startDate)){
         conditions2.push({
             start_date: { [Op.gte]: startDate,
             },
         });
 
     }
-    if(endDate){
+    if(!isNaN(endDate)){
         conditions2.push({
             end_date: {[Op.lte]: endDate,
             },
@@ -77,13 +76,19 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
     where_clause = { [Op.or]: conditions };
   }
 
-  const conditions2 = getConditions2(user_email, startDate, endDate );
   let where_clause2;
-  if (!conditions2.length) {
-    where_clause2 = {};
-  } else {
-    where_clause2 = { [Op.and]: conditions2 };
+  console.log(isNaN(startDate)+"++++++++++++++++++++++++"); 
+  if(startDate != ""){
+
+    const conditions2 = getConditions2(user_email, startDate, endDate );  
+    if (!conditions2.length) {
+      where_clause2 = {};
+    } else {
+      where_clause2 = { [Op.and]: conditions2 };
+    }
+    
   }
+  
 
 console.log(where_clause2);
   const contracts_result = await db.LeaseContract.findAll({
@@ -143,6 +148,7 @@ console.log(where_clause2);
   }
   console.log(contracts);
   return {
+    count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     contracts,
   };

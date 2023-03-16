@@ -317,12 +317,12 @@
       <div>
         <h4 class="enroll-warehouse-sub-title">
           IOT 디바이스
-          <button id="add-device" class="btn" onclick="addDevice()">
+          <!--button id="add-device" class="btn" onclick="addDevice()">
             <img
               src="/image/icon/plus-solid-white.svg"
               class="add-device-icon"
             />
-          </button>
+          </button-->
         </h4>
 
         <table id="iot-device-table" class="table info-table">
@@ -619,7 +619,7 @@
 
         let input_device_ids = [];
         let cur_device_ids = '<%= JSON.stringify(warehouse)%>';
-        console.log(cur_device_ids);
+  /*      console.log(cur_device_ids);
         cur_device_ids = cur_device_ids.replaceAll(/\n|\r\n/gi, '\\r\\n');
         cur_device_ids = cur_device_ids.replace(/&#34;/gi, '"');
         cur_device_ids = JSON.parse(cur_device_ids).devices.map((device) => {
@@ -630,7 +630,7 @@
           if (item.value.trim() != '') {
             input_device_ids.push(item.value);
           }
-        });
+        }); */
 
         formdata.append('name_ko', $('#name_ko')[0].value);
         formdata.append('name_en', $('#name_en')[0].value);
@@ -640,6 +640,7 @@
         );
         formdata.append('rent', $('#rent')[0].value);
         formdata.append('address1_ko', $('#address1_ko')[0].value);
+        formdata.append('sensor_id', $('#device-id')[0].value);
         formdata.append('address1_en', $('#address1_en')[0].value);
         formdata.append('address2_ko', $('#address2_ko')[0].value);
         formdata.append('address2_en', $('#address2_en')[0].value);
@@ -670,7 +671,7 @@
         sel_files.forEach((file) => {
           formdata.append('images', file);
         });
-
+ /*
         let for_delete = cur_device_ids.filter(
           (x) => !input_device_ids.includes(x)
         );
@@ -678,7 +679,7 @@
           (x) => !cur_device_ids.includes(x)
         );
 
-        for_delete.forEach((id) => {
+       for_delete.forEach((id) => {
           formdata.append('deleted_iot_device_ids, ', id);
         });
         formdata.append('deleted_iot_device_ids', '');
@@ -692,7 +693,7 @@
           console.log(item[0] + ' : ' + item[1]);
         }
         console.log('hi');
-
+*/
         $.ajax({
           //url: server_url + 'api/warehouse',
           url: '/api/warehouse/' + '<%= warehouse.warehouse_id %>',
@@ -709,7 +710,7 @@
               title: '<%= __("success") %>',
               text: '창고가 등록 되었습니다..',
             }).then(function () {
-              window.location.href = '/warehouse';
+              window.location.href = '/myiwhouse';
             });
           },
           error: function (e) {

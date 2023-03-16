@@ -138,7 +138,7 @@
         <button class="w-full h-10 btn-grey" id="more_button">더보기</button>
       </div>
     </div>
-    <button id="test" onclick="alert('Click!');">Click Me</button>
+    <!-- <button id="test" onclick="alert('Click!');">Click Me</button> -->
   </body>
 </html>
 <script type="text/javascript">
@@ -146,6 +146,7 @@
 
   // 창고 정보 가져오기
   let _warehouses = '<%= JSON.stringify(warehouses) %>';
+
 
   _warehouses = _warehouses.replaceAll(`&#34;`, '"');
   _warehouses = _warehouses.replaceAll(/\n|\r\n/gi, '\\r\\n');

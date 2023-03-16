@@ -181,7 +181,7 @@
                   
                 </div>
               </div>
-              <div class="w-full space-x-10 flex items-center">
+              <div class="w-full space-x-10 flex items-center col-span-2">
                 <div class="bg-[#F5F5F5] rounded-full sm:w-[130px] w-[100px] text-center !py-2">
                   <%= __('contractRequestDetail_wh_address')%>
                 </div>
@@ -324,7 +324,7 @@
                   <%= __('iot_Monitoring_temp')%>
                 </div>
                 <div class="">
-                  <%= parseInt(DeviceLog.data03,16)%>
+                  <%= parseInt(DeviceLog[0].data03,16)%>
                 </div>
               </div>
               <div class="w-full space-x-10 flex items-center">
@@ -332,7 +332,7 @@
                   <%= __('iot_Monitoring_humi')%>
                 </div>
                 <div class="">
-                    <%= parseInt(DeviceLog.data04,16)%>
+                    <%= parseInt(DeviceLog[0].data04,16)%>
                 </div>
               </div>
               <div class="w-full space-x-10 flex items-center">
@@ -340,7 +340,7 @@
                   <%= __('iot_Monitoring_gas')%>
                 </div>
                 <div class="">
-                  <%= parseInt(DeviceLog.data05,16)%>
+                  <%= parseInt(DeviceLog[0].data05,16)%>
                 </div>
               </div>
               <div class="w-full space-x-10 flex items-center">
@@ -348,7 +348,7 @@
                   <%= __('iot_Monitoring_fire')%>
                 </div>
                 <div class="">
-                  <%= parseInt(DeviceLog.data06,16)%>
+                  <%= parseInt(DeviceLog[0].data06,16)%>
                 </div>
               </div>
               <!-- <div class="w-full space-x-10 flex items-center">
@@ -360,7 +360,12 @@
                 </div>
               </div> -->
             </div>
+            <canvas id="sensorChart" width="200" height="100">
+              This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
           </div>
+
+          
           
           <!--창고 정보 테이블-->
           <!--
@@ -446,9 +451,53 @@
             </tr>
         </table>-->
 
+        <!--인증된 창고일 경우 창고 환경 정보 제공-->
+        <% if(false) { %>
+        <% if(warehouse.iot_url.length) { %>
+        <div style="margin-bottom: 5rem">
+          <div id="environ-title">
+            <h3 class="wh-detail-title" style="display: inline">
+              <%= __('warehousedetail_environ')%>
+            </h3>
+            <% if(false && (user.is_contracted || locals.role == 'admin')) { %>
+            <a
+              class="monitoring-link"
+              href="/warehouse/<%= warehouse.warehouse_id %>/iot/monitoring"
+              ><%= __('warehousedetail_monitoring') %></a
+            >
+            <% } %>
+            <div style="display: inline; float: right">
+              <div style="display: inline">
+                <input type="date" id="currentDate" style="width: 10rem" />
+                <input
+                  type="text"
+                  class="datepicker"
+                  id="currentYear"
+                  style="display: none; width: 10rem"
+                />
+              </div>
+              <div style="display: inline">
+                <div id="dayButton" style="display: inline-block">
+                  <%= __('iot_Statistic_DAILY') %>
+                </div>
+                <div id="monthButton" style="display: inline-block">
+                  <%= __('iot_Statistic_MONTHLY') %>
+                </div>
+                <div id="yearButton" style="display: inline-block">
+                  <%= __('iot_Statistic_YEARLY') %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+        <% } %>
+          <% } %>
+        <!--인증된 창고일 경우 창고 환경 정보 제공-->
+
           <% if(warehouse.is_verified) { %>
           <!--창고과 유저가 계약된 상태이거나 관리자일 경우 등록된 물품 목록이 노출됨-->
-          <% if(user.is_contracted || locals.role == 'admin') { %>
+          <% if(false && (user.is_contracted || locals.role == 'admin')) { %>
           <div id="wh-info-table-div" class="col-span-1">
             <%- include('./warehouseDetail_ItemList')%>
           </div>
@@ -456,18 +505,33 @@
           
           <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
           <% }else { %>
-          </div>
-          <div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20"><%- include('./warehouseDetail_Estimate')%></div>
+          
           <% } %>
           <!--창고와 계약되지 않은 유저일 경우 견적확인 할 수 있는 카드뷰가 노출됨-->
           <% } %>
+        </div>
+
+        <div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20">
+          <%- include('./warehouseDetail_Estimate')%>
+        </div>
+
+        <!--<div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20">
+          <div class="absolute top-0 bottom-0 left-0 right-0 bg-white/80 rounded-xl flex justify-center items-center">
+            <div class="bg-white border text-center p-10 rounded-lg font-semibold space-y-4">
+              <p class="text-xl">오토인벤 인증 창고만<br> 이용가능 합니다. <br>관리자에게 문의해주세요.</p>
+              <h5 class="text-xl bg-[#D6A7E3] inline-block rounded-lg px-4 py-2">인증 문의 1644-1393</h5>
+            </div>
+          </div>
+          <%- include('./warehouseDetail_Estimate')%>
+        </div>-->
 
       </div>
+      
     </div>
   </div>
     <footer><%- include('../partial/footer') %></footer>
   </body>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const swiper = new Swiper('.swiper', {
       // Optional parameters
@@ -488,5 +552,53 @@
         prevEl: '.warehouse-button-prev',
       },
     });
+
+  var ctx = document.getElementById("sensorChart");
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels:<%- JSON.stringify(labels) %>,
+          datasets: [
+          {
+            label: '온도',
+            data: <%- JSON.stringify(sensor01) %>,
+            borderColor: '#58595b',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          },
+          {
+            label: '습도',
+            data: <%- JSON.stringify(sensor02) %>,
+            borderColor: '#f67019',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          },
+          {
+            label: '가스',
+            data: <%- JSON.stringify(sensor03) %>,
+            borderColor: '#acc236',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          },
+          {
+            label: '불꽃',
+            data: <%- JSON.stringify(sensor04) %>,
+            borderColor: '#f53794',
+            backgroundColor: '#fff',
+            yAxisID: 'y',
+          }
+          ]
+      },
+      options: {
+          maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+          scales: {
+            y: {
+              type: 'linear',
+              display: true,
+              position: 'left',
+            }
+          }
+      }
+  });
   </script>
 </html>
