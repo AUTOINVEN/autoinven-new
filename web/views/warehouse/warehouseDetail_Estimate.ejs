@@ -58,11 +58,12 @@
     <div class="contract-card-element space-y-3">
       <p class="submit-footer text-sm"><%= __('warehousedetail_contract_note')%></p>
       <button
+      disabled
         id="contract-submit"
-        class="btn block mx-auto w-full text-base rounded-full bg-[#7C139A]"
+        class="btn block mx-auto w-full text-base rounded-full bg-[#f3f3f3]"
         onclick="toEstimateDetail()"
       >
-        <%= __('warehousedetail_check_contract')%>
+        <!--%= __('warehousedetail_check_contract')%-->이 견적으로 임대신청
       </button>
     </div>
   </div>
@@ -89,6 +90,10 @@
       if (input_start.value > input_end.value) {
         input_end.value = input_start.value;
       }
+      
+      document.getElementById('contract-submit').classList.remove('bg-[#f3f3f3]');
+      document.getElementById('contract-submit').className += ' bg-[#7C139A]';
+      document.getElementById('contract-submit').disabled = false;
       //선택된 날짜에 사용가능한 공간 구하기
       $.ajax({
         url:
@@ -126,6 +131,9 @@
             total_cost.innerText =
               total_cost_value.toLocaleString(total_cost_value) +
               "<%= __('warehousedetail_contract_monetary_unit')%>";
+
+              
+              //bg-[#7C139A]
           } else {
             //희망 사용공간이 입력되지 않은 경우
             total_cost.innerText = '-';

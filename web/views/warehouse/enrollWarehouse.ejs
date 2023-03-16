@@ -243,6 +243,19 @@
               >
             </td>
           </tr>
+          <tr>
+            <td class="info-table-td-head">임대가능면적</td>
+            <td class="info-table-td" colspan="2">
+              <span
+                ><input
+                  id="possible_area"
+                  type="number"
+                  class="form-control info-td-area"
+                  min="0"
+                />㎡</span
+              >
+            </td>
+          </tr>
         </table>
       </div>
       
@@ -549,6 +562,7 @@
         formdata.append('is_bonded', $('#is_bonded')[0].checked);
         formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
         formdata.append('is_verified', $('#is_verified')[0].checked);
+        formdata.append('possible_area', $('#possible_area')[0].value);
 
         sel_files.forEach((file) => {
           formdata.append('images', file);

@@ -31,7 +31,8 @@ const getNewWarehouse = ({
   commercial_lift,
   is_verified,
   request_email,
-  sensor_id
+  sensor_id,
+  possible_area
 }) => ({
   name_ko,
   name_en,
@@ -62,7 +63,8 @@ const getNewWarehouse = ({
   commercial_lift,
   is_verified,
   request_email,
-  sensor_id
+  sensor_id,
+  possible_area
 
 });
 
@@ -131,6 +133,7 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
   warehouse.commercial_lift = checkEmpty(warehouse.commercial_lift);
   warehouse.request_email = checkEmpty(warehouse.request_email);
   warehouse.sensor_id = checkEmpty(warehouse.sensor_id);
+  warehouse.possible_area = checkEmpty(warehouse.possible_area);
 
   return warehouse;
 };
