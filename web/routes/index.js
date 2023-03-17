@@ -348,7 +348,9 @@ module.exports = (db) => {
   router.get('/mywhouse', authenticate,
   doAsync(async (req, res) => {
 
-    let { startDate, endDate, kword } = req.query;
+    let { startDate, endDate, kword, cstatus } = req.query;
+
+    console.log("아이디 -> "+cstatus);
 
     let status1 = 0;
     let status2 = 0;
@@ -374,8 +376,8 @@ module.exports = (db) => {
     // 유저일 경우
    if (role === 'user') {
     //순서를 잘 정리해야한다.
-    
-    status4 = count; ({ count } = await getMyContracts3( // 요청받은 창고
+
+    ({ count } = await getMyContracts3( // 요청받은 창고
       db,
       email,
       locale,
@@ -407,7 +409,7 @@ module.exports = (db) => {
     ));
     status2 = count;
 
-     ({count, total_page, warehouses } = await getWarehouses2( //이용중인 창고
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
        db,
        locale,
        page_num,
@@ -415,9 +417,11 @@ module.exports = (db) => {
        email,
        startDate,
        endDate,
-       kword
+       kword,
+       cstatus,
      ));     
      status1 = count;
+
 
      
    }
@@ -459,7 +463,7 @@ module.exports = (db) => {
 
    status6 = status4 + status5;
  
-    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename  });
+    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename});
   }));
 
    // 내 등록 창고내역
@@ -582,7 +586,7 @@ module.exports = (db) => {
     
     status6 = status4 + status5;
  
-     res.render('myiwhouse', { total_page, warehouses, status1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename  });
+     res.render('myiwhouse', { total_page, warehouses, status1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename });
    }));
  
 

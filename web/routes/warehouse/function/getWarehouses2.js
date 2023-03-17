@@ -25,7 +25,7 @@ const getConditions = (keyword) => {
   return conditions;
 };
 
-const getConditions2 = (email, startDate, endDate ) => {
+const getConditions2 = (email, startDate, endDate, cstatus ) => {
 
   let conditions2 = [];
 
@@ -35,10 +35,18 @@ const getConditions2 = (email, startDate, endDate ) => {
           {user_email: email},
       );
   }
-  conditions2.push({
-    c_state_id: 3
-    
-  });
+
+  if(cstatus){
+    conditions2.push({
+      c_state_id: cstatus      
+    });
+  }
+  else{
+    conditions2.push({
+      c_state_id: 3
+      
+    });
+  } 
 
   if(!isNaN(startDate)){
       conditions2.push({
@@ -230,7 +238,7 @@ const getAllWarehouses = async (db, locale, offset, limit, conditions, condition
   };
 };
 
-module.exports = async (db, locale, page_num, keyword, user_email, startDate, endDate, kword) => {
+module.exports = async (db, locale, page_num, keyword, user_email, startDate, endDate, kword, cstatus) => {
   let count = 0;
   let warehouses = [];
   let offset = 0;
@@ -241,12 +249,8 @@ module.exports = async (db, locale, page_num, keyword, user_email, startDate, en
     offset = limit * (page_num - 1);
   }
 
-  console.log(user_email);
-
   const conditions = getConditions(kword);
-  const conditions2 = getConditions2(user_email,startDate, endDate);
-
-  
+  const conditions2 = getConditions2(user_email,startDate, endDate, cstatus);
 
   // 유저일 경우
   if (user_email)  {
