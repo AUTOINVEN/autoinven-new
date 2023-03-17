@@ -305,5 +305,8 @@
 	"warehousedetail_etc": "warehousedetail_etc",
 	"warehousedetail_sensor": "warehousedetail_sensor",
 	"iot_Monitoring_gas": "iot_Monitoring_gas",
-	"iot_Monitoring_fire": "iot_Monitoring_fire"
+	"iot_Monitoring_fire": "iot_Monitoring_fire",
+	"main_title2": "main_title2",
+	"mypage" : "mypage",
+	"warehouse" : "warehouse"
 }

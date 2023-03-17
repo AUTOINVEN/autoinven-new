@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       common_area: DataTypes.DOUBLE,
       dedicated_area: DataTypes.DOUBLE,
       completion_date: DataTypes.DATE,
+      possible_area: DataTypes.DOUBLE,
       address1_ko: {
         allowNull: false,
         type: DataTypes.STRING,

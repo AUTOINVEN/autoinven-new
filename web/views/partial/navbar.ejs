@@ -43,14 +43,14 @@
           <% } %>
           <li class="nav-item">
             <a class="nav-link" href="/search" style="font-size: 1.2rem;">
-              창고보기
+               <%= __('warehouse')%>
             </a>
           </li>
             <% if( locals.role === 'user') { %>
               <li class="nav-item">
                 <a class="nav-link" href="/mypage" style="font-size: 1.2rem;">
                   <!--%= __('navbar_my_warehouse')%-->
-                  마이페이지
+                  <%= __('mypage')%>
                 </a>
               </li>
               <!--li class="nav-item">

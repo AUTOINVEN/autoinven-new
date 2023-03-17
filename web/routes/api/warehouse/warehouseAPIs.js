@@ -65,7 +65,6 @@ const getNewWarehouse = ({
   request_email,
   sensor_id,
   possible_area
-
 });
 
 const getAddressInfo = ({
@@ -140,7 +139,7 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
 
 const registerWarehouse = async (req, db) => {
   const newWarehouse = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 창고 가져오기
-
+  console.log(newWarehouse);
   let { device_ids } = req.body;
   if (device_ids === '') {
     device_ids = null;
@@ -169,7 +168,7 @@ const registerWarehouse = async (req, db) => {
   for (index in whFiles) {
     const { path } = whFiles[index];
     await db.WarehouseImage.create({
-      url: `/${path}`,
+      url: `/${path.replace('\\','/')}`,
       warehouse_id: warehouse.warehouse_id,
     });
   }

@@ -79,6 +79,7 @@ module.exports = async (db, locale, warehouse_id) => {
     address2_en: warehouse_result.address2_en,
     land_area: warehouse_result.land_area,
     common_area: warehouse_result.common_area,
+    possible_area: warehouse_result.possible_area,
     dedicated_area: warehouse_result.dedicated_area,
     total_ground_area: warehouse_result.total_ground_area,
     story: warehouse_result.story,

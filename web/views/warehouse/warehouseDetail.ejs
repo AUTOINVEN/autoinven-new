@@ -511,11 +511,12 @@
           <% } %>
         </div>
 
+        <% if(warehouse.is_verified) { %>
         <div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20">
           <%- include('./warehouseDetail_Estimate')%>
         </div>
-
-        <!--<div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20">
+        <% }else { %>
+        <div class="col-span-1 border !border-[#7C139A] rounded-xl xl:sticky xl:top-20">
           <div class="absolute top-0 bottom-0 left-0 right-0 bg-white/80 rounded-xl flex justify-center items-center">
             <div class="bg-white border text-center p-10 rounded-lg font-semibold space-y-4">
               <p class="text-xl">오토인벤 인증 창고만<br> 이용가능 합니다. <br>관리자에게 문의해주세요.</p>
@@ -523,8 +524,8 @@
             </div>
           </div>
           <%- include('./warehouseDetail_Estimate')%>
-        </div>-->
-
+        </div>
+        <% } %>
       </div>
       
     </div>
