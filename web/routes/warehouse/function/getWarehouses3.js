@@ -2,7 +2,7 @@ const { fn, col, Op } = require('sequelize');
 const getFullAddress = require('$base/utils/getFullAddress');
 const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
-const getConditions = (keyword,email) => {
+const getConditions = (keyword,email,cn) => {
   const regex = / /gi;
   let conditions = [];
   let search_keyword;
@@ -15,7 +15,13 @@ const getConditions = (keyword,email) => {
           [Op.like]: `%${email}%`,
         },
       });
- } else {
+ } else if(cn){
+  conditions.push({
+    is_verified: {
+      [Op.like]: `%${cn}%`,
+    },
+  });
+ }else {
     return [];
   }
  
@@ -186,7 +192,7 @@ const getAllWarehouses = async (db, locale, email, offset, limit, conditions) =>
   };
 }; 
 
-module.exports = async (db, locale, page_num, keyword, user_email, kword) => {
+module.exports = async (db, locale, page_num, keyword, user_email, kword, cn) => {
   let count = 0;
   let warehouses = [];
   let offset = 0;
@@ -201,7 +207,7 @@ module.exports = async (db, locale, page_num, keyword, user_email, kword) => {
     user_email = "";
   }
 
-  const conditions = getConditions(kword , user_email );
+  const conditions = getConditions(kword , user_email, cn );
 
   // 유저일 경우
   if (user_email != "service@autoingroup.com") {

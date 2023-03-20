@@ -47,6 +47,7 @@ module.exports = (db) => {
         let { startDate, endDate, kword } = req.query;
 
         let status1 = 0;
+        let status_1 = 0;
         let status2 = 0;
         let status3 = 0;
         let status4 = 0;
@@ -83,15 +84,33 @@ module.exports = (db) => {
         
             status2 = count;
         
-            ({count } = await getWarehouses2(
+            ({count, total_page, warehouses } = await getWarehouses2(
               db,
               locale,
               page_num,
               keyword,
-              email
+              email,
+              startDate,
+              endDate,
+              kword,
+              3,
             ));
             
             status1 = count;
+      
+            ({count, total_page, warehouses } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email,
+              startDate,
+              endDate,
+              kword,
+              5,
+            ));
+            
+            status_1 = count;
 
             ({ count } = await getMyContracts3(
               db,
@@ -130,15 +149,33 @@ module.exports = (db) => {
 
             status2 = count;
 
-            ({ count } = await getWarehouses2(
+            ({count, total_page, warehouses } = await getWarehouses2(
               db,
               locale,
               page_num,
               keyword,
-              email
+              email,
+              startDate,
+              endDate,
+              kword,
+              3,
             ));
-
-            status1 = count;   
+            
+            status1 = count;
+      
+            ({count, total_page, warehouses } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email,
+              startDate,
+              endDate,
+              kword,
+              5,
+            ));
+            
+            status_1 = count;
 
           ({ count, total_page, contracts } = await getContracts2(
             db,
@@ -168,7 +205,7 @@ module.exports = (db) => {
         status3 = status1 + status2;
         status6 = status4 + status5;
 
-        res.render('mypage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename, name });
+        res.render('mypage', { total_page, contracts, status1, status_1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename, name });
       })
     );
 
@@ -180,6 +217,7 @@ module.exports = (db) => {
         let { startDate, endDate, kword } = req.query;
 
         let status1 = 0;
+        let status_1 = 0;
         let status2 = 0;
         let status3 = 0;
         let status4 = 0;
@@ -194,7 +232,7 @@ module.exports = (db) => {
         const locale = res.locale;
 
         const {
-          session: { role, email },
+          session: { role, email, name },
         } = req;
         const {
           query: { keyword, page_num },
@@ -216,14 +254,33 @@ module.exports = (db) => {
         
             status2 = count;
         
-            ({count } = await getWarehouses2(
+            ({count, total_page, warehouses } = await getWarehouses2(
               db,
               locale,
               page_num,
               keyword,
-              email
+              email,
+              startDate,
+              endDate,
+              kword,
+              3,
             ));
+            
             status1 = count;
+      
+            ({count, total_page, warehouses } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email,
+              startDate,
+              endDate,
+              kword,
+              5,
+            ));
+            
+            status_1 = count;
             
             ({ count, total_page, contracts } = await getMyContracts2(
               db,
@@ -261,15 +318,33 @@ module.exports = (db) => {
 
             status2 = count;
 
-            ({ count } = await getWarehouses2(
+            ({count, total_page, warehouses } = await getWarehouses2(
               db,
               locale,
               page_num,
               keyword,
-              email
+              email,
+              startDate,
+              endDate,
+              kword,
+              3,
             ));
-
+            
             status1 = count;
+      
+            ({count, total_page, warehouses } = await getWarehouses2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              email,
+              startDate,
+              endDate,
+              kword,
+              5,
+            ));
+            
+            status_1 = count;
 
           ({ count, total_page, contracts } = await getContracts2(
             db,
@@ -298,7 +373,7 @@ module.exports = (db) => {
         status3 = status1 + status2;
         status6 = status4 + status5;
 
-        res.render('myopage', { total_page, contracts, status1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename });
+        res.render('myopage', { total_page, contracts, status1, status_1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename, name });
       })
     );
   
@@ -353,6 +428,7 @@ module.exports = (db) => {
     console.log("아이디 -> "+cstatus);
 
     let status1 = 0;
+    let status_1 = 0;
     let status2 = 0;
     let status3 = 0;
     let status4 = 0;
@@ -365,7 +441,7 @@ module.exports = (db) => {
 
     const locale = res.locale;
     const {
-      session: { role, email },
+      session: { role, email, name },
     } = req;
     const {
       query: { keyword, page_num },
@@ -409,6 +485,21 @@ module.exports = (db) => {
     ));
     status2 = count;
 
+    if(cstatus == 3){
+
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      5,
+    ));     
+    status_1 = count;
+
      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
        db,
        locale,
@@ -422,6 +513,38 @@ module.exports = (db) => {
      ));     
      status1 = count;
 
+
+    }else{
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      3,
+    ));     
+    status1 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+       db,
+       locale,
+       page_num,
+       keyword,
+       email,
+       startDate,
+       endDate,
+       kword,
+       cstatus,
+     ));     
+     status_1 = count;
+    }
+
+    
+
+    
 
      
    }
@@ -446,16 +569,62 @@ module.exports = (db) => {
 
     status2 = count;
 
-     ({ count, total_page, warehouses } = await getWarehouses2(
+   if(cstatus == 3){
+
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
       db,
       locale,
       page_num,
       keyword,
       email,
-      kword
-     ));
+      startDate,
+      endDate,
+      kword,
+      5,
+    ));     
+    status_1 = count;
 
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+       db,
+       locale,
+       page_num,
+       keyword,
+       email,
+       startDate,
+       endDate,
+       kword,
+       cstatus,
+     ));     
      status1 = count;
+
+
+    }else{
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      3,
+    ));     
+    status1 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+       db,
+       locale,
+       page_num,
+       keyword,
+       email,
+       startDate,
+       endDate,
+       kword,
+       cstatus,
+     ));     
+     status_1 = count;
+    }
      
    }
 
@@ -463,15 +632,16 @@ module.exports = (db) => {
 
    status6 = status4 + status5;
  
-    res.render('mywhouse', { total_page, warehouses, status1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename});
+    res.render('mywhouse', { total_page, warehouses, status1, status_1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename, name});
   }));
 
    // 내 등록 창고내역
    router.get('/myiwhouse', authenticate,
    doAsync(async (req, res) => {
  
-     let { startDate, endDate, kword } = req.query;
+     let { startDate, endDate, kword, cn } = req.query;
      let status1 = 0;
+     let status_1 = 0;
      let status2 = 0;
      let status3 = 0;
      let status4 = 0;
@@ -484,7 +654,7 @@ module.exports = (db) => {
  
      const locale = res.locale;
      const {
-       session: { role, email },
+       session: { role, email, name },
      } = req;
      const {
        query: { keyword, page_num },
@@ -524,10 +694,28 @@ module.exports = (db) => {
         locale,
         page_num,
         keyword,
-        email
+        email,
+        startDate,
+        endDate,
+        kword,
+        3,
       ));
       
       status1 = count;
+
+      ({count, total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword,
+        email,
+        startDate,
+        endDate,
+        kword,
+        5,
+      ));
+      
+      status_1 = count;
 
       ({count, total_page, warehouses } = await getWarehouses3(
         db,
@@ -535,10 +723,12 @@ module.exports = (db) => {
         page_num,
         keyword,
         email,
-        kword
+        kword,
+        cn
       ));
         
       status2 = count;
+
       
     }
     // 관리자일 경우
@@ -555,7 +745,8 @@ module.exports = (db) => {
       ));
 
       status5 = count;
-      ({ count, total_page, warehouses } = await getWarehouses2(
+    
+      ({count, total_page, warehouses } = await getWarehouses2(
         db,
         locale,
         page_num,
@@ -563,10 +754,25 @@ module.exports = (db) => {
         email,
         startDate,
         endDate,
-        kword
+        kword,
+        3,
       ));
-
+      
       status1 = count;
+
+      ({count, total_page, warehouses } = await getWarehouses2(
+        db,
+        locale,
+        page_num,
+        keyword,
+        email,
+        startDate,
+        endDate,
+        kword,
+        5,
+      ));
+      
+      status_1 = count;
 
       ({ count, total_page, warehouses } = await getWarehouses3(
         db,
@@ -574,10 +780,9 @@ module.exports = (db) => {
         page_num,
         keyword,
         email,
-        kword
-      ));
-
-      
+        kword,
+        cn
+      ));      
 
       status2 = count;
     }
@@ -586,7 +791,7 @@ module.exports = (db) => {
     
     status6 = status4 + status5;
  
-     res.render('myiwhouse', { total_page, warehouses, status1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename });
+     res.render('myiwhouse', { total_page, warehouses, status1, status_1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename, name });
    }));
  
 
