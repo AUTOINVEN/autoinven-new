@@ -791,7 +791,7 @@ module.exports = (db) => {
     
     status6 = status4 + status5;
  
-     res.render('myiwhouse', { total_page, warehouses, status1, status_1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename, name });
+     res.render('myiwhouse', { total_page, warehouses, status1, status_1, status2, status3 , status4, status5, status6 , startDate, endDate, kword, titlename, name, cn });
    }));
  
 

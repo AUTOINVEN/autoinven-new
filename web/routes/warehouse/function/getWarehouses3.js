@@ -15,7 +15,7 @@ const getConditions = (keyword,email,cn) => {
           [Op.like]: `%${email}%`,
         },
       });
- } else if(cn){
+ } else if(cn == 1){
   conditions.push({
     is_verified: {
       [Op.like]: `%${cn}%`,
