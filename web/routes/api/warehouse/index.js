@@ -80,7 +80,6 @@ module.exports = (db) => {
     //authorizeAdmin,
     upload.array('images', 6),
     doAsync(async (req, res, next) => {
-      console.log(req);
       const newWarehouse = await warehouseAPIs.registerWarehouse(req, db);
       res.status(200).send(newWarehouse);
     })
