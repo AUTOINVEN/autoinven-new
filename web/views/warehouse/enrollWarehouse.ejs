@@ -469,6 +469,24 @@
 
   <!--Iot 디바이스 추가/삭제 버튼-->
   <script>
+
+    const dedicated_area = document.getElementById('dedicated_area');
+    const possible_area = document.getElementById('possible_area');
+
+
+    possible_area.addEventListener('change', check_and_calc_total_cost);
+
+    function check_and_calc_total_cost() {
+
+      if(dedicated_area.value < possible_area.value){
+        alert("허용된 범위를 넘어섭니다.");
+        possible_area.value = dedicated_area.value;
+      }
+
+    }
+
+
+
     let iot_table_row_num = 1;
 
     subDevice = (row_num) => {

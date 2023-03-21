@@ -334,7 +334,7 @@ const getAvailableArea = async (req, db) => {
     attributes: [
       'warehouse_id',
       [
-        literal('(dedicated_area - IFNULL(SUM(lease_area),0))'),
+        literal('(possible_area - IFNULL(SUM(lease_area),0))'),
         'available_area',
       ],
     ],
