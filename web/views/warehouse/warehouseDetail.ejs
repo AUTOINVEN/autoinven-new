@@ -241,6 +241,14 @@
                   <%=warehouse.dedicated_area ? "-" : warehouse.dedicated_area%>㎡
                 </div>
               </div>
+              <div class="w-full space-x-10 flex items-center">
+                <div class="bg-[#F5F5F5] rounded-full sm:w-[130px] w-[100px] text-center !py-2">
+                  <%= __('warehousedetail_possible_area')%>
+                </div>
+                <div class="">
+                  <%=warehouse.possible_area ? "-" : warehouse.possible_area%>㎡
+                </div>
+              </div>
             </div>
           </div>
 

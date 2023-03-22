@@ -54,7 +54,7 @@
 	"warehousedetail_gross_floor_area": "연면적",
 	"warehousedetail_common_area": "공용면적",
 	"warehousedetail_net_leaseable_area": "전용면적",
-	"warehousedetail_possible_area": "전용면적",
+	"warehousedetail_possible_area": "임대가능면적",
 	"warehousedetail_contract_total": "합계",
 	"warehousedetail_contract_monetary_unit": "원",
 	"warehousedetail_contract_pick_date": "임대기간 선택",
