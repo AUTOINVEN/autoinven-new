@@ -104,7 +104,7 @@
                 <% if(warehouse.images.length > 0) { %> <% for(let i in
                 warehouse.images) { %>
                 <div class="swiper-slide">
-                  <img id="warehouse_image_<%= i%>" class="slider-image" onerror="this.src='/image/default-image2.png'" />
+                  <img id="warehouse_image_<%= i%>" class="slider-image" onerror="this.src='/image/default-image2.jpg'" />
                   <script>
                     document
                       .getElementById('warehouse_image_<%= i%>')
@@ -117,7 +117,7 @@
                   <script>
                     document
                       .getElementById('warehouse_image_<%= i%>')
-                      .setAttribute('src', '/image/default-image2.png');
+                      .setAttribute('src', '/image/default-image2.jpg');
                   </script>
                 </div>
                 <% } %> <% } %>
