@@ -308,5 +308,28 @@
 	"iot_Monitoring_fire": "iot_Monitoring_fire",
 	"main_title2": "main_title2",
 	"mypage" : "mypage",
-	"warehouse" : "warehouse"
+	"warehouse" : "warehouse",
+	"kakao_sign_up" : "kakao Sign up",
+	"kakao_sign_in" : "kakao Sign in",
+	"warehouse_enroll" : "Warehouse information management",
+	"mypage_menu01" : "Every",
+	"mypage_menu02" : "Contract completed",
+	"mypage_menu03" : "Termination of contract",
+	"mypage_menu04" : "Registered warehouse",
+	"mypage_menu05" : "Warehouse request",
+	"mypage_menu06" : "Warehouse requested",
+	"mypage_big_menu01" : "My warehouse",
+	"mypage_big_menu02" : "My contract",
+	"mypage_big_menu03" : "My payment",
+	"mypage_top_menu01" : "Contract request",
+	"mypage_top_menu02" : "Contract reject",
+	"mypage_top_menu03" : "contract completed",
+	"mypage_hello" : "hello",
+	"mypage_sir" : "",
+	"my_info_manage" : "My information management",
+	"cal_year" : "year",
+	"cal_month" : "month",
+	"cal_day" : "day"
+
+
 }

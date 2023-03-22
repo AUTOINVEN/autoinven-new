@@ -21,9 +21,10 @@
                         <path d="M100 100C118.417 100 133.333 85.0833 133.333 66.6667C133.333 48.25 118.417 33.3333 100 33.3333C81.5833 33.3333 66.6667 48.25 66.6667 66.6667C66.6667 85.0833 81.5833 100 100 100ZM100 116.667C77.75 116.667 33.3333 127.833 33.3333 150V166.667H166.667V150C166.667 127.833 122.25 116.667 100 116.667Z" fill="#fff"/>
                     </svg>
                 </div>
+            
                 <div class="text-center space-y-4">
-                    <h3 class="text-2xl font-bold">안녕하세요 <%= name %>님</h3>
-                    <button class="bg-slate-300 text-black px-3 py-1 rounded-xl text-xs" onclick="location.href='/myinfo'" >나의정보관리</button></a>
+                    <h3 class="text-2xl font-bold"><%=__('mypage_hello')%> <%= name %><%=__('mypage_sir')%></h3>
+                    <button class="bg-slate-300 text-black px-3 py-1 rounded-xl text-xs" onclick="location.href='/myinfo'" ><%=__('my_info_manage')%></button></a>
                     <div class="col-span-2 lg:p-10 text-left">
                         <%- include('./partial/leftmenu') %>
                     </div>
@@ -39,15 +40,15 @@
                 <div class="grid grid-cols-3">
                     <div class="text-center">
                         <h1 class="font-bold text-3xl"><%= status9%></h1>
-                        <p class="">계약요청</p>
+                        <p class=""><%=__('mypage_top_menu01')%></p>
                     </div>
                     <div class="text-center">
                         <h1 class="text-gray-400 font-bold text-3xl"><%= status7%></h1>
-                        <p class="">계약거절</p>
+                        <p class=""><%=__('mypage_top_menu02')%></p>
                     </div>
                     <div class="text-center">
                         <h1 class="text-red-500 font-bold text-3xl"><%= status8%></h1>
-                        <p class="">계약완료</p>
+                        <p class=""><%=__('mypage_top_menu03')%></p>
                     </div>
                 </div>
                 <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">

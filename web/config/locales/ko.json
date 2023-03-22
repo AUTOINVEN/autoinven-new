@@ -311,6 +311,48 @@
 	"waredetail_lnb": "세부 창고 정보",
 	"payment_lnb": "결제 내역",
 	"logininfo_lnb": "계정 설정",
-	"mypage" : "마이페이지",
-	"warehouse" : "창고보기"
+	"mypage": "마이페이지",
+	"warehouse": "창고보기",
+	"kakao_sign_up": "카카오톡 가입",
+	"kakao_sign_in": "카카오톡 로그인",
+	"warehouse_enroll": "창고 정보 관리",
+	"mypage_menu01": "전체",
+	"mypage_menu02": "계약완료(사용중)",
+	"mypage_menu03": "사용종료",
+	"mypage_menu04": "등록한 창고",
+	"mypage_menu05": "요청한 창고",
+	"mypage_menu06": "요청 받은 창고",
+	"mypage_bigMenu01": "내 창고",
+	"mypage_bigMenu02": "계약 관리",
+	"mypage_bigMenu03": "결제 내역",
+	"mypage_top_menu01": "계약요청",
+	"mypage_top_menu02": "계약거절",
+	"mypage_top_menu03": "계약완료",
+	"mypage_hello": "안녕하세요",
+	"mypage_sir": "님",
+	"my_info_manage": "나의정보관리",
+	"mypage_big_menu01": "내창고",
+	"mypage_big_menu02": "계약관리",
+	"mypage_big_menu03": "결제관리",
+	"cal_year" : "연도",
+	"cal_month" : "월",
+	"cal_day" : "일",
+	"wareh_pic" : "창고사진",
+	"wareh_text" : "이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그 앤 드롭 하세요 (최대 5개)",
+	"wareh_img_upload" : "이미지 업로드",
+	"wareh_info" : "창고정보",
+	"wareh_cert" : "인증여부",
+	"wareh name" : "창고명",
+	"wareh_lease_amount" : "임대료",
+	"wareh_won" : "원",
+	"wareh_postnum" : "우편번호",
+	"wareh_address" : "주소",
+	"wareh_daddress" : "상세주소",
+	"wareh_type"	 : "종류"
+
+
+	
+	
+
+
 }
