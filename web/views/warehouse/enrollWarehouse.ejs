@@ -20,14 +20,13 @@
       </div>-->
 
       <div class="image-preview">
-        <h4 class="enroll-warehouse-sub-title">창고사진</h4>
+        <h4 class="enroll-warehouse-sub-title"><%=__('wareh_pic')%></h4>
         <div id="att_zone">
           <p id="image-placeholder">
-            이미지를 첨부 하려면 이미지 업로드 버튼을 클릭하거나 파일을 드래그
-            앤 드롭 하세요 (최대 5개)
+            <%=__('wareh_text')%>
           </p>
         </div>
-        <label class="input-file-button" for="btnAtt"> 이미지 업로드 </label>
+        <label class="input-file-button" for="btnAtt"> <%=__('wareh_img_upload')%> </label>
         <input
           id="btnAtt"
           type="file"
@@ -41,7 +40,7 @@
       <!--창고 정보-->
       <div id="warehouse-info-div" style="margin-top: 2rem">
         <h4 class="enroll-warehouse-sub-title" style="display: inline">
-          창고정보
+          <%=__('wareh_info')%>
         </h4>
         <div>
           <input
@@ -50,7 +49,7 @@
             type="checkbox"
             checked="true"
           />
-          <label class="form-check-label" for="is_verified"> 인증여부 </label>
+          <label class="form-check-label" for="is_verified"> <%=__('wareh_cert')%> </label>
         </div>
         <table class="table info-table">
           <colgroup>
@@ -62,7 +61,7 @@
             <col width="15%" />
           </colgroup>
           <tr>
-            <td class="info-table-td-head">창고명*</td>
+            <td class="info-table-td-head"> <%=__('warehousedetail_warehouse_name')%>*</td>
             <td class="info-table-td" colspan="5">
               <input
                   id="request_email"
@@ -80,7 +79,7 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">임대료*</td>
+            <td class="info-table-td-head"><%=__('wareh_lease_amount')%>*</td>
             <td class="info-table-td" colspan="5">
               <input
                 id="rent"
@@ -89,25 +88,25 @@
                 style="display: inline; width: 80%; text-align: right"
                 min="0"
               />
-              <span>원 per Day per ㎡</span>
+              <span><%=__('wareh_won')%> per Day per ㎡</span>
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">우편번호</td>
+            <td class="info-table-td-head"><%=__('wareh_postnum')%></td>
             <td class="info-table-td">
               <input id="zip_code" type="text" class="form-control" disabled />
             </td>
-            <td class="info-table-td-head">위도</td>
+            <td class="info-table-td-head"><%=__('wareh_lati')%></td>
             <td class="info-table-td">
               <input id="latitude" type="text" class="form-control" disabled />
             </td>
-            <td class="info-table-td-head">경도</td>
+            <td class="info-table-td-head"><%=__('wareh_long')%></td>
             <td class="info-table-td">
               <input id="longitude" type="text" class="form-control" disabled />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">주소*</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_address')%>*</td>
             <td class="info-table-td" colspan="5">
               <input
                 id="address1_ko"
@@ -121,18 +120,18 @@
                 style="font-size: 1rem"
                 onclick="execDaumPostCode()"
               >
-                검색
+                <%=__('wareh_search')%>
               </button>
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">상세주소</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_detail_address')%></td>
             <td class="info-table-td" colspan="5">
               <input id="address2_ko" type="text" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">종류*</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_warehouse_type')%>*</td>
             <td class="info-table-td" colspan="2">
               <select name="category_id" class="form-select">
                 <option value="0">선택안함</option>
@@ -143,7 +142,7 @@
                 <% } %>
               </select>
             </td>
-            <td class="info-table-td-head">시설유무</td>
+            <td class="info-table-td-head"><%=__('wareh_Facility')%></td>
             <td class="info-table-td" colspan="2">
               <div div class="form-check">
                 <input
@@ -156,7 +155,8 @@
                   for="docking_station"
                   style="margin-left: 0.5rem"
                 >
-                  도킹시설
+                <%=__('wareh_Facility01')%>
+                
                 </label>
 
                 <input
@@ -170,7 +170,7 @@
                   for="rack"
                   style="margin-left: 0.5rem"
                 >
-                  파레트렉
+                <%=__('wareh_Facility02')%>
                 </label>
                 <input
                   id="commercial_lift"
@@ -183,7 +183,7 @@
                   for="commercial_lift"
                   style="margin-left: 0.5rem"
                 >
-                  엘리베이터
+                <%=__('wareh_Facility03')%>
                 </label>
                 <input
                   id="is_bonded"
@@ -196,13 +196,13 @@
                   for="is_bonded"
                   style="margin-left: 0.5rem"
                 >
-                  보세
+                <%=__('wareh_Facility04')%>
                 </label>
               </div>
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">대지면적</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_land_area')%></td>
             <td class="info-table-td" colspan="2">
               <span
                 ><input
@@ -213,7 +213,7 @@
                 />㎡</span
               >
             </td>
-            <td class="info-table-td-head">연면적</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_total_ground_area')%></td>
             <td class="info-table-td" colspan="2">
               <span
                 ><input
@@ -226,7 +226,7 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">공용면적</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_common_area')%></td>
             <td class="info-table-td" colspan="2">
               <span
                 ><input
@@ -237,7 +237,7 @@
                 />㎡</span
               >
             </td>
-            <td class="info-table-td-head">전용면적</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_net_leaseable_area')%></td>
             <td class="info-table-td" colspan="2">
               <span
                 ><input
@@ -250,7 +250,7 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">임대가능면적</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_possible_area')%></td>
             <td class="info-table-td" colspan="2">
               <span
                 ><input
@@ -270,7 +270,7 @@
       <!--IOT 디바이스 등록-->
       <div>
         <h4 class="enroll-warehouse-sub-title">
-          IOT 디바이스
+          <%=__('wareh_IOT_Device')%>
           <button id="add-device" class="btn" onclick="addDevice()">
             <img
               src="/image/icon/plus-solid-white.svg"
@@ -282,7 +282,7 @@
         <table id="iot-device-table" class="table info-table">
           <tbody id="iot-device-table-body">
             <tr>
-              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td-head"><%=__('wareh_device_id')%></td>
               <td class="info-table-td">
                 <input
                   id="device-id"
@@ -298,7 +298,7 @@
 
       <!--창고 상세-->
       <div id="warehouse-detail-info-div">
-        <h4 class="enroll-warehouse-sub-title">상세정보</h4>
+        <h4 class="enroll-warehouse-sub-title"><%=__('warehousedetail_detail_info')%></h4>
         <table class="table info-table">
           <colgroup>
             <col width="8%" />
@@ -309,7 +309,7 @@
             <col width="22%" />
           </colgroup>
           <tr>
-            <td class="info-table-td-head">층수</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_floor_num')%></td>
             <td class="info-table-td">
               <span
                 ><input
@@ -317,10 +317,10 @@
                   type="number"
                   class="form-control info-td-area"
                   min="0"
-                />층</span
+                /><%=__('warehousedetail_floor')%></span
               >
             </td>
-            <td class="info-table-td-head">유효층고</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_valid_floor_height')%></td>
             <td class="info-table-td">
               <span
                 ><input
@@ -331,36 +331,36 @@
                 />m</span
               >
             </td>
-            <td class="info-table-td-head">준공일</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_completion_date')%></td>
             <td class="info-table-td">
               <input id="completion_date" type="date" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">접근성</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_accessability')%></td>
             <td class="info-table-td" colspan="5">
               <input
                 id="access_ko"
                 type="text"
                 class="form-control"
-                placeholder="ex)정왕IC 9km, 남안산IC 10km"
+                placeholder="<%=__('warehousedetail_accessability_note')%>"
               />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">출입가능차랑</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_accessable_vehicle')%></td>
             <td class="info-table-td" colspan="5">
               <input
                 id="restriction_ko"
                 type="text"
                 class="form-control"
-                placeholder="ex)전차종 출입가능"
+                placeholder="<%=__('warehousedetail_accessable_vehicle_note')%>"
               />
             </td>
           </tr>
 
           <tr>
-            <td class="info-table-td-head">창고소개</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_introduce')%></td>
             <td class="info-table-td" colspan="5">
               <textarea
                 id="description_ko"
@@ -371,14 +371,14 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">보유장비현황 및 특이사항</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_etc_note')%></td>
             <td class="info-table-td" colspan="5">
               <textarea
                 id="note_ko"
                 class="form-control enroll-text-area"
                 cols="40"
                 rows="5"
-                placeholder="ex) 물류장비/보안설비/화재설비 등"
+                placeholder="<%=__('warehousedetail_etc_note2')%>"
               ></textarea>
             </td>
           </tr>
@@ -388,20 +388,20 @@
 
       <!--영문 정보-->
       <div id="warehouse-eng-info-div">
-        <h4 class="enroll-warehouse-sub-title">영문정보</h4>
+        <h4 class="enroll-warehouse-sub-title"><%=__('wareh_English')%></h4>
         <table class="table info-table">
           <colgroup>
             <col width="20%" />
             <col width="80%" />
           </colgroup>
           <tr>
-            <td class="info-table-td-head">창고명(영문)*</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_warehouse_name_english')%>*</td>
             <td class="info-table-td">
               <input id="name_en" type="text" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">주소(영문)*</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_address_english')%>*</td>
             <td class="info-table-td">
               <input
                 id="address1_en"
@@ -412,25 +412,25 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">상세주소(영문)</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_detail_address_english')%></td>
             <td class="info-table-td">
               <input id="address2_en" type="text" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">출입가능차량(영문)</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_accessable_vehicle_english')%></td>
             <td class="info-table-td">
               <input id="restriction_en" type="text" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">접근성(영문)</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_accessability_english')%></td>
             <td class="info-table-td">
               <input id="access_en" type="text" class="form-control" />
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">창고소개(영문)</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_introduce_english')%></td>
             <td class="info-table-td">
               <textarea
                 id="description_en"
@@ -441,7 +441,7 @@
             </td>
           </tr>
           <tr>
-            <td class="info-table-td-head">보유장비현황 및 특이사항(영문)</td>
+            <td class="info-table-td-head"><%=__('warehousedetail_etc_note_english')%></td>
             <td class="info-table-td">
               <textarea
                 id="note_en"
@@ -456,9 +456,9 @@
       <!--영문 정보-->
       <div class="centered-div">
         <button id="submit" class="btn btn-submit" onclick="clkSubmit()">
-          등록하기
+          <%=__('contractDetail_registe')%>
         </button>
-        <button class="btn btn-cancel" onclick="history.back()">취소</button>
+        <button class="btn btn-cancel" onclick="history.back()"><%=__('contractDetail_cancel')%></button>
       </div>
     </div>
 
