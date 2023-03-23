@@ -81,6 +81,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.BOOLEAN,
       },
+      data_type: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       sensor_id: DataTypes.STRING,
       createdAt: {
         allowNull: false,

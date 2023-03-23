@@ -54,7 +54,7 @@ module.exports = (db) => {
   // 견적요청 상세
   router.get(
     '/request',
-    authorizeUser,
+    //authorizeUser,
     doAsync(async (req, res) => {
       const locale = res.locale;
       const {

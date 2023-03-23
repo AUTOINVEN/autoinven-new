@@ -22,6 +22,9 @@
       <div class="grid items-start xl:grid-cols-3 gap-10">
         <div class="xl:col-span-2 space-y-10 overflow-hidden">
           <div class="overflow-hidden">
+            <% if(warehouse.type == "A"){ %>
+              공공데이터
+              <%} %>
             <% if(warehouse.is_verified) { %>
               <div class="badge-text flex items-center space-x-1">
                 <!--svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +34,8 @@
                 <p class="text-[#7C139A] text-base font-bold"><%=__('warehousedetail_verified') %></p>
               </div>
               <% } %>
+              
+          
               
               <div class="sm:flex items-end sm:space-x-4 sm:space-y-0 space-y-2 mt-2">
                 <h3 class="wh-detail-title text-4xl"><%= warehouse.name%></h3>

@@ -150,7 +150,7 @@ module.exports = (db) => {
         sensor04.push(parseInt(v.data06,16))
         labels.push(timeForToday(v.regdate))
       })
-
+      console.log(warehouse);
       res.render('warehouse/warehouseDetail', {
         warehouse,
         user: {

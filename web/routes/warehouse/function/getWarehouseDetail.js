@@ -115,6 +115,7 @@ module.exports = async (db, locale, warehouse_id) => {
     rack: warehouse_result.rack,
     iot_url: getIotUrl(warehouse_result.IotDevices),
     images: getImages(warehouse_result.WarehouseImages),
-    sensor_id: warehouse_result.sensor_id
+    sensor_id: warehouse_result.sensor_id,
+    type : warehouse_result.data_type
   };
 };

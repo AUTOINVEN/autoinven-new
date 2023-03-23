@@ -120,7 +120,7 @@
     })
 
     clkSubmit =() => {
-      if('<%= locals.role %>' =='user') {
+     // if('<%= locals.role %>' =='user') {
         let formdata ={
           'warehouse_id':"<%= warehouse.warehouse_id%>",
           'start_date':'<%= lease_info.start_date%>',
@@ -155,14 +155,7 @@
                 console.log("ERROR : ", e);
             }
         });
-      }else{
-        Swal.fire({
-          title: 'WARNING',
-          html: `로그인이 필요합니다.`,
-          icon: 'warning',
-          showCancelButton: true,
-        });
-      }
+     
     }
 </script>
 

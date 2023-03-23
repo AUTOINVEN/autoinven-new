@@ -14,8 +14,9 @@ module.exports = (db) => {
   // 1) 계약 요청
   router.post(
     '/',
-    authorizeUser,
+    //authorizeUser,
     doAsync(async (req, res) => {
+
       const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
       const newContract = await contractAPIs.createContract(req, db);
       res.send(newContract);

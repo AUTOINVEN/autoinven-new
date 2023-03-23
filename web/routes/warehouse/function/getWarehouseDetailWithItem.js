@@ -207,5 +207,6 @@ module.exports = async (db, locale, warehouse_id, user_email) => {
     iot_url: getIotUrl(warehouse_result.IotDevices),
     images: getImages(warehouse_result.WarehouseImages),
     items: getItemsOfWarehouse(warehouse_result.LeaseContracts),
+    type : warehouse_result.data_type
   };
 };
