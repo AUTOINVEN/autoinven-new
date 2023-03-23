@@ -51,7 +51,10 @@
                                 </g>
                             </svg>
                         </label>
-                        <input type="checkbox" class="form-check-input"  id="cn" <% if(cn==1){ %> checked <% } %>  />   인증된 창고만 보기
+                        <label class="flex items-center space-x-2" for="cn">
+                            <input type="checkbox" class="form-check-input !mt-0"  id="cn" <% if(cn==1){ %> checked <% } %>  />   
+                            <p class="text-sm text-gray-400">인증된 창고만 보기</p>
+                        </label>
                         <button  id="search" class="rounded border px-3 py-1 text-gray-400 hover:bg-gray-500 hover:text-white hover:border-gray-500" type="button">검색</button>
                         
                         </div>
