@@ -64,6 +64,8 @@ module.exports = async (db, locale, warehouse_id) => {
     throw error;
   }
 
+  
+
   return {
     warehouse_id: warehouse_result.warehouse_id,
     name: warehouse_result.name_ko,
@@ -100,5 +102,9 @@ module.exports = async (db, locale, warehouse_id) => {
     rack: warehouse_result.rack,
     images: getImages(warehouse_result.WarehouseImages),
     devices: getIotInfo(warehouse_result.IotDevices),
+    email:warehouse_result.email,
+    tel:warehouse_result.tel,
+    leasestart:warehouse_result.leasestart,
+    leaseend:warehouse_result.leaseend
   };
 };

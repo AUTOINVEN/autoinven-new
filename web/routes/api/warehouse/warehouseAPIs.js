@@ -32,7 +32,11 @@ const getNewWarehouse = ({
   is_verified,
   request_email,
   sensor_id,
-  possible_area
+  possible_area,
+  email,
+  tel,
+  leasestart,
+  leaseend
 }) => ({
   name_ko,
   name_en,
@@ -64,7 +68,11 @@ const getNewWarehouse = ({
   is_verified,
   request_email,
   sensor_id,
-  possible_area
+  possible_area,
+  email,
+  tel,
+  leasestart,
+  leaseend
 });
 
 const getAddressInfo = ({
@@ -133,13 +141,17 @@ const checkEmptyWarehouseAttribute = (warehouse) => {
   warehouse.request_email = checkEmpty(warehouse.request_email);
   warehouse.sensor_id = checkEmpty(warehouse.sensor_id);
   warehouse.possible_area = checkEmpty(warehouse.possible_area);
+  warehouse.email = checkEmpty(warehouse.email);
+  warehouse.tel = checkEmpty(warehouse.tel);
+  warehouse.leasestart = checkEmpty(warehouse.leasestart);
+  warehouse.leaseend = checkEmpty(warehouse.leaseend);
 
   return warehouse;
 };
 
 const registerWarehouse = async (req, db) => {
   const newWarehouse = checkEmptyWarehouseAttribute(getNewWarehouse(req.body)); // 창고 가져오기
-  console.log(newWarehouse);
+  //console.log(newWarehouse);
   let { device_ids } = req.body;
   if (device_ids === '') {
     device_ids = null;
@@ -337,6 +349,9 @@ const getAvailableArea = async (req, db) => {
         literal('(possible_area - IFNULL(SUM(lease_area),0))'),
         'available_area',
       ],
+      
+      'leasestart',
+      'leaseend'
     ],
     include: [
       {

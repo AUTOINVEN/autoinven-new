@@ -142,6 +142,7 @@
 	"badge_approved": "Approved",
 	"badge_pending_payment": "Pending Payment",
 	"badge_pending_approval": "Pending Approval",
+	"badge_request" : "Request",
 	"badge_reject": "Rejected",
 	"badge_expired": "Expired",
 	"contractRequestDetail_title": "ESTIMATE",

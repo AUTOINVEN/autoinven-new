@@ -151,6 +151,7 @@
 	"table_created_date": "생성일",
 	"badge_approved": "계약 완료",
 	"badge_pending_payment": "결제 대기중",
+	"badge_request": "계약 요청",
 	"badge_pending_approval": "승인 대기중",
 	"badge_reject": "계약 거절",
 	"badge_expired": "계약 완료",

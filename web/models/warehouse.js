@@ -47,6 +47,8 @@ module.exports = (sequelize, DataTypes) => {
       common_area: DataTypes.DOUBLE,
       dedicated_area: DataTypes.DOUBLE,
       completion_date: DataTypes.DATE,
+      leasestart: DataTypes.STRING,
+      leaseend: DataTypes.STRING,
       possible_area: DataTypes.DOUBLE,
       address1_ko: {
         allowNull: false,
@@ -82,6 +84,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
       },
       data_type: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
+      email: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      tel: {
         allowNull: false,
         type: DataTypes.STRING,
       },

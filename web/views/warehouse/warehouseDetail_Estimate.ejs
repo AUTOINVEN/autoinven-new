@@ -104,40 +104,52 @@
         type: 'GET',
         datatype: 'application/json',
         success: (data) => {
-          if (data.available_area > 0) {
-            available_area_value = data.available_area;
-            available_area.innerText =
-              "<%= __('warehousedetail_contract_max')%>" +
-              available_area_value +
-              "<%=__('warehousedetail_contract_area_unit')%>";
-          } else {
-            available_area.innerText =
-              '선택된 기간에 사용 가능한 공간이 없습니다.';
-          }
+          
+          const data1 = new Date(data.leasestart);
+          const data2 = new Date(input_start.value);
+          const data3 = new Date(data.leaseend);
+          const data4 = new Date(input_end.value);
+      
 
-          //희망하는 사용공간이 입력된 상태인 경우
-          if (input_area.value != '') {
-            //희망하는 사용공간이 사용가능한 공간보다 클경우 자동으로 조정해주기
-            if (input_area.value > available_area_value) {
-              input_area.value = available_area_value;
+        /*  if(data1 > data2 || data3 < data4 ){
+            alert("시작기간이 훨씬 이전이거나 종료기간보다 많다 ");
+            return false;
+          }else{ */
+            
+              if (data.available_area > 0) {
+              available_area_value = data.available_area;
+              available_area.innerText =
+                "<%= __('warehousedetail_contract_max')%>" +
+                available_area_value +
+                "<%=__('warehousedetail_contract_area_unit')%>";
+            } else {
+              available_area.innerText =
+                '선택된 기간에 사용 가능한 공간이 없습니다.';
             }
-            //예상금액 계산
-            total_cost_value =
-              toElapsedDay(
-                new Date(input_end.value) - new Date(input_start.value)
-              ) *
-              input_area.value *
-              parseInt('<%= warehouse.rent%>');
-            total_cost.innerText =
-              total_cost_value.toLocaleString(total_cost_value) +
-              "<%= __('warehousedetail_contract_monetary_unit')%>";
+
+            //희망하는 사용공간이 입력된 상태인 경우
+            if (input_area.value != '') {
+              //희망하는 사용공간이 사용가능한 공간보다 클경우 자동으로 조정해주기
+              if (input_area.value > available_area_value) {
+                input_area.value = available_area_value;
+              }
+              //예상금액 계산
+              total_cost_value =
+                toElapsedDay(
+                  new Date(input_end.value) - new Date(input_start.value)
+                ) *
+                input_area.value *
+                parseInt('<%= warehouse.rent%>');
+              total_cost.innerText =
+                total_cost_value.toLocaleString(total_cost_value) +
+                "<%= __('warehousedetail_contract_monetary_unit')%>";
 
               
-              //bg-[#7C139A]
-          } else {
-            //희망 사용공간이 입력되지 않은 경우
-            total_cost.innerText = '-';
-          }
+            } else {
+              //희망 사용공간이 입력되지 않은 경우
+              total_cost.innerText = '-';
+            }
+       /* } */
         },
         error: (e) => {
           console.log(e);

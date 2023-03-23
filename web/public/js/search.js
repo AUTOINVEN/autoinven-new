@@ -183,6 +183,7 @@ const listing = (lists) => {
     let type;
     let price;
     let detail;
+    let check;
     let warehouseImage;
     if (warehouses[index].WarehouseImages.length !== 0) {
       warehouseImage = warehouses[index].WarehouseImages[0].url;
@@ -214,16 +215,30 @@ const listing = (lists) => {
         type = 'not verified';
       }
     }
+    if(l == 0){
+      check = `<div class="rounded w-12 h-6 text-sm font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-black		 text-white">매칭</div>`;
+    }
+    else if(l == 1){
+      check = `<div class="rounded w-12 h-6 text-sm font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-black		 text-white">추천</div>`;
+    }
+    else if(l == 2){
+      check = `<div class="rounded w-12 h-6 text-sm font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-black		 text-white">추천</div>`;
+    }else{
+      check ="";
+    }
     if (warehouses[index].is_verified) {
       $('.marker_list_items').append(
         ` 
           <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
+          ${check}
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
             <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
+              
                   <div class="text-lg font-bold sm:text-xl">${name}</div>
                   <div class="rounded w-12 h-6 text-sm p-0.5 font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-sky-500 text-white">${type}</div>
               </div>
+              
               <div class="text-sm sm:text-lg">${address}<br>${addressDetail}</div>
               <div class="frow">
                   <div class="text-sm font-extrabold sm:text-lg">${price}</div>
@@ -315,7 +330,7 @@ async function initMap() {
       infowindowContent.style.display = 'block';
       infowindowContent.children['place-name'].textContent = name;
       infowindowContent.children['place-address'].textContent = address;
-      map.setZoom(16);
+      map.setZoom(14);
       infowindow.open(map, m);
       clickedMarker = document.querySelector(`#marker${wid}`);
       if (!clickedMarker) {

@@ -322,7 +322,52 @@
                 />㎡</span
               >
             </td>
+            <td class="info-table-td-head">전화번호 </td>
+            <td class="info-table-td" colspan="2">
+              <span
+                ><input
+                  id="tel"
+                  type="text"
+                  class="form-control info-td-area"
+                  value="<%= warehouse.tel %>"
+                /></span
+              >
+            </td>
           </tr>
+          <tr>
+            <td class="info-table-td-head">임대가능 시작일</td>
+            <td class="info-table-td" colspan="2">
+              <input
+                id="leasestart"
+                type="date"
+                class="form-control"
+                value="<%= (warehouse.leasestart) %>"
+              />
+            </td>
+            <td class="info-table-td-head">임대가능 종료일</td>
+            <td class="info-table-td" colspan="2">
+              <input
+                id="leaseend"
+                type="date"
+                class="form-control"
+                value="<%= (warehouse.leaseend) %>"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="info-table-td-head">이메일</td>
+            <td class="info-table-td" colspan="2">
+              <span
+                ><input
+                  id="email"
+                  type="text"
+                  class="form-control info-td-area"
+                  value="<%= warehouse.email %>"
+                /></span
+              >
+            </td>
+          </tr>
+          
         </table>
       </div>
       <!--창고 정보-->
@@ -701,7 +746,10 @@
         formdata.append('is_bonded', $('#is_bonded')[0].checked);
         formdata.append('commercial_lift', $('#commercial_lift')[0].checked);
         formdata.append('is_verified', $('#is_verified')[0].checked);
-
+        formdata.append('email', $('#email')[0].value);
+        formdata.append('tel', $('#tel')[0].value);
+        formdata.append('leasestart', $('#leasestart')[0].value);
+        formdata.append('leaseend', $('#leaseend')[0].value);
         sel_files.forEach((file) => {
           formdata.append('images', file);
         });

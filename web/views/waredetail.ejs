@@ -78,7 +78,7 @@
                                 <% if(contract_info.c_state_id == 1) {%><!--승인대기중-->
                                     <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
                                 <% } else if(contract_info.c_state_id == 2) { %> <!--결제대기중-->
-                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
+                                    <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_request') %></span>
                                 <% } else if(contract_info.c_state_id == 3) {%> <!--계약완료-->
                                     <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
                                 <% } else if(contract_info.c_state_id == 4) {%> <!--계약거절-->
