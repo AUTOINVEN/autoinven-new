@@ -216,13 +216,13 @@ const listing = (lists) => {
       }
     }
     if(l == 0){
-      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_matching.png" style="width:76px;height:20px;" /></div>`;
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_matching.png" style="width:76px;height:23px;" /></div>`;
     }
     else if(l == 1){
-      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:20px;" /></div>`;
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:23px;" /></div>`;
     }
     else if(l == 2){
-      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:20px;" /></div>`;
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:23px;" /></div>`;
     }else{
       check ="";
     }
