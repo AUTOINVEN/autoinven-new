@@ -216,20 +216,20 @@ const listing = (lists) => {
       }
     }
     if(l == 0){
-      check = `<div class="rounded w-12 h-6 text-sm font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-black		 text-white">매칭</div>`;
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_matching.png" style="width:76px;height:20px;" /></div>`;
     }
     else if(l == 1){
-      check = `<div class="rounded w-12 h-6 text-sm font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-black		 text-white">추천</div>`;
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:20px;" /></div>`;
     }
     else if(l == 2){
-      check = `<div class="rounded w-12 h-6 text-sm font-bold sm:text-base sm:w-16 sm:h-8 sm:p-1 text-center bg-black		 text-white">추천</div>`;
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:20px;" /></div>`;
     }else{
       check ="";
     }
     if (warehouses[index].is_verified) {
       $('.marker_list_items').append(
         ` 
-          <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
+          <div class="relative flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
           ${check}
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
             <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
