@@ -28,30 +28,36 @@ const getConditions = (keyword) => {
   return conditions;
 };
 
-const getConditions2 = ( startDate, endDate ) => {
+const getConditions2 = ( cstatus,startDate, endDate) => {
 
   var regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
 
   let conditions2 = [];
 
-  if(regex.test(startDate)){
+  if(cstatus){
       conditions2.push({
-          start_date: { [Op.gte]: startDate,
-          },
+          c_state_id: cstatus ,
       });
 
   }
-  if(regex.test(endDate)){
-      conditions2.push({
-          end_date: {[Op.lte]: endDate,
-          },
-      });
-  }   
+  if(!isNaN(startDate)){
+    conditions2.push({
+        start_date: { [Op.gte]: startDate,
+        },
+    });
+
+}
+if(!isNaN(endDate)){
+    conditions2.push({
+        end_date: {[Op.lte]: endDate,
+        },
+    });
+}    
   return conditions2;
 };
 
 // 모든 계약 목록
-module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword) => {
+module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword, cstatus) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -74,7 +80,7 @@ module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword
 
 
 
-  const conditions2 = getConditions2(startDate, endDate );
+  const conditions2 = getConditions2(cstatus , startDate, endDate );
   let where_clause2;
   if (!conditions2.length) {
     where_clause2 = {};
@@ -146,9 +152,30 @@ module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword
     });
   }
 
+  const testcontract = [];
+  for (const contract of contracts_result) {
+    testcontract.push({
+      id: contract.l_contract_id,
+      state: contract.c_state_id,
+      name: getLocaleLanguageValue(
+        locale,
+        contract.Warehouse.name_ko,
+        contract.Warehouse.name_en
+      ),
+      address : contract.Warehouse.address1_ko,
+      period: `${contract.start_date} ~ ${contract.end_date}`,
+      area: contract.lease_area,
+      price: await getLocalePrice(locale, contract.amount),
+      created_date: contract.createdAt,
+      contractor_name: contract.User.name,
+    });
+  }
+
   return {
     count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     contracts,
+    testcontract
+
   };
 };

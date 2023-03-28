@@ -26,7 +26,7 @@ const getConditions = (keyword) => {
 };
 
 
-const getConditions2 = (user_email, startDate, endDate ) => {
+const getConditions2 = (user_email, startDate, endDate, cstatus ) => {
 
     let conditions2 = [];
 
@@ -37,6 +37,13 @@ const getConditions2 = (user_email, startDate, endDate ) => {
        );
 
     }
+    if(cstatus){
+
+      conditions2.push(
+          {c_state_id: cstatus},
+     );
+
+  }
     if(!isNaN(startDate)){
         conditions2.push({
             start_date: { [Op.gte]: startDate,
@@ -56,7 +63,7 @@ const getConditions2 = (user_email, startDate, endDate ) => {
 
 
 // 자신의 계약목록
-module.exports = async (db, user_email, locale, page_num, keyword, startDate, endDate, kword) => {
+module.exports = async (db, user_email, locale, page_num, keyword, startDate, endDate, kword, cstatus) => {
   const getLocalePrice = require('$base/utils/getLocalePrice');
   const getLocaleLanguageValue = require('$base/utils/getLocaleLanguageValue');
 
@@ -77,10 +84,10 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
   }
 
   let where_clause2;
-  console.log(isNaN(startDate)+"++++++++++++++++++++++++"); 
+
   if(startDate != ""){
 
-    const conditions2 = getConditions2(user_email, startDate, endDate );  
+    const conditions2 = getConditions2(user_email, startDate, endDate, cstatus );  
     if (!conditions2.length) {
       where_clause2 = {};
     } else {
@@ -146,11 +153,29 @@ console.log(where_clause2);
       created_date: contract.createdAt,
     });
   }
-  console.log(contracts);
+
+  const testcontract = [];
+  for (const contract of contracts_result) {
+    testcontract.push({
+      id: contract.l_contract_id,
+      state: contract.c_state_id,
+      name: getLocaleLanguageValue(
+        locale,
+        contract.Warehouse.name_ko,
+        contract.Warehouse.name_en
+      ),
+      address : contract.Warehouse.address1_ko,
+      period: `${contract.start_date} ~ ${contract.end_date}`,
+      area: contract.lease_area,
+      price: await getLocalePrice(locale, contract.amount),
+      created_date: contract.createdAt,
+    });
+  }
   return {
     count,
     total_page: !count ? 1 : Math.floor((count - 1) / limit) + 1,
     contracts,
+    testcontract
   };
 
   
