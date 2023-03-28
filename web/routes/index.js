@@ -215,12 +215,12 @@ module.exports = (db) => {
           contracts = 0;
         }
 
-        for(var i = 0 ; i < testcontract.length ; i++ ) {
-          if(testcontract[i].state == 4) {
+        for(var i = 0 ; i < contracts.length ; i++ ) {
+          if(contracts[i].state == 4) {
             status7 = status7 + 1;
-          }else if(testcontract[i].state == 3) {
+          }else if(contracts[i].state == 3) {
             status8 = status8 + 1 ;
-          }else if(testcontract[i].state == 2 ) {
+          }else if(contracts[i].state == 2 ) {
           status9 = status9 + 1;
           }
         }
@@ -379,12 +379,12 @@ module.exports = (db) => {
               5,
             ));
             
-            status_1 = count;
+            status4 = count;
 
           ({ count, total_page, contracts, testcontract } = await getContracts2(
               db,
               locale,
-              page_num,
+           //   page_num,
               keyword,
               startDate,
               endDate,

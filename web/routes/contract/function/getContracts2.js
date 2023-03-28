@@ -68,7 +68,6 @@ module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword
   } else if (page_num > 1) {
     offset = limit * (page_num - 1);
   }
-
   const conditions = getConditions(kword);
   let where_clause;
   if (!conditions.length) {
@@ -80,7 +79,7 @@ module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword
 
 
 
-  const conditions2 = getConditions2(cstatus , startDate, endDate );
+  const conditions2 = getConditions2( cstatus , startDate, endDate );
   let where_clause2;
   if (!conditions2.length) {
     where_clause2 = {};
@@ -128,6 +127,43 @@ module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword
     limit,
   });
 
+  const contracts_result2 = await db.LeaseContract.findAll({
+    attributes: [
+      'l_contract_id',
+      'c_state_id',
+      [
+        fn('date_format', col('LeaseContract.start_date'), '%Y-%m-%d'),
+        'start_date',
+      ],
+      [
+        fn('date_format', col('LeaseContract.end_date'), '%Y-%m-%d'),
+        'end_date',
+      ],
+      'lease_area',
+      'amount',
+      [
+        fn('date_format', col('LeaseContract.createdAt'), '%Y-%m-%d'),
+        'createdAt',
+      ],
+    ],
+    where : where_clause2,
+    include: [
+      {
+        model: db.Warehouse,
+        required: true,
+        attributes: ['name_ko', 'name_en', 'address1_ko'],
+        where: where_clause,
+      },
+      {
+        model: db.User,
+        required: true,
+        attributes: ['name'],
+      },
+    ],
+    order: [['createdAt', 'DESC']],
+    offset,
+  });
+
   const count = await db.LeaseContract.count({
     include: { model: db.Warehouse, required: true, where: where_clause },
     where: where_clause2,
@@ -153,7 +189,7 @@ module.exports = async (db, locale, page_num, keyword, startDate, endDate, kword
   }
 
   const testcontract = [];
-  for (const contract of contracts_result) {
+  for (const contract of contracts_result2) {
     testcontract.push({
       id: contract.l_contract_id,
       state: contract.c_state_id,
