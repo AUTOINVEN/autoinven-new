@@ -44,7 +44,7 @@ module.exports = (db) => {
     router.get(
       '/mypage',
       doAsync(async (req, res) => {
-        let { startDate, endDate, kword } = req.query;
+        let { startDate, endDate, kword, cstatus } = req.query;
 
         let status1 = 0;
         let status_1 = 0;
@@ -123,7 +123,7 @@ module.exports = (db) => {
             ));
             status5 = count;
 
-            ({ count, total_page, contracts } = await getMyContracts2(
+            ({ count, total_page, contracts, testcontract } = await getMyContracts2(
               db,
               email,
               locale,
@@ -132,6 +132,18 @@ module.exports = (db) => {
               startDate,
               endDate,
               kword
+            ));
+
+            ({ count, total_page, contracts } = await getMyContracts2(
+              db,
+              email,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate,
+              kword,
+              cstatus
             ));
             status4 = count;
           
@@ -177,6 +189,16 @@ module.exports = (db) => {
             
             status_1 = count;
 
+            ({ count, total_page, contracts,testcontract } = await getContracts2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate,
+              kword
+            ));
+
           ({ count, total_page, contracts } = await getContracts2(
             db,
             locale,
@@ -184,7 +206,8 @@ module.exports = (db) => {
             keyword,
             startDate,
             endDate,
-            kword
+            kword,
+            cstatus
           ));
           status5 = count;
           count = 0;
@@ -192,13 +215,14 @@ module.exports = (db) => {
           contracts = 0;
         }
 
-        for(var i = 0 ; i < contracts.length ; i++ ) {
-          if(contracts[i].state == 4) {
+        for(var i = 0 ; i < testcontract.length ; i++ ) {
+          if(testcontract[i].state == 4) {
             status7 = status7 + 1;
-          }else if(contracts[i].state == 3) {
+          }else if(testcontract[i].state == 3) {
             status8 = status8 + 1 ;
-          }
+          }else if(testcontract[i].state == 2 ) {
           status9 = status9 + 1;
+          }
         }
 
         // 각 메뉴의 값들 
@@ -214,7 +238,7 @@ module.exports = (db) => {
     router.get(
       '/myopage',
       doAsync(async (req, res) => {
-        let { startDate, endDate, kword } = req.query;
+        let { startDate, endDate, kword, cstatus } = req.query;
 
         let status1 = 0;
         let status_1 = 0;
@@ -293,6 +317,16 @@ module.exports = (db) => {
             ));
 
            status4 = count;
+           ({ count, total_page, contract, testcontract } = await getMyContracts3(
+            db,
+            email,
+            locale,
+            page_num,
+            keyword,
+            startDate,
+            endDate,
+            kword,
+          ));
 
             ({ count, total_page, contracts } = await getMyContracts3(
               db,
@@ -302,7 +336,8 @@ module.exports = (db) => {
               keyword,
               startDate,
               endDate,
-              kword
+              kword,
+              cstatus
             ));
             status5 = count;
         }  
@@ -346,6 +381,16 @@ module.exports = (db) => {
             
             status_1 = count;
 
+          ({ count, total_page, contracts, testcontract } = await getContracts2(
+              db,
+              locale,
+              page_num,
+              keyword,
+              startDate,
+              endDate,
+              kword,
+          ));
+
           ({ count, total_page, contracts } = await getContracts2(
             db,
             locale,
@@ -353,20 +398,24 @@ module.exports = (db) => {
             keyword,
             startDate,
             endDate,
-            kword
+            kword,
+            cstatus
           ));
           status5 = count;
 
           
         }
+        
 
-        for(var i = 0 ; i < contracts.length ; i++ ) {
-          if(contracts[i].state == 4) {
+        for(var i = 0 ; i < testcontract.length ; i++ ) {
+          if(testcontract[i].state == 4) {
             status7 = status7 + 1;
-          }else if(contracts[i].state == 3) {
+          }else if(testcontract[i].state == 3) {
             status8 = status8 + 1 ;
+          }else if(testcontract[i].state == 2 ) {
+            status9 = status9 + 1;
           }
-          status9 = status9 + 1;
+          
         }
 
         // 각 메뉴의 값들 

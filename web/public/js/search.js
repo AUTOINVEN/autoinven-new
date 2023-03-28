@@ -330,7 +330,7 @@ async function initMap() {
       infowindowContent.style.display = 'block';
       infowindowContent.children['place-name'].textContent = name;
       infowindowContent.children['place-address'].textContent = address;
-      map.setZoom(14);
+      map.setZoom(13);
       infowindow.open(map, m);
       clickedMarker = document.querySelector(`#marker${wid}`);
       if (!clickedMarker) {

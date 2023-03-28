@@ -38,16 +38,22 @@
             <div class="md:col-span-2 space-y-10">
                 <div class="grid grid-cols-3">
                     <div class="text-center">
+                        <a href="/myopage?cstatus=2" >
                         <h1 class="font-bold text-3xl"><%= status9%></h1>
                         <p class="">계약요청</p>
+                        </a>
                     </div>
                     <div class="text-center">
+                        <a href="/myopage?cstatus=4" >
                         <h1 class="text-gray-400 font-bold text-3xl"><%= status7%></h1>
                         <p class="">계약거절</p>
+                        </a>
                     </div>
                     <div class="text-center">
+                        <a href="/myopage?cstatus=3" >
                         <h1 class="text-red-500 font-bold text-3xl"><%= status8%></h1>
                         <p class="">계약완료</p>
+                        </a>
                     </div>
                 </div>
                 <div class="lg:flex lg:space-x-2 items-center lg:space-y-0 space-y-2">
@@ -198,6 +204,13 @@
           window.location.href = `/myopage?keyword=${keyword}&page_num=${page}`;
         },
       });
+      $('#search').click(function () {        
+          let start = $('#startdate').val();
+          let end = $('#enddate').val();
+          let kword = $('#keyword').val();
+          window.location.href = `/myopage?startDate=${start}&endDate=${end}&kword=${kword}`;
+      });
+
       $('#search').click(function () {        
           let start = $('#startdate').val();
           let end = $('#enddate').val();
