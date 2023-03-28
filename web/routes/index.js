@@ -127,7 +127,7 @@ module.exports = (db) => {
               db,
               email,
               locale,
-              page_num,
+             // page_num,
               keyword,
               startDate,
               endDate,
@@ -189,18 +189,33 @@ module.exports = (db) => {
             
             status_1 = count;
 
-            ({ count, total_page, contracts,testcontract } = await getContracts2(
+            ({ count, total_page, contracts } = await getContracts2(
               db,
               locale,
               page_num,
               keyword,
               startDate,
               endDate,
+              kword,
+              cstatus
+            ));
+            status5 = count;
+
+            ({ count, total_page, contracts,testcontract } = await getContracts2(
+              db,
+              locale,
+             // page_num,
+              keyword,
+              startDate,
+              endDate,
               kword
             ));
 
-          ({ count, total_page, contracts } = await getContracts2(
+          
+
+          ({ count, total_page, contracts } = await getMyContracts2(
             db,
+            email,
             locale,
             page_num,
             keyword,
@@ -209,7 +224,8 @@ module.exports = (db) => {
             kword,
             cstatus
           ));
-          status5 = count;
+          status4 = count;
+          
           count = 0;
           total_page = 0;
           contracts = 0;
@@ -379,12 +395,12 @@ module.exports = (db) => {
               5,
             ));
             
-            status_1 = count;
+            status4 = count;
 
           ({ count, total_page, contracts, testcontract } = await getContracts2(
               db,
               locale,
-              page_num,
+           //   page_num,
               keyword,
               startDate,
               endDate,

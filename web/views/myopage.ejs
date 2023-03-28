@@ -149,9 +149,7 @@
                 <% }%>    
                 <% } %>
                 
-            </div>
-
-             
+            </div>             
                 <div style="display: flex; justify-content: center">
                     <ul id="pagination" class="pagination-sm" style="padding-bottom: 3%"></ul>
                 </div>
@@ -185,9 +183,12 @@
         }
       });
 
+      console.log(page_num);
+
       $('#pagination').twbsPagination({
         totalPages: parseInt('<%= total_page %>'),
         visiblePages: 5,
+      //  cstatus = query.includes('cstatus');
         initiateStartPageClick: false,
         prev: '<',
         next: '>',
@@ -196,26 +197,31 @@
         startPage: parseInt(page_num),
         onPageClick: function (event, page) {
           let keyword = '';
+          let cstatus = '';
           location.search.split('&').forEach((query) => {
             if (query.includes('keyword')) {
               keyword = query.split('=')[1];
             }
+            if (query.includes('cstatus')) {
+                cstatus = query.split('=')[1];
+            }
           });
-          window.location.href = `/myopage?keyword=${keyword}&page_num=${page}`;
+          window.location.href = `/myopage?keyword=${keyword}&cstatus=${cstatus}&page_num=${page}`;
         },
       });
       $('#search').click(function () {        
           let start = $('#startdate').val();
           let end = $('#enddate').val();
           let kword = $('#keyword').val();
-          window.location.href = `/myopage?startDate=${start}&endDate=${end}&kword=${kword}`;
+          window.location.href = `/myopage?startDate=${start}&endDate=${end}&cstatus=${cstatus}&kword=${kword}`;
       });
-
+/*
       $('#search').click(function () {        
           let start = $('#startdate').val();
           let end = $('#enddate').val();
           let kword = $('#keyword').val();
           window.location.href = `/myopage?startDate=${start}&endDate=${end}&kword=${kword}`;
       });
+*/
     });
 </script>
