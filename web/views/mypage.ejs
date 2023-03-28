@@ -84,13 +84,13 @@
                                     <div class="flex justify-between items-center">
                                         <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
                                             <% if(contracts[i].state == 1) {%><!--승인대기중-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
+                                                <span class="bg-green-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
                                             <% } else if(contracts[i].state == 2) { %> <!--결제대기중-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
+                                                <span class="bg-orange-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
                                             <% } else if(contracts[i].state == 3) {%> <!--계약완료-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
+                                                <span class="bg-blue-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
                                             <% } else if(contracts[i].state == 4) {%> <!--승인거절-->
-                                                <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
+                                                <span class="bg-red-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
                                             <% } else if(contracts[i].state == 5) { %><!--계약만료-->
                                                 <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
                                             <% } %>
@@ -118,13 +118,13 @@
                                 <div class="flex justify-between items-center">
                                     <div class="sm:flex items-center sm:space-x-3 sm:space-y-0 space-y-3">
                                         <% if(contracts[i].state == 1) {%><!--승인대기중-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
+                                            <span class="bg-green-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_approval') %></span>
                                         <% } else if(contracts[i].state == 2) { %> <!--결제대기중-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
+                                            <span class="bg-orange-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_pending_payment') %></span>
                                         <% } else if(contracts[i].state == 3) {%> <!--계약완료-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
+                                            <span class="bg-blue-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_approved') %></span>
                                         <% } else if(contracts[i].state == 4) {%> <!--승인거절-->
-                                            <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
+                                            <span class="bg-red-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_reject') %></span>
                                         <% } else if(contracts[i].state == 5) { %><!--계약만료-->
                                             <span class="bg-slate-300 text-white px-3 py-1 rounded-xl text-xs"><%= __('badge_expired') %></span>
                                         <% } %>
