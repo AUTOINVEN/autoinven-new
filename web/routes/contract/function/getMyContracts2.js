@@ -97,7 +97,6 @@ module.exports = async (db, user_email, locale, page_num, keyword, startDate, en
   }
   
 
-console.log(where_clause2);
   const contracts_result = await db.LeaseContract.findAll({
     attributes: [
       'l_contract_id',
@@ -131,6 +130,38 @@ console.log(where_clause2);
     limit,
   });
 
+  const contracts_result2 = await db.LeaseContract.findAll({
+    attributes: [
+      'l_contract_id',
+      'c_state_id',
+      [
+        fn('date_format', col('LeaseContract.start_date'), '%Y-%m-%d'),
+        'start_date',
+      ],
+      [
+        fn('date_format', col('LeaseContract.end_date'), '%Y-%m-%d'),
+        'end_date',
+      ],
+      'lease_area',
+      'amount',
+      [
+        fn('date_format', col('LeaseContract.createdAt'), '%Y-%m-%d'),
+        'createdAt',
+      ],
+    ],
+    where: where_clause2 ,
+    
+    include: {
+      model: db.Warehouse,
+      required: true,
+      attributes: ['name_ko', 'name_en', 'address1_ko'],
+      where: where_clause,
+    },
+    
+    order: [['createdAt', 'DESC']],
+    offset,
+  });
+
   const count = await db.LeaseContract.count({
     include: { model: db.Warehouse, required: true, where: where_clause },
     where: { user_email },
@@ -155,7 +186,7 @@ console.log(where_clause2);
   }
 
   const testcontract = [];
-  for (const contract of contracts_result) {
+  for (const contract of contracts_result2) {
     testcontract.push({
       id: contract.l_contract_id,
       state: contract.c_state_id,
