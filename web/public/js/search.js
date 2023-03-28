@@ -41,6 +41,7 @@ const searchResultListing = (
     if (l >= lists.length) {
       break;
     }
+
     let index = lists[l].marker.index;
     let name;
     let address;
@@ -49,6 +50,7 @@ const searchResultListing = (
     let type;
     let price;
     let detail;
+    let check;
     let warehouseImage;
     if (warehouses[index].WarehouseImages.length !== 0) {
       warehouseImage = warehouses[index].WarehouseImages[0].url;
@@ -80,12 +82,29 @@ const searchResultListing = (
         type = 'not verified';
       }
     }
+
+    if(l == 0){
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_matching.png" style="width:76px;height:23px;" /></div>`;
+    }
+    else if(l == 1){
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:23px;" /></div>`;
+    }
+    else if(l == 2){
+      check = `<div class="absolute" style="top:24px;left:24px;"><img src="/image/ico_recommend.png" style="width:76px;height:23px;" /></div>`;
+    }else{
+      check ="";
+    }
+
+
     // 지도만 검색
     if (searchType === 1) {
       if (warehouses[index].is_verified) {
+        console.log("++++++++++++++++"+check+"++++++++++++");
+
         $('.marker_list_items').append(
           ` 
             <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
+            ${check}
               <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
               <div class="pl-3 pt-2 pb-2 w-full text-left flex flex-col sm:flex sm:flex-col justify-between">
                 <div class="frow">
@@ -139,6 +158,7 @@ const searchResultListing = (
       $('.marker_list_items').append(
         ` 
           <div class="flex sm:flex !p-5 bg-[#fff] hover:bg-slate-100 rounded-xl shadow" id="marker${warehouses[index].warehouse_id}">
+          ${check}
             <img class="w-40 h-30 sm:w-60 sm:h-48 rounded" src="${warehouseImage}" onerror="this.src='/image/default-image.png'" >
             <div class="pl-3 pt-2 pb-2 flex-1 text-left flex flex-col sm:flex sm:flex-col justify-between">
               <div class="frow">
