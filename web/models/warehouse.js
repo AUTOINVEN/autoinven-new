@@ -88,11 +88,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       email: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       tel: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       sensor_id: DataTypes.STRING,
