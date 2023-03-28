@@ -8,8 +8,39 @@
         <title>Document</title>
     </head>
     <body>
-
-
+        <header style="z-index: 1000"><%- include('partial/navbar') %></header>
+        <div class="inner img">
+            <p class="lnb_text text-white   "><%= __('myalert_lnb') %></p>
+        </div>
+        <div class="inner main sm:px-10 container px-2">
+            <div class="grid md:grid-cols-3 w-full md:gap-x-10 md:gap-y-0 gap-y-10 py-20">
+                <div class="col-span-1 space-y-10">
+                    <div class="profile_img">
+                        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-block mx-auto bg-dark rounded-circle">
+                            <path d="M100 100C118.417 100 133.333 85.0833 133.333 66.6667C133.333 48.25 118.417 33.3333 100 33.3333C81.5833 33.3333 66.6667 48.25 66.6667 66.6667C66.6667 85.0833 81.5833 100 100 100ZM100 116.667C77.75 116.667 33.3333 127.833 33.3333 150V166.667H166.667V150C166.667 127.833 122.25 116.667 100 116.667Z" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <div class="text-center space-y-4">
+                        <h3 class="text-2xl font-bold">안녕하세요 <%= name %>님</h3>
+                        <button class="bg-slate-300 text-black px-3 py-2 rounded-[40px] text-sm min-w-[200px]" onclick="location.href='/myinfo'" ><%= __('my_info_manage')%></button>
+                        <div class="col-span-2 lg:p-10 text-left">
+                            <%- include('partial/leftmenu') %>
+                        </div>
+                    </div>
+                    <script>
+                        $('.myContainer').click(function(){
+                            $(this).children('svg').toggleClass('rotate-180');
+                            $(this).next('.myConList').slideToggle();
+                        });
+                    </script>
+                </div>
+                <div class="md:col-span-2 space-y-10">
+                    <div class="p-7 border min-h-[600px] rounded-lg space-y-5">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer><%- include('partial/footer') %></footer>
     </body>
 </html>

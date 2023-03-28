@@ -445,6 +445,38 @@ module.exports = (db) => {
     } = req;
 
     
+    res.render('payment', { total_page, warehouses, status1, status_1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename, name});
+  }));
+
+  //창고 알림
+  router.get('/myalert', authenticate,
+  doAsync(async (req, res) => {
+
+    let { startDate, endDate, kword, cstatus } = req.query;
+
+    console.log("아이디 -> "+cstatus);
+
+    let status1 = 0;
+    let status_1 = 0;
+    let status2 = 0;
+    let status3 = 0;
+    let status4 = 0;
+    let status5 = 0;
+    let status6 = 0;
+    let titlename = '이용중인 창고';
+
+    let warehouses = [];
+    let total_page = 0;
+
+    const locale = res.locale;
+    const {
+      session: { role, email, name },
+    } = req;
+    const {
+      query: { keyword, page_num },
+    } = req;
+
+    
 
     // 유저일 경우
    if (role === 'user') {
@@ -629,7 +661,7 @@ module.exports = (db) => {
 
    status6 = status4 + status5;
  
-    res.render('payment', { total_page, warehouses, status1, status_1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename, name});
+    res.render('myalert', { total_page, warehouses, status1, status_1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename, name});
   }));
 
   // 내 창고내역
