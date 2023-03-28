@@ -374,6 +374,8 @@ module.exports = (db) => {
         status6 = status4 + status5;
 
         res.render('myopage', { total_page, contracts, status1, status_1, status2, status3, status4, status5, status6, status7, status8, status9, startDate, endDate, kword, titlename, name });
+
+        
       })
     );
   
@@ -415,9 +417,220 @@ module.exports = (db) => {
     );
   
   // 결제 내역
-  router.get('/payment', (req, res) => {
-    res.render('payment');
-  });
+  router.get('/payment', authenticate,
+  doAsync(async (req, res) => {
+
+    let { startDate, endDate, kword, cstatus } = req.query;
+
+    console.log("아이디 -> "+cstatus);
+
+    let status1 = 0;
+    let status_1 = 0;
+    let status2 = 0;
+    let status3 = 0;
+    let status4 = 0;
+    let status5 = 0;
+    let status6 = 0;
+    let titlename = '이용중인 창고';
+
+    let warehouses = [];
+    let total_page = 0;
+
+    const locale = res.locale;
+    const {
+      session: { role, email, name },
+    } = req;
+    const {
+      query: { keyword, page_num },
+    } = req;
+
+    
+
+    // 유저일 경우
+   if (role === 'user') {
+    //순서를 잘 정리해야한다.
+
+    ({ count } = await getMyContracts3( // 요청받은 창고
+      db,
+      email,
+      locale,
+      page_num,
+      keyword,
+      startDate,
+      endDate
+    ));
+    status5 = count;
+
+    ({ count, total_page, contracts } = await getMyContracts2( //요청한 창고
+      db,
+      email,
+      locale,
+      page_num,
+      keyword,
+      startDate,
+      endDate,
+      kword
+    ));
+    status4 = count;
+
+    ({count, total_page, warehouses } = await getWarehouses3( //등록한 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email
+    ));
+    status2 = count;
+
+    if(cstatus == 3){
+
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      5,
+    ));     
+    status_1 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      cstatus,
+    ));     
+    status1 = count;
+
+
+    }else{
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      3,
+    ));     
+    status1 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+       db,
+       locale,
+       page_num,
+       keyword,
+       email,
+       startDate,
+       endDate,
+       kword,
+       cstatus,
+     ));     
+     status_1 = count;
+    }
+
+    
+
+    
+
+     
+   }
+   // 관리자일 경우
+   else if (role === 'admin') {
+
+    ({ count } = await getContracts2(
+      db,
+      locale,
+      page_num,
+      keyword
+    ));
+    
+    status5 = count;
+
+    ({ count, total_page, warehouses } = await getWarehouses3(
+      db,
+      locale,
+      page_num,
+      keyword
+    ));
+
+    status2 = count;
+
+   if(cstatus == 3){
+
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      5,
+    ));     
+    status_1 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+       db,
+       locale,
+       page_num,
+       keyword,
+       email,
+       startDate,
+       endDate,
+       kword,
+       cstatus,
+     ));     
+     status1 = count;
+
+
+    }else{
+      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      3,
+    ));     
+    status1 = count;
+
+     ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
+       db,
+       locale,
+       page_num,
+       keyword,
+       email,
+       startDate,
+       endDate,
+       kword,
+       cstatus,
+     ));     
+     status_1 = count;
+    }
+     
+   }
+
+   status3 = status1 + status2;
+
+   status6 = status4 + status5;
+ 
+    res.render('payment', { total_page, warehouses, status1, status_1, status2, status3, status4, status5, status6 ,startDate, endDate, kword, titlename, name});
+  }));
 
   // 내 창고내역
   router.get('/mywhouse', authenticate,
@@ -501,17 +714,17 @@ module.exports = (db) => {
     status_1 = count;
 
      ({count, total_page, warehouses } = await getWarehouses2( //계약완료 사용중 창고
-       db,
-       locale,
-       page_num,
-       keyword,
-       email,
-       startDate,
-       endDate,
-       kword,
-       cstatus,
-     ));     
-     status1 = count;
+      db,
+      locale,
+      page_num,
+      keyword,
+      email,
+      startDate,
+      endDate,
+      kword,
+      cstatus,
+    ));     
+    status1 = count;
 
 
     }else{
