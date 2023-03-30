@@ -386,30 +386,18 @@
 
         <table id="iot-device-table" class="table info-table">
           <tbody id="iot-device-table-body">
-            <% if(warehouse.devices.length) { %> <% for(var i = 0 ; i <
-            warehouse.devices.length ; i++) { %>
             <tr>
-              <td class="info-table-td-head">디바이스ID</td>
+              <td class="info-table-td-head">디바이스ID1</td>
               <td class="info-table-td">
                 <input
                   id="device-id"
-                  class="form-control"
-                  value="<%= warehouse.devices[i].device_id %>"
-                />
-              </td>
-            </tr>
-            <% } %> <% } else { %>
-            <tr>
-              <td class="info-table-td-head">디바이스ID</td>
-              <td class="info-table-td">
-                <input
-                  id="device-id"
+                  type="text"
                   class="form-control"
                   placeholder="ex) DEVICE-1"
+                  value="<%= warehouse.sensor_id %>"
                 />
               </td>
             </tr>
-            <% } %>
           </tbody>
         </table>
       </div>

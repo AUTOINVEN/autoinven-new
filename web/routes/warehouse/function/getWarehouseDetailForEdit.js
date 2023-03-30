@@ -105,6 +105,7 @@ module.exports = async (db, locale, warehouse_id) => {
     email:warehouse_result.email,
     tel:warehouse_result.tel,
     leasestart:warehouse_result.leasestart,
-    leaseend:warehouse_result.leaseend
+    leaseend:warehouse_result.leaseend,
+    sensor_id:warehouse_result.sensor_id
   };
 };
